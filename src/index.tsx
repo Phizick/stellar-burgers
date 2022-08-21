@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Logo, BurgerIcon, ListIcon, ProfileIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
+import { Logo, BurgerIcon, ListIcon, ProfileIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components"
 
+const consoleR = () => {
+    console.log(123)
+}
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -75,6 +78,8 @@ root.render(
                   />
               </div>
           </ul>
+          <Button type="primary" size="medium" onClick={consoleR}></Button>
+
 
 
       </section>
