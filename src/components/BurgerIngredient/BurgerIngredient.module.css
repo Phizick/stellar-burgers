@@ -1,0 +1,19 @@
+.li {
+    list-style-type: none;
+    max-width: 272px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.price {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 0;
+
+}
+
+.pricenumber {
+    margin: 0;
+}

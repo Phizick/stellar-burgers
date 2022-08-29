@@ -1,3 +1,31 @@
 .section {
     max-width: 600px;
+
+}
+
+.list {
+    overflow-y: scroll;
+    height: 720px;
+
+    outline: none;
+    padding-right: 15px;
+    padding-left: 0;
+}
+
+
+.list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.list::-webkit-scrollbar-thumb {
+    background: rgba(133, 133, 173, 1);
+    border-radius: 0;
+}
+
+.list::-webkit-scrollbar-track {
+    background: rgba(47, 47, 55, 1);
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+    background: #56999f;
 }
