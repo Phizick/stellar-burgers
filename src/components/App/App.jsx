@@ -1,7 +1,9 @@
 import React from 'react';
 import {AppHeader} from '../AppHeader/AppHeader';
-// import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
-// import {BurgerConstructor} from '../BurgerConstructor/BurgerConstructor'
+import stylesApp from '../App/App.module.css'
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 
 const App = () => {
     // React.useEffect(() => {
@@ -23,6 +25,10 @@ const App = () => {
     return (
         <div>
             <AppHeader />
+            <section className={stylesApp.main}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+            </section>
         </div>
     )
 }
