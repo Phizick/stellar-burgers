@@ -1,8 +1,9 @@
 import React from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import stylesBurgerIngredients from '../BurgerIngredients/BurgerIngredients.module.css'
+import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
 
-const BurgerIngredients = () => {
+const BurgerIngredients = ({ingrArrayData}) => {
     const [current, setCurrent] = React.useState('one')
     return (
 
@@ -19,6 +20,9 @@ const BurgerIngredients = () => {
                 Начинки
             </Tab>
         </div>
+            <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'bun'} title={'Булки'}/>
+            <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'main'} title={'Начинки'}/>
+            <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'sauce'} title={'Соусы'}/>
         </section>
     )
 }

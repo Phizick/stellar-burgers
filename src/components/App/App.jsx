@@ -11,25 +11,26 @@ const App = () => {
         const getResponse = async () => {
              try {
                  const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
-                 if (res.status === 200) {
-                    const resData = await res.json()
-                     setIngredients(resData.data)
-                 } throw new Error('error')
+                 if (res.status !== 200) {
+                     throw new Error('error')
+                 }
+                 const resData = await res.json()
+                 setIngredients(resData.data)
             } catch (err) {
                  console.log(err)
              }
          }
          getResponse()
-             .then()
+
     }, [])
 
-    console.log(ingredients)
+
 
     return (
         <div>
             <AppHeader />
             <section className={stylesApp.main}>
-                <BurgerIngredients />
+                <BurgerIngredients ingrArrayData={ingredients}/>
                 <BurgerConstructor />
             </section>
         </div>
