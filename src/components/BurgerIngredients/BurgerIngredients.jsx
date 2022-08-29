@@ -8,7 +8,7 @@ const BurgerIngredients = ({ingrArrayData}) => {
     return (
 
         <section className={`${stylesBurgerIngredients.section} mt-10`}>
-        <h2 className={'text text_type_main-large'}>Соберите бургер</h2>
+        <h2 className={'text text_type_main-large p-4'}>Соберите бургер</h2>
         <div style={{ display: 'flex' }}>
             <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                 Булки

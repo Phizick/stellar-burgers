@@ -46,6 +46,16 @@ const BurgerConstructor = () => {
                     thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
                 />
             </div>
+            <div className={`${stylesBurgerConstructor.totalScore} mt-10`}>
+                <p className={`text text_type_digits-medium pr-5`}>
+                    610
+                    <CurrencyIcon type={'primary'}/>
+                </p>
+
+                <Button type="primary" size="large">
+                    Оформить заказ
+                </Button>
+            </div>
 
 
         </section>

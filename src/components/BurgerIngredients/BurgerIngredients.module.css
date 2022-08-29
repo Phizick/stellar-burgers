@@ -1,12 +1,10 @@
 .section {
     max-width: 600px;
-
 }
 
 .list {
     overflow-y: scroll;
     height: 720px;
-
     outline: none;
     padding-right: 15px;
     padding-left: 0;

@@ -1,3 +1,11 @@
 .section {
     max-width: 600px ;
 }
+
+.totalScore {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+}
