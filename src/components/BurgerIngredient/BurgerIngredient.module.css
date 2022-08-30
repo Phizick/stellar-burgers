@@ -1,6 +1,7 @@
 .li {
     list-style-type: none;
     max-width: 272px;
+    align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;

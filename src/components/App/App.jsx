@@ -24,14 +24,12 @@ const App = () => {
 
     }, [])
 
-
-
     return (
         <div>
             <AppHeader />
             <section className={stylesApp.main}>
                 <BurgerIngredients ingrArrayData={ingredients}/>
-                <BurgerConstructor />
+                <BurgerConstructor data={ingredients}/>
             </section>
         </div>
     )

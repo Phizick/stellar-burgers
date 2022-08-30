@@ -22,8 +22,9 @@ const BurgerIngredients = ({ingrArrayData}) => {
         </div>
             <ul className={stylesBurgerIngredients.list}>
             <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'bun'} title={'Булки'}/>
+                <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'sauce'} title={'Соусы'}/>
             <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'main'} title={'Начинки'}/>
-            <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'sauce'} title={'Соусы'}/>
+
             </ul>
         </section>
     )
