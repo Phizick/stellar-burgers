@@ -10,6 +10,7 @@ const App = () => {
     const [ingredients, setIngredients] = useState([])
     const [isOpened, setOpenedModal] = useState(false)
     const [target, setTarget] = useState('')
+    const [selectedElement, setSelectedElement] = useState()
 
     const handleOpenState = () => {
         setOpenedModal(!isOpened)
@@ -26,15 +27,11 @@ const App = () => {
                  const resData = await res.json()
                  setIngredients(resData.data)
             } catch (err) {
-                 console.log(err)
+                 console.error(err)
              }
          }
          getResponse()
-
     }, [])
-
-
-
 
 
     return (
@@ -48,8 +45,8 @@ const App = () => {
                     </>
                 }
             </section>
-            {isOpened && <Modal terget={target} handleOpenState={handleOpenState} clodeModal={
-                () => {
+            {isOpened &&
+                <Modal terget={target} handleOpenState={handleOpenState} clodeModal={() => {
                 handleOpenState()
                 }}/>
             }
