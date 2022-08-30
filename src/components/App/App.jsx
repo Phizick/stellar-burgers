@@ -38,19 +38,27 @@ const App = () => {
         <div>
             <AppHeader />
             <section className={stylesApp.main}>
-                {ingredients &&
+                {ingredients.length &&
                     <>
-                        <BurgerIngredients ingrArrayData={ingredients}/>
-                        <BurgerConstructor data={ingredients}/>
+                        <BurgerIngredients data={ingredients} handleOpenState={(e) => {
+                        setTarget(e.target.tagName)
+                        handleOpenState()}
+                        } setSelectedElement={selectedElement}/>
+                        <BurgerConstructor data={ingredients} handleOpenState={(e) => {
+                            setTarget(e.target.tagName)
+                            handleOpenState()
+                        }
+                        }/>
                     </>
                 }
             </section>
             {isOpened &&
-                <Modal terget={target} handleOpenState={handleOpenState} clodeModal={() => {
-                handleOpenState()
-                }}/>
+                <Modal terget={target} handleOpenState={handleOpenState} closeModal={() => {
+                    handleOpenState()
+                    setSelectedElement()
+                }} selectedElement={selectedElement}/>
             }
-                }}
+
         </div>
     )
 }

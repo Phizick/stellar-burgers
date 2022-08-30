@@ -3,8 +3,9 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import stylesBurgerIngredients from '../BurgerIngredients/BurgerIngredients.module.css'
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
 
-const BurgerIngredients = ({ingrArrayData}) => {
+const BurgerIngredients = (props) => {
     const [current, setCurrent] = React.useState('one')
+
     return (
 
         <section className={`${stylesBurgerIngredients.section} mt-10`}>
@@ -21,9 +22,9 @@ const BurgerIngredients = ({ingrArrayData}) => {
             </Tab>
         </div>
             <ul className={stylesBurgerIngredients.list}>
-            <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'bun'} title={'Булки'}/>
-                <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'sauce'} title={'Соусы'}/>
-            <BurgerIngredientTypeGroup ingrArrayData={ingrArrayData} listType={'main'} title={'Начинки'}/>
+            <BurgerIngredientTypeGroup data={props.data} listType={'bun'} title={'Булки'} handleOpenState={props.handleOpenState} setSelectedElement={props.setSelectedElement}/>
+                <BurgerIngredientTypeGroup data={props.data} listType={'sauce'} title={'Соусы'} handleOpenState={props.handleOpenState} setSelectedElement={props.setSelectedElement}/>
+            <BurgerIngredientTypeGroup data={props.data} listType={'main'} title={'Начинки'} handleOpenState={props.handleOpenState} setSelectedElement={props.setSelectedElement}/>
 
             </ul>
         </section>

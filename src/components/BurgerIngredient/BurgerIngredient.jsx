@@ -4,8 +4,9 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 
 const BurgerIngredient = (props) => {
+    console.log(props)
     return (
-        <li className={`${stylesBurgerIngredient.li} mt-6`}>
+        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={props.openModal}>
             <img src={props.data.image} alt={props.data.name}/>
             <p className={`${stylesBurgerIngredient.price} text text_type_digits-default mt-4 mb-4`}>
                 <p className={`${stylesBurgerIngredient.priceNumber} p-2`}>{props.data.price}</p>
