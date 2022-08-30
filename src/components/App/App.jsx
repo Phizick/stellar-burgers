@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {AppHeader} from '../AppHeader/AppHeader';
 import stylesApp from '../App/App.module.css'
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
@@ -6,14 +6,17 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 
 const App = () => {
-    const [ingredients, setIngredients] = React.useState([])
-     React.useEffect(() => {
+    const [ingredients, setIngredients] = useState([])
+    const [isOpened, setOpenedModal] = useState(false)
+     useEffect(() => {
         const getResponse = async () => {
              try {
                  const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
+                 console.log(res.status)
                  if (res.status !== 200) {
                      throw new Error('error')
                  }
+
                  const resData = await res.json()
                  setIngredients(resData.data)
             } catch (err) {
@@ -24,12 +27,16 @@ const App = () => {
 
     }, [])
 
+
+
+
+
     return (
         <div>
             <AppHeader />
             <section className={stylesApp.main}>
-                <BurgerIngredients ingrArrayData={ingredients}/>
-                <BurgerConstructor data={ingredients}/>
+                {ingredients.length && <BurgerIngredients ingrArrayData={ingredients}/>}
+                {ingredients.length && <BurgerConstructor data={ingredients}/>}
             </section>
         </div>
     )

@@ -9,7 +9,7 @@ const BurgerIngredientTypeGroup = (props) => {
             <ul className={stylesBurgerIngredientTypeGroup.list}>
                 {props.ingrArrayData.map((item, index) => {
                     if(item.type === props.listType) {
-                        return <BurgerIngredient key={index} ingredient={item}/>
+                        return <BurgerIngredient key={index} data={item}/>
                     }
                 })}
             </ul>

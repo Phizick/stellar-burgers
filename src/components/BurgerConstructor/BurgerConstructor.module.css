@@ -13,3 +13,34 @@
 .list {
 
 }
+
+.listItem {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.items {
+    overflow-y: scroll;
+    height: 550px;
+    outline: none;
+    padding-right: 15px;
+    padding-left: 0;
+}
+
+.items::-webkit-scrollbar {
+    width: 8px;
+}
+
+.items::-webkit-scrollbar-thumb {
+    background: rgba(133, 133, 173, 1);
+    border-radius: 0;
+}
+
+.items::-webkit-scrollbar-track {
+    background: rgba(47, 47, 55, 1);
+}
+
+.items::-webkit-scrollbar-thumb:hover {
+    background: #56999f;
+}

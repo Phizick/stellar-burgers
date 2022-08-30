@@ -3,16 +3,16 @@ import stylesBurgerIngredient from '../BurgerIngredient/BurgerIngredient.module.
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 
-const BurgerIngredient = ({ingredient}) => {
+const BurgerIngredient = (props) => {
     return (
         <li className={`${stylesBurgerIngredient.li} mt-6`}>
-            <img src={ingredient.image} alt={ingredient.name}/>
+            <img src={props.data.image} alt={props.data.name}/>
             <p className={`${stylesBurgerIngredient.price} text text_type_digits-default mt-4 mb-4`}>
-                <p className={`${stylesBurgerIngredient.pricenumber} p-2`}>{ingredient.price}</p>
+                <p className={`${stylesBurgerIngredient.priceNumber} p-2`}>{props.data.price}</p>
                 <CurrencyIcon type="primary"/>
             </p>
             <p className={'text text_type_main-default'}>
-                {ingredient.name}
+                {props.data.name}
             </p>
         </li>
     )

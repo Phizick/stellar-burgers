@@ -6,7 +6,7 @@ const BurgerConstructor = (props) => {
     return (
         <section className={`${stylesBurgerConstructor.section} mt-25`}>
             <ul className={stylesBurgerConstructor.list}>
-                <li className={''}>
+                <li className={`${stylesBurgerConstructor.listItem} pl-5 mr-5`}>
                     <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -15,12 +15,12 @@ const BurgerConstructor = (props) => {
                     thumbnail={props.data[0].image}
                     />
                 </li>
-                <div className={''}>
+                <div className={stylesBurgerConstructor.items}>
                     {props.data
                         .filter(item => item.type !== 'bun')
                         .map((item, index) => {
                             return (
-                                <li className={''} key={index}>
+                                <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2`} key={index}>
                                     <DragIcon type={"primary"}/>
                                     <ConstructorElement
                                         text={item.name}
@@ -32,13 +32,13 @@ const BurgerConstructor = (props) => {
                             )
                         })}
                 </div>
-                <li className={''}>
+                <li className={`${stylesBurgerConstructor.listItem} pl-5 mr-5`}>
                     <ConstructorElement
                         type="bottom"
                         isLocked={true}
-                        text="Краторная булка N-200i (низ)"
-                        price={200}
-                        thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+                        text={`${props.data[0].name} (низ)`}
+                        price={props.data[0].price}
+                        thumbnail={props.data[0].image}
                     />
                 </li>
             </ul>
@@ -52,8 +52,6 @@ const BurgerConstructor = (props) => {
                     Оформить заказ
                 </Button>
             </div>
-
-
         </section>
     )
 }
