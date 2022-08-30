@@ -2,12 +2,18 @@ import React,{useState, useEffect} from 'react';
 import {AppHeader} from '../AppHeader/AppHeader';
 import stylesApp from '../App/App.module.css'
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import Modal from '../Modal/Modal'
 
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 
 const App = () => {
     const [ingredients, setIngredients] = useState([])
     const [isOpened, setOpenedModal] = useState(false)
+    const [target, setTarget] = useState('')
+
+    const handleOpenState = () => {
+        setOpenedModal(!isOpened)
+    }
      useEffect(() => {
         const getResponse = async () => {
              try {
@@ -35,9 +41,19 @@ const App = () => {
         <div>
             <AppHeader />
             <section className={stylesApp.main}>
-                {ingredients.length && <BurgerIngredients ingrArrayData={ingredients}/>}
-                {ingredients.length && <BurgerConstructor data={ingredients}/>}
+                {ingredients &&
+                    <>
+                        <BurgerIngredients ingrArrayData={ingredients}/>
+                        <BurgerConstructor data={ingredients}/>
+                    </>
+                }
             </section>
+            {isOpened && <Modal terget={target} handleOpenState={handleOpenState} clodeModal={
+                () => {
+                handleOpenState()
+                }}/>
+            }
+                }}
         </div>
     )
 }
