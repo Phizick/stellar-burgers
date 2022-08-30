@@ -3,7 +3,7 @@ import stylesBurgerIngredientTypeGroup from '../BurgerIngredientTypeGroup/Burger
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient'
 
 const BurgerIngredientTypeGroup = (props) => {
-    console.log(props)
+
     return (
         <section className={`${stylesBurgerIngredientTypeGroup.container} `}>
             <p className={`${stylesBurgerIngredientTypeGroup.title} text text_type_main-medium m-2`}>{props.title}</p>

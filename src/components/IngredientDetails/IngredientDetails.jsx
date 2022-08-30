@@ -2,7 +2,7 @@ import React from 'react'
 import stylesIngredientDetails from '../IngredientDetails/IngredientDetails.module.css'
 
 const IngredientDetails = (props) => {
-    console.log(props)
+    console.log(props.selectedElement)
     return (
         <section className={stylesIngredientDetails}>
             <h3 className={''}>Детали ингредиента</h3>

@@ -24,11 +24,7 @@ const Modal = (props) => {
             <ModalOverlay closeModal={props.closeModal}/>
             <div className={`${stylesModal.overlay}`}>
                 <div className={stylesModal.header}>
-                    {
-                        props.target !== 'BUTTON'
-                        ? <h3 className={''}>Детали ингредиента</h3>
-                        : <h3 className={''}></h3>
-                    }
+
                     <CloseIcon type={'primary'} onClick={props.closeModal} className={stylesModal.closeIcon}/>
                 </div>
 
