@@ -10,10 +10,14 @@ const App = () => {
     const [ingredients, setIngredients] = useState([])
     const [isOpened, setOpenedModal] = useState(false)
     const [target, setTarget] = useState('')
-    const [selectedElement, setSelectedElement] = useState()
+    const [selectedElement, setSelectedElement] = useState({})
 
     const handleOpenState = () => {
         setOpenedModal(!isOpened)
+    }
+
+    const selectedItem = () => {
+        setSelectedElement()
     }
      useEffect(() => {
         const getResponse = async () => {
@@ -55,7 +59,7 @@ const App = () => {
             {isOpened &&
                 <Modal terget={target} handleOpenState={handleOpenState} closeModal={() => {
                     handleOpenState()
-                    setSelectedElement()
+                    selectedItem()
                 }} selectedElement={selectedElement}/>
             }
 
