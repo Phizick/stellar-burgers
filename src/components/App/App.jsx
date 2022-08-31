@@ -67,6 +67,7 @@ const App = () => {
                     closeModal={handleOpenState}
                     handleActive={selectedItem}
                     selectedElement={selectedElement}
+                    activeModal={isOpened}
                 />
             }
         </>

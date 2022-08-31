@@ -24,6 +24,6 @@ console.log(props)
             </ul>
         </section>
     )
-}
+};
 
 export default BurgerIngredientTypeGroup

@@ -3,7 +3,6 @@ import stylesIngredientDetails from '../IngredientDetails/IngredientDetails.modu
 
 const IngredientDetails = (props) => {
 
-
     return (
         <section className={stylesIngredientDetails.container}>
             <h3 className={''}>Детали ингредиента</h3>
@@ -26,11 +25,9 @@ const IngredientDetails = (props) => {
                     <p className={`text text_type_main-default text_color_inactive`}>Углеводы, г</p>
                     <p className={`text text_type_digits-default text_color_inactive pt-3`}>{props.selectedElement.carbohydrates}</p>
                 </div>
-
             </div>
-
         </section>
     )
-}
+};
 
 export default IngredientDetails
