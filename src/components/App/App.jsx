@@ -19,21 +19,20 @@ const App = () => {
         setSelectedElement(i)
     }
 
-     useEffect(() => {
+    useEffect(() => {
         const getResponse = async () => {
-             try {
-                 const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
-                 if (res.status !== 200) {
-                     throw new Error('error')
-                 }
-
-                 const resData = await res.json()
-                 setIngredients(resData.data)
+            try {
+                const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
+                if (res.status !== 200) {
+                    throw new Error('error')
+                }
+                const resData = await res.json()
+                setIngredients(resData.data)
             } catch (err) {
-                 console.error(err)
-             }
-         }
-         getResponse()
+                console.error(err)
+            }
+        }
+        getResponse()
     }, [])
 
 
@@ -44,11 +43,11 @@ const App = () => {
                 {ingredients.length &&
                     <>
                         <BurgerIngredients data={ingredients} handleOpenState={(e) => {
-                        setTarget(e.target.tagName)
-                        handleOpenState()}
+                            setTarget(e.target.tagName)
+                            handleOpenState()}
                         } selectedItem={selectedItem}/>
                         <BurgerConstructor data={ingredients} openModal={(e) => {
-                            handleOpenState(e)
+                            handleOpenState()
                             setTarget(e.target.tagName)
                         }
                         }/>
@@ -56,7 +55,13 @@ const App = () => {
                 }
             </section>
             {isOpened &&
-                <Modal target={target} handleOpenState={handleOpenState} closeModal={handleOpenState} handleActive={selectedItem} selectedElement={selectedElement}/>
+                <Modal
+                    target={target}
+                    handleOpenState={handleOpenState}
+                    closeModal={handleOpenState}
+                    handleActive={selectedItem}
+                    selectedElement={selectedElement}
+                />
             }
         </div>
     )

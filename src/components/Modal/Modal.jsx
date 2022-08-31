@@ -27,9 +27,9 @@ const Modal = (props) => {
     return ReactDOM.createPortal(
         <>
             <ModalOverlay closeModal={props.closeModal}/>
-            <div className={`${stylesModal.overlay} pt-10 pr-10 pl-10 pb-10`}>
-                <CloseIcon type={'primary'} onClick={props.closeModal} className={stylesModal.closeIcon}/>
+            <div className={`${stylesModal.overlay} pt-10 pr-10 pl-10 pb-15`}>
                 <div className={stylesModal.header}>
+                    <CloseIcon type={'primary'} onClick={props.closeModal} className={stylesModal.closeIcon}/>
                 </div>
                 {props.target === 'BUTTON'
                     ? <OrderDetails />

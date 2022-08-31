@@ -1,9 +1,18 @@
-.stylesIngredientDetails {
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
+.title {
+    text-align: center;
+    margin: 0;
 }
 
 .ingredientDetails {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    text-align: center;
 }
+
