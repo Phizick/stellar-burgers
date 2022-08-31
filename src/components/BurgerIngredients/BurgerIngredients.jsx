@@ -1,3 +1,10 @@
+/**
+ * компонент списка ингредиентов для бургера. принимает в пропсы данные ингредиентов с сервера / функциональность модального окна
+ * @component
+ * @returns
+ * разметку-список ингредиентов для бургера, разбитых по категориям
+ */
+
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
@@ -5,7 +12,6 @@ import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngred
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = React.useState("one");
-
     return (
         <section className={`${stylesBurgerIngredients.section} mt-10`}>
             <h2 className={"text text_type_main-large p-4"}>Соберите бургер</h2>
@@ -20,7 +26,7 @@ const BurgerIngredients = (props) => {
                     Начинки
                 </Tab>
             </div>
-            <ul className={stylesBurgerIngredients.list}>
+            <ul className={`${stylesBurgerIngredients.list} mt-10`}>
                 <BurgerIngredientTypeGroup data={props.data} listType={"bun"} title={"Булки"} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem} />
                 <BurgerIngredientTypeGroup data={props.data} listType={"sauce"} title={"Соусы"} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem} />
                 <BurgerIngredientTypeGroup data={props.data} listType={"main"} title={"Начинки"} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem} />

@@ -1,3 +1,7 @@
+/**
+ * компонент
+ */
+
 import React from 'react';
 import stylesBurgerIngredientTypeGroup from '../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup.module.css'
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient'

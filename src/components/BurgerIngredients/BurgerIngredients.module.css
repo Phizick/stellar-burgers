@@ -6,10 +6,8 @@
     overflow-y: scroll;
     height: 720px;
     outline: none;
-    padding-right: 15px;
     padding-left: 0;
 }
-
 
 .list::-webkit-scrollbar {
     width: 8px;
@@ -21,9 +19,10 @@
 }
 
 .list::-webkit-scrollbar-track {
-    background: rgba(47, 47, 55, 1);
+    background: rgba(47, 47, 55, .7);
 }
 
 .list::-webkit-scrollbar-thumb:hover {
-    background: #56999f;
+    background: rgba(51, 51, 255, .25);
+    cursor: pointer;
 }

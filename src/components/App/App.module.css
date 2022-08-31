@@ -1,7 +1,6 @@
-.main {
+.mainContent {
     margin: 0 auto;
     display: flex;
-
-    justify-content: space-between;
     max-width: 1280px;
+    justify-content: space-evenly;
 }

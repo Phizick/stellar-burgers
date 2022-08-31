@@ -1,3 +1,11 @@
+/**
+ * главный компонент приложения 'Звездная бургерная'. Содержит список ингредиентов и конструктор бургеров
+ * @component
+ * @returns
+ * разметку страницы, содержащую компоненты BurgerIngredients / AppHeader / BurgerConstructor / Modal
+ */
+
+
 import React,{useState, useEffect} from 'react';
 import {AppHeader} from '../AppHeader/AppHeader';
 import stylesApp from '../App/App.module.css'
@@ -14,7 +22,6 @@ const App = () => {
     const handleOpenState = () => {
         setOpenedModal(!isOpened)
     }
-
     const selectedItem = (i) => {
         setSelectedElement(i)
     }
@@ -35,11 +42,10 @@ const App = () => {
         getResponse()
     }, [])
 
-
     return (
-        <div>
+        <>
             <AppHeader />
-            <section className={stylesApp.main}>
+            <main className={stylesApp.mainContent}>
                 {ingredients.length &&
                     <>
                         <BurgerIngredients data={ingredients} handleOpenState={(e) => {
@@ -53,7 +59,7 @@ const App = () => {
                         }/>
                     </>
                 }
-            </section>
+            </main>
             {isOpened &&
                 <Modal
                     target={target}
@@ -63,7 +69,7 @@ const App = () => {
                     selectedElement={selectedElement}
                 />
             }
-        </div>
+        </>
     )
 }
 export default App

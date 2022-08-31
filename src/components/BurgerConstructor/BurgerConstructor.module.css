@@ -12,6 +12,8 @@
 }
 
 .list {
+    padding: 15px 0;
+    margin: 0;
 
 }
 
@@ -19,11 +21,12 @@
     list-style-type: none;
     display: flex;
     align-items: center;
+    margin: 0;
 }
 
 .items {
     overflow-y: scroll;
-    height: 550px;
+    height: 580px;
     outline: none;
     padding-right: 15px;
     padding-left: 0;
@@ -43,5 +46,6 @@
 }
 
 .items::-webkit-scrollbar-thumb:hover {
-    background: #56999f;
+    background: rgba(51, 51, 255, .25);
+    cursor: pointer;
 }
