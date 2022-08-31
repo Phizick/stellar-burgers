@@ -22,9 +22,9 @@ const BurgerIngredients = (props) => {
             </Tab>
         </div>
             <ul className={stylesBurgerIngredients.list}>
-            <BurgerIngredientTypeGroup data={props.data} listType={'bun'} title={'Булки'} handleOpenState={props.handleOpenState} setSelectedElement={props.setSelectedElement}/>
-                <BurgerIngredientTypeGroup data={props.data} listType={'sauce'} title={'Соусы'} handleOpenState={props.handleOpenState} setSelectedElement={props.setSelectedElement}/>
-            <BurgerIngredientTypeGroup data={props.data} listType={'main'} title={'Начинки'} handleOpenState={props.handleOpenState} setSelectedElement={props.setSelectedElement}/>
+            <BurgerIngredientTypeGroup data={props.data} listType={'bun'} title={'Булки'} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem}/>
+                <BurgerIngredientTypeGroup data={props.data} listType={'sauce'} title={'Соусы'} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem}/>
+            <BurgerIngredientTypeGroup data={props.data} listType={'main'} title={'Начинки'} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem}/>
 
             </ul>
         </section>

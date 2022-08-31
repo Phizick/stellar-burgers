@@ -2,13 +2,14 @@ import React from 'react'
 import stylesIngredientDetails from '../IngredientDetails/IngredientDetails.module.css'
 
 const IngredientDetails = (props) => {
-    console.log(props.selectedElement)
+
+
     return (
         <section className={stylesIngredientDetails}>
             <h3 className={''}>Детали ингредиента</h3>
             <img src={props.selectedElement.image_large} alt={props.selectedElement.name}/>
             <p className={''}>{props.selectedElement.name}</p>
-            <div className={''}>
+            <div className={`${stylesIngredientDetails.ingredientDetails}`}>
                 <div className={''}>
                     <p className={''}>Калории,ккал</p>
                     <p className={''}>{props.selectedElement.calories}</p>

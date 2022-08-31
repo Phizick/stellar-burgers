@@ -3,7 +3,6 @@ import {AppHeader} from '../AppHeader/AppHeader';
 import stylesApp from '../App/App.module.css'
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import Modal from '../Modal/Modal'
-
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 
 const App = () => {
@@ -16,14 +15,14 @@ const App = () => {
         setOpenedModal(!isOpened)
     }
 
-    const selectedItem = () => {
-        setSelectedElement()
+    const selectedItem = (i) => {
+        setSelectedElement(i)
     }
+
      useEffect(() => {
         const getResponse = async () => {
              try {
                  const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
-                 console.log(res.status)
                  if (res.status !== 200) {
                      throw new Error('error')
                  }
@@ -47,22 +46,18 @@ const App = () => {
                         <BurgerIngredients data={ingredients} handleOpenState={(e) => {
                         setTarget(e.target.tagName)
                         handleOpenState()}
-                        } setSelectedElement={selectedElement}/>
-                        <BurgerConstructor data={ingredients} handleOpenState={(e) => {
+                        } selectedItem={selectedItem}/>
+                        <BurgerConstructor data={ingredients} openModal={(e) => {
+                            handleOpenState(e)
                             setTarget(e.target.tagName)
-                            handleOpenState()
                         }
                         }/>
                     </>
                 }
             </section>
             {isOpened &&
-                <Modal terget={target} handleOpenState={handleOpenState} closeModal={() => {
-                    handleOpenState()
-                    selectedItem()
-                }} selectedElement={selectedElement}/>
+                <Modal target={target} handleOpenState={handleOpenState} closeModal={handleOpenState} handleActive={selectedItem} selectedElement={selectedElement}/>
             }
-
         </div>
     )
 }
