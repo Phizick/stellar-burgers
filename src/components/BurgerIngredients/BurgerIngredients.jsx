@@ -28,9 +28,9 @@ const BurgerIngredients = (props) => {
                 </Tab>
             </div>
             <ul className={`${stylesBurgerIngredients.list} mt-10 pl-1 pr-2`}>
-                <BurgerIngredientTypeGroup data={props.data} listType={"bun"} title={"Булки"} openModal={props.openModal} selectElement={props.selectElement} />
-                <BurgerIngredientTypeGroup data={props.data} listType={"sauce"} title={"Соусы"} openModal={props.openModal} selectElement={props.selectElement} />
-                <BurgerIngredientTypeGroup data={props.data} listType={"main"} title={"Начинки"} openModal={props.openModal} selectElement={props.selectElement} />
+                <BurgerIngredientTypeGroup data={props.data} listType={"bun"} title={"Булки"} openModal={props.openModal}  />
+                <BurgerIngredientTypeGroup data={props.data} listType={"sauce"} title={"Соусы"} openModal={props.openModal} />
+                <BurgerIngredientTypeGroup data={props.data} listType={"main"} title={"Начинки"} openModal={props.openModal}  />
             </ul>
         </section>
     );
@@ -44,7 +44,7 @@ BurgerIngredients.propTypes = {
         _id: PropTypes.string.isRequired
     })),
     openModal: PropTypes.func,
-    selectElement: PropTypes.func.isRequired
+
 };
 
 export default BurgerIngredients;

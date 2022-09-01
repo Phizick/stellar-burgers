@@ -21,7 +21,6 @@ const BurgerConstructor = (props) => {
                         text={`${props.data[0].name} (верх)`}
                         price={props.data[0].price}
                         thumbnail={props.data[0].image}
-                        key={props.data._id}
                     />
                 </li>
                 <ul className={stylesBurgerConstructor.items}>
@@ -36,7 +35,6 @@ const BurgerConstructor = (props) => {
                                         price={item.price}
                                         thumbnail={item.image}
                                         isLocked={false}
-                                        key={item._id}
                                     />
                                 </li>
                             );
@@ -49,7 +47,6 @@ const BurgerConstructor = (props) => {
                         text={`${props.data[0].name} (низ)`}
                         price={props.data[0].price}
                         thumbnail={props.data[0].image}
-                        key={props.data._id}
                     />
                 </li>
             </ul>

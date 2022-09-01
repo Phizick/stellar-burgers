@@ -14,6 +14,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     text-align: center;
+    padding: 0;
 }
 
 .listItem {

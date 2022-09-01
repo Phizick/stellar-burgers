@@ -10,70 +10,58 @@ import ReactDOM from "react-dom";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import stylesModal from '../Modal/Modal.module.css'
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import OrderDetails from "../OrderDetails/OrderDetails";
-import {modalContainer} from "../../utils/constants";
+
+
 import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/type";
 
 
 const Modal = (props) => {
-    const handleEscClose = (e) => {
-        (e.keyCode === 27) && props.handleOpenState()
-    }
 
     useEffect(() => {
+        const handleEscClose = (e) => {
+            (e.keyCode === 'Escape') && props.closeModal()
+        }
         document.addEventListener('keydown', handleEscClose);
         return () => {
             document.removeEventListener('keydown', handleEscClose)
         }
     }, []);
 
-    return ReactDOM.createPortal(
-        <>
-            <div className={props.activeModal ? `${stylesModal.overlay} ${stylesModal.enable} pt-10 pr-10 pl-10 pb-15` : `${stylesModal.overlay} pt-10 pr-10 pl-10 pb-15`}>
-                {props.target !== 'BUTTON'
-                    ? <div className={stylesModal.header}>
-                        <h3 className={`text text_type_main-large`}>Детали ингредиента</h3>
-                        <div className={stylesModal.closeIcon} onClick={props.closeModal}>
-                            <CloseIcon type={'primary'}/>
+    return (
+        <ModalOverlay closeModal={props.closeModal} isActive={props.activeModal}>
+
+            <div className={`${stylesModal.modal} pt-10 pb-10 pl-10 pr-10`}>
+                {
+                    props.title
+                        ? <div className={stylesModal.header} pt-10>
+                            <h3 className={`text text_type_main-large`}>{props.title}</h3>
+                            <div className={stylesModal.closeIcon} onClick={props.handleModalState}>
+                                <CloseIcon type={'primary'}/>
+                            </div>
                         </div>
-                    </div>
-                    : <div className={stylesModal.header}>
-                        <div className={`${stylesModal.closeIcon} ${stylesModal.closeIcon_withoutContent}`} onClick={props.closeModal}>
-                            <CloseIcon type={'primary'}/>
+                        : <div className={stylesModal.header}>
+                            <div className={`${stylesModal.closeIcon} ${stylesModal.closeIcon_withoutContent}`} onClick={props.handleModalState}>
+                                <CloseIcon type={'primary'}/>
+                            </div>
                         </div>
-                    </div>
                 }
-                {props.target === 'BUTTON'
-                    ? <OrderDetails />
-                    : <IngredientDetails selectedElement={props.selectedElement}/>
-                }
+                <div className={`${stylesModal.container}`}>
+                    {props.children}
+                </div>
+
             </div>
-            <ModalOverlay closeModal={props.closeModal}/>
-        </>,
-        modalContainer
+        </ModalOverlay>
+
     )
 };
 
-Modal.propTypes = {
-    handleOpenState: PropTypes.func.isRequired,
-    activeModal: PropTypes.bool.isRequired,
-    target: PropTypes.string.isRequired,
-    closeModal: PropTypes.func.isRequired,
-    selectedElement: PropTypes.shape({
-        calories: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        proteins: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        __v: PropTypes.number.isRequired,
-        _id: PropTypes.string.isRequired
-    })
-};
+// Modal.propTypes = {
+//     handleOpenState: PropTypes.func.isRequired,
+//     activeModal: PropTypes.bool.isRequired,
+//     target: PropTypes.string.isRequired,
+//     closeModal: PropTypes.func.isRequired,
+//     selectedElement: ingredientType.isRequired
+// };
 
 export default Modal

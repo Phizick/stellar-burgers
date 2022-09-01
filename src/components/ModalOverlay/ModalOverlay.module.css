@@ -6,4 +6,24 @@
     bottom: 0;
     right: 0;
     background: rgba(0, 0, 0, .8);
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+}
+
+
+.close {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.content {
+
+}
+
+.overlay_active {
+    opacity: 1;
+    visibility: visible;
+
 }

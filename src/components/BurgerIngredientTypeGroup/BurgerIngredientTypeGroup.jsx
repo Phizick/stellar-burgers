@@ -17,11 +17,9 @@ const BurgerIngredientTypeGroup = (props) => {
             <ul className={`${stylesBurgerIngredientTypeGroup.list} pl-4 pr-5`}>
                 {props.data.map((item) => {
                     if(item.type === props.listType) {
-                        return <BurgerIngredient openModal={(e) => {
-                            props.openModal(e);
-                            props.selectElement(item);
-                        }
-                        } key={item._id} data={item}/>
+                        return (
+                            <BurgerIngredient openModal={props.openModal} key={item._id} data={item}/>
+                        );
                     }
                 })}
             </ul>
@@ -36,8 +34,7 @@ BurgerIngredientTypeGroup.propTypes = {
         _id: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired
     })),
-    openModal: PropTypes.func.isRequired,
-    selectElement: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired
 };
 
 export default BurgerIngredientTypeGroup

@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 
 const BurgerIngredient = (props) => {
     return (
-        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={props.openModal} key={props.data._id}>
+        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => {props.openModal(props.data)}} >
             <img src={props.data.image} alt={props.data.name} />
             <p className={`${stylesBurgerIngredient.price} text text_type_digits-default mt-4 mb-4`}>
                 <p className={`${stylesBurgerIngredient.priceNumber} p-2`}>{props.data.price}</p>
@@ -23,14 +23,14 @@ const BurgerIngredient = (props) => {
     );
 };
 
-BurgerIngredient.propTypes = {
-        data: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            price: PropTypes.number.isRequired,
-            image: PropTypes.string.isRequired,
-            _id: PropTypes.string.isRequired
-    }),
-        openModal: PropTypes.func.isRequired
-};
+// BurgerIngredient.propTypes = {
+//         data: PropTypes.shape({
+//             name: PropTypes.string.isRequired,
+//             price: PropTypes.number.isRequired,
+//             image: PropTypes.string.isRequired,
+//             _id: PropTypes.string.isRequired
+//     }),
+//         openModal: PropTypes.func.isRequired
+// };
 
 export default BurgerIngredient;

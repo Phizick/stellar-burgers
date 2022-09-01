@@ -13,25 +13,36 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import Modal from '../Modal/Modal'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import {apiUrl} from "../../utils/constants";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 const App = () => {
     const [ingredients, setIngredients] = useState([])
-    const [isOpened, setModalState] = useState(false)
-    const [target, setTarget] = useState('')
-    const [selectedElement, setSelectedElement] = useState({})
+    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false)
+    const [isOpenedOrderModal, setModalOrderState] = useState(false)
+    const [currentIngredient, setCurrentIngredient] = useState({})
 
-    const handleOpenState = () => {
-        setModalState(!isOpened)
+    const handleOrderState = () => {
+        setModalOrderState(!isOpenedOrderModal)
     }
-    const selectElement = (i) => {
-        setSelectedElement(i)
+    const handleIngredientState = (i) => {
+        setCurrentIngredient(i);
+        setModalIngredientsState(t => !t)
+    }
+
+    const closeOrderModal = () => {
+        setModalOrderState(false)
+    }
+
+    const closeIngredientModal = () => {
+        setModalIngredientsState(false)
     }
 
     useEffect(() => {
         const getResponse = async () => {
             try {
                 const res = await fetch(apiUrl)
-                if (res.status !== 200) {
+                if (!res.ok) {
                     throw new Error('error')
                 }
                 const resData = await res.json()
@@ -49,28 +60,17 @@ const App = () => {
             <main className={stylesApp.mainContent}>
                 {ingredients.length &&
                     <>
-                        <BurgerIngredients data={ingredients} openModal={(e) => {
-                            setTarget(e.target.tagName)
-                            handleOpenState()}
-                        } selectElement={selectElement}/>
-                        <BurgerConstructor data={ingredients} openModal={(e) => {
-                            handleOpenState()
-                            setTarget(e.target.tagName)
-                        }
-                        }/>
+                        <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
+                        <BurgerConstructor data={ingredients} openModal={handleOrderState}/>
                     </>
                 }
             </main>
-            {isOpened &&
-                <Modal
-                    target={target}
-                    handleOpenState={handleOpenState}
-                    closeModal={handleOpenState}
-                    handleActive={selectElement}
-                    selectedElement={selectedElement}
-                    activeModal={isOpened}
-                />
-            }
+            <Modal activeModal={isOpenedIngredientsModal}  handleModalState={handleIngredientState} title={"Детали ингредиента"} closeModal={closeIngredientModal}>
+                <IngredientDetails selectedElement={currentIngredient}/>
+            </Modal>
+            <Modal activeModal={isOpenedOrderModal} handleModalState={handleOrderState} closeModal={closeOrderModal} >
+                <OrderDetails />
+            </Modal>
         </>
     )
 };
