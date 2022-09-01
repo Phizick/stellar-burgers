@@ -12,24 +12,25 @@ import stylesApp from '../App/App.module.css'
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import Modal from '../Modal/Modal'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
+import {apiUrl} from "../../utils/constants";
 
 const App = () => {
     const [ingredients, setIngredients] = useState([])
-    const [isOpened, setOpenedModal] = useState(false)
+    const [isOpened, setModalState] = useState(false)
     const [target, setTarget] = useState('')
     const [selectedElement, setSelectedElement] = useState({})
 
     const handleOpenState = () => {
-        setOpenedModal(!isOpened)
+        setModalState(!isOpened)
     }
-    const selectedItem = (i) => {
+    const selectElement = (i) => {
         setSelectedElement(i)
     }
 
     useEffect(() => {
         const getResponse = async () => {
             try {
-                const res = await fetch('https://norma.nomoreparties.space/api/ingredients')
+                const res = await fetch(apiUrl)
                 if (res.status !== 200) {
                     throw new Error('error')
                 }
@@ -48,10 +49,10 @@ const App = () => {
             <main className={stylesApp.mainContent}>
                 {ingredients.length &&
                     <>
-                        <BurgerIngredients data={ingredients} handleOpenState={(e) => {
+                        <BurgerIngredients data={ingredients} openModal={(e) => {
                             setTarget(e.target.tagName)
                             handleOpenState()}
-                        } selectedItem={selectedItem}/>
+                        } selectElement={selectElement}/>
                         <BurgerConstructor data={ingredients} openModal={(e) => {
                             handleOpenState()
                             setTarget(e.target.tagName)
@@ -65,7 +66,7 @@ const App = () => {
                     target={target}
                     handleOpenState={handleOpenState}
                     closeModal={handleOpenState}
-                    handleActive={selectedItem}
+                    handleActive={selectElement}
                     selectedElement={selectedElement}
                     activeModal={isOpened}
                 />

@@ -5,6 +5,7 @@ import stylesModal from '../Modal/Modal.module.css'
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import {modalContainer} from "../../utils/constants";
 
 
 const Modal = (props) => {
@@ -38,7 +39,7 @@ const Modal = (props) => {
             </div>
             <ModalOverlay closeModal={props.closeModal}/>
         </>,
-        document.getElementById('modal-root')
+        modalContainer
     )
 };
 

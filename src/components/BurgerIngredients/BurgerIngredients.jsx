@@ -9,6 +9,7 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
+import PropTypes from "prop-types";
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = React.useState("one");
@@ -27,12 +28,23 @@ const BurgerIngredients = (props) => {
                 </Tab>
             </div>
             <ul className={`${stylesBurgerIngredients.list} mt-10`}>
-                <BurgerIngredientTypeGroup data={props.data} listType={"bun"} title={"Булки"} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem} />
-                <BurgerIngredientTypeGroup data={props.data} listType={"sauce"} title={"Соусы"} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem} />
-                <BurgerIngredientTypeGroup data={props.data} listType={"main"} title={"Начинки"} handleOpenState={props.handleOpenState} selectedItem={props.selectedItem} />
+                <BurgerIngredientTypeGroup data={props.data} listType={"bun"} title={"Булки"} openModal={props.openModal} selectElement={props.selectElement} />
+                <BurgerIngredientTypeGroup data={props.data} listType={"sauce"} title={"Соусы"} openModal={props.openModal} selectElement={props.selectElement} />
+                <BurgerIngredientTypeGroup data={props.data} listType={"main"} title={"Начинки"} openModal={props.openModal} selectElement={props.selectElement} />
             </ul>
         </section>
     );
 };
+
+BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired
+    })),
+    openModal: PropTypes.func,
+    handleOpenState: PropTypes.func.isRequired
+}
 
 export default BurgerIngredients;

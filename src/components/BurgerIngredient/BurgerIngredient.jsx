@@ -5,7 +5,6 @@
  * разметку карточки ингредиента бургера с функциональностью открытия модального окна с информацией о нем
  */
 
-
 import React from "react";
 import stylesBurgerIngredient from "../BurgerIngredient/BurgerIngredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -25,14 +24,13 @@ const BurgerIngredient = (props) => {
 };
 
 BurgerIngredient.propTypes = {
-        data: PropTypes.arrayOf(PropTypes.shape({
+        data: PropTypes.shape({
             name: PropTypes.string.isRequired,
             price: PropTypes.number.isRequired,
             image: PropTypes.string.isRequired,
             _id: PropTypes.string.isRequired
-    })),
+    }),
         openModal: PropTypes.func.isRequired
 }
-
 
 export default BurgerIngredient;
