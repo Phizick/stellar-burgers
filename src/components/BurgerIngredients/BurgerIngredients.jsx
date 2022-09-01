@@ -44,7 +44,7 @@ BurgerIngredients.propTypes = {
         _id: PropTypes.string.isRequired
     })),
     openModal: PropTypes.func,
-    handleOpenState: PropTypes.func.isRequired
+    selectElement: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;
