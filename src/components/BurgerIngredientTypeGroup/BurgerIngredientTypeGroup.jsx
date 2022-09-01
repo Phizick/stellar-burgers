@@ -1,5 +1,8 @@
 /**
- * компонент
+ * компонент группы ингредиентов
+ * @component
+ * @returns
+ * разметку списка ингредиентов, сортированных по типу
  */
 
 import React from 'react';
@@ -8,11 +11,10 @@ import BurgerIngredient from '../BurgerIngredient/BurgerIngredient'
 import PropTypes from "prop-types";
 
 const BurgerIngredientTypeGroup = (props) => {
-
     return (
         <section className={`${stylesBurgerIngredientTypeGroup.container} `}>
-            <p className={`${stylesBurgerIngredientTypeGroup.title} text text_type_main-medium m-2`}>{props.title}</p>
-            <ul className={`${stylesBurgerIngredientTypeGroup.list} pl-5 pr-5`}>
+            <p className={`text text_type_main-medium m-2`}>{props.title}</p>
+            <ul className={`${stylesBurgerIngredientTypeGroup.list} pl-4 pr-5`}>
                 {props.data.map((item) => {
                     if(item.type === props.listType) {
                         return <BurgerIngredient openModal={(e) => {
@@ -36,6 +38,6 @@ BurgerIngredientTypeGroup.propTypes = {
     })),
     openModal: PropTypes.func.isRequired,
     selectElement: PropTypes.func.isRequired
-}
+};
 
 export default BurgerIngredientTypeGroup

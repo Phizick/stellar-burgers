@@ -77,6 +77,6 @@ BurgerConstructor.propTypes = {
         _id: PropTypes.string.isRequired
     })),
     openModal: PropTypes.func.isRequired
-}
+};
 
 export default BurgerConstructor;
