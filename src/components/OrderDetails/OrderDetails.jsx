@@ -1,3 +1,10 @@
+/**
+ * компонент деталей заказа. содержит информацию о заказе. хардкод
+ * @component
+ * @returns
+ * разметку деталей заказа для отображения в модальном окне
+ */
+
 import React from 'react';
 import doneIndicationImg from '../../images/done.png';
 import stylesOrderDetails from '../OrderDetails/OrderDetails.module.css'

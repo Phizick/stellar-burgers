@@ -44,6 +44,5 @@
 }
 
 .items::-webkit-scrollbar-thumb:hover {
-    background: rgba(51, 51, 255, .25);
-    cursor: pointer;
+    background: rgba(51, 51, 255, .25);    
 }

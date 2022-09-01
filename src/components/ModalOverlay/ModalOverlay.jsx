@@ -1,3 +1,10 @@
+/**
+ * компонент оверлея под модальным окном
+ * @component
+ * @returns
+ * разметку оверлея с затемнением и реагированием на клик
+ */
+
 import React from 'react';
 import stylesModalOverlay from '../ModalOverlay/ModalOverlay.module.css'
 import PropTypes from "prop-types";

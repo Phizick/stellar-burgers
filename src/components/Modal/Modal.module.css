@@ -10,11 +10,8 @@
     box-shadow: 0px 24px 32px rgba(0, 0, 0, .04), 0px 16px 24px rgba(0, 0, 0, .04), 0px 4px 8px rgba(0, 0, 0, .04), 0px 0px 1px rgba(0, 0, 0, .04);
     border-radius: 40px;
     z-index: 5;
-}
-
-.disable {
     opacity: 0;
-    transition: 2s;
+    transition: .7s;
 }
 
 .enable {
@@ -29,10 +26,16 @@
 }
 
 .closeIcon {
+    cursor: pointer;
+    transition: .2s;
+}
+
+.closeIcon_withoutContent {
     position: absolute;
-    top: 25px;
+    top: 45px;
+    right: 45px;
 }
 
 .closeIcon:hover {
-    cursor: pointer;
+    opacity: .6;
 }
