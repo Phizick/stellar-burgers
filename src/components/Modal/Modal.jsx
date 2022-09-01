@@ -21,10 +21,16 @@ const Modal = (props) => {
 
     return ReactDOM.createPortal(
         <>
-            <div className={props.activeModal ? `${stylesModal.overlay} pt-10 pr-10 pl-10 pb-15` : `${stylesModal.overlay}  ${stylesModal.overlay_visible} pt-10 pr-10 pl-10 pb-15`}>
-                <div className={stylesModal.header}>
-                    <CloseIcon type={'primary'} onClick={props.closeModal} className={stylesModal.closeIcon}/>
-                </div>
+            <div className={props.activeModal ? `${stylesModal.overlay} pt-10 pr-10 pl-10 pb-15` : `${stylesModal.overlay}  pt-10 pr-10 pl-10 pb-15`}>
+                {props.target !== 'BUTTON'
+                    ? <div className={stylesModal.header}>
+                        <h3 className={`text text_type_main-large`}>Детали ингредиента</h3>
+                        <CloseIcon type={'primary'} onClick={props.closeModal} className={stylesModal.closeIcon}/>
+                    </div>
+                    : <div className={stylesModal.header}>
+                        <CloseIcon type={'primary'} onClick={props.closeModal} className={stylesModal.closeIcon}/>
+                    </div>
+                }
                 {props.target === 'BUTTON'
                     ? <OrderDetails />
                     : <IngredientDetails selectedElement={props.selectedElement}/>

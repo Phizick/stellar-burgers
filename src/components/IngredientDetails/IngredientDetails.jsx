@@ -5,7 +5,6 @@ const IngredientDetails = (props) => {
 
     return (
         <section className={stylesIngredientDetails.container}>
-            <h3 className={''}>Детали ингредиента</h3>
             <img src={props.selectedElement.image_large} alt={props.selectedElement.name}/>
             <p className={`${stylesIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{props.selectedElement.name}</p>
             <div className={`${stylesIngredientDetails.ingredientDetails}`}>

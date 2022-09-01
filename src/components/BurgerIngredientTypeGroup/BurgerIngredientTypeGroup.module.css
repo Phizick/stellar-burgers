@@ -13,7 +13,8 @@
     flex-direction: row;
     max-width: 600px;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding: 0;
+    text-align: center;
 
 }
