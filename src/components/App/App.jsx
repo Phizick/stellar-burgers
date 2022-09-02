@@ -59,10 +59,10 @@ const App = () => {
                     </>
                 }
             </main>
-            <Modal activeModal={isOpenedIngredientsModal}  handleModalState={handleIngredientState} title={"Детали ингредиента"} closeModal={closeIngredientModal}>
+            <Modal activeModal={isOpenedIngredientsModal} title={"Детали ингредиента"} closeModal={closeIngredientModal}>
                 <IngredientDetails selectedElement={currentIngredient}/>
             </Modal>
-            <Modal activeModal={isOpenedOrderModal} handleModalState={handleOrderState} closeModal={closeOrderModal} >
+            <Modal activeModal={isOpenedOrderModal} closeModal={closeOrderModal} >
                 <OrderDetails />
             </Modal>
         </>
