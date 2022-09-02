@@ -15,7 +15,7 @@ const Modal = (props) => {
 
     useEffect(() => {
         const handleEscClose = (e) => {
-            (e.keyCode === 'Escape') && props.closeModal()
+            (e.key === 'Escape') && props.closeModal()
         }
         document.addEventListener('keydown', handleEscClose);
         return () => {
