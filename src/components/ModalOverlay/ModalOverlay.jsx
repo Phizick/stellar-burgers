@@ -15,9 +15,8 @@ import {modalContainer} from "../../utils/constants";
 
 const ModalOverlay = (props) => {
     return ReactDOM.createPortal(
-        <section className={ props.isActive ? `${stylesModalOverlay.overlay} ${stylesModalOverlay.overlay_active}` : `${stylesModalOverlay.overlay}`}>
+        <section className={ props.isActive ? `${stylesModalOverlay.overlay} ${stylesModalOverlay.overlay_active}` : `${stylesModalOverlay.overlay}`} onClick={props.closeModal}>
             <div className={stylesModalOverlay.content}>{props.children}</div>
-            <div className={stylesModalOverlay.overlayClose} onClick={props.closeModal}/>
         </section>
         , modalContainer
     )

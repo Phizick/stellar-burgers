@@ -11,12 +11,6 @@
     transition: .5s;
 }
 
-.overlayClose {
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-}
-
 .content {
     box-sizing: border-box;
 }
