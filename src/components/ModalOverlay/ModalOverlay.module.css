@@ -11,19 +11,17 @@
     transition: .5s;
 }
 
-
-.close {
+.overlayClose {
     position: absolute;
-    inset: 0;
     z-index: 1;
+    inset: 0;
 }
 
 .content {
-
+    box-sizing: border-box;
 }
 
 .overlay_active {
     opacity: 1;
     visibility: visible;
-
 }

@@ -17,14 +17,16 @@ const ModalOverlay = (props) => {
     return ReactDOM.createPortal(
         <section className={ props.isActive ? `${stylesModalOverlay.overlay} ${stylesModalOverlay.overlay_active}` : `${stylesModalOverlay.overlay}`}>
             <div className={stylesModalOverlay.content}>{props.children}</div>
-            <div className={stylesModalOverlay.close} onClick={props.closeModal}/>
+            <div className={stylesModalOverlay.overlayClose} onClick={props.closeModal}/>
         </section>
         , modalContainer
     )
 }
 
 ModalOverlay.propTypes = {
-    closeModal: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired,
+    isActive: PropTypes.bool.isRequired,
+    children: PropTypes.node.isRequired
 };
 
 export default ModalOverlay

@@ -9,6 +9,7 @@ import React from 'react';
 import stylesBurgerIngredientTypeGroup from '../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup.module.css'
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient'
 import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/type";
 
 const BurgerIngredientTypeGroup = (props) => {
     return (
@@ -30,10 +31,7 @@ const BurgerIngredientTypeGroup = (props) => {
 BurgerIngredientTypeGroup.propTypes = {
     title: PropTypes.string.isRequired,
     listType: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired
-    })),
+    data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
     openModal: PropTypes.func.isRequired
 };
 

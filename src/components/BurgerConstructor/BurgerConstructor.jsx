@@ -9,6 +9,7 @@ import React from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
+import {ingredientType} from "../../utils/type";
 
 const BurgerConstructor = (props) => {
     return (
@@ -26,9 +27,9 @@ const BurgerConstructor = (props) => {
                 <ul className={stylesBurgerConstructor.items}>
                     {props.data
                         .filter((item) => item.type !== "bun")
-                        .map((item, index) => {
+                        .map((item) => {
                             return (
-                                <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2 pr-2`} key={index}>
+                                <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2 pr-2`} key={item._id}>
                                     <DragIcon type={"primary"} />
                                     <ConstructorElement
                                         text={item.name}
@@ -66,13 +67,7 @@ const BurgerConstructor = (props) => {
 };
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        _id: PropTypes.string.isRequired
-    })),
+    data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
     openModal: PropTypes.func.isRequired
 };
 

@@ -24,19 +24,17 @@ const App = () => {
 
     const handleOrderState = () => {
         setModalOrderState(!isOpenedOrderModal)
-    }
+    };
     const handleIngredientState = (i) => {
         setCurrentIngredient(i);
         setModalIngredientsState(t => !t)
-    }
-
+    };
     const closeOrderModal = () => {
         setModalOrderState(false)
-    }
-
+    };
     const closeIngredientModal = () => {
         setModalIngredientsState(false)
-    }
+    };
 
     useEffect(() => {
         fetch(apiUrl)

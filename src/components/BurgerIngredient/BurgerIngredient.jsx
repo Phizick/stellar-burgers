@@ -9,6 +9,7 @@ import React from "react";
 import stylesBurgerIngredient from "../BurgerIngredient/BurgerIngredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import {ingredientType} from "../../utils/type";
 
 const BurgerIngredient = (props) => {
     return (
@@ -23,14 +24,9 @@ const BurgerIngredient = (props) => {
     );
 };
 
-// BurgerIngredient.propTypes = {
-//         data: PropTypes.shape({
-//             name: PropTypes.string.isRequired,
-//             price: PropTypes.number.isRequired,
-//             image: PropTypes.string.isRequired,
-//             _id: PropTypes.string.isRequired
-//     }),
-//         openModal: PropTypes.func.isRequired
-// };
+BurgerIngredient.propTypes = {
+    data: PropTypes.shape({ingredientType}).isRequired,
+    openModal: PropTypes.func.isRequired
+ };
 
 export default BurgerIngredient;
