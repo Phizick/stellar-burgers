@@ -26,7 +26,7 @@ const BurgerIngredient = (props) => {
 };
 
 BurgerIngredient.propTypes = {
-    data: PropTypes.shape({ingredientType}).isRequired,
+    data: ingredientType.isRequired,
     openModal: PropTypes.func.isRequired
  };
 

@@ -39,7 +39,7 @@ const IngredientDetails = (props) => {
 };
 
  IngredientDetails.propTypes = {
-     selectedElement: PropTypes.shape({ingredientType})
+     selectedElement: ingredientType.isRequired
  };
 
 export default IngredientDetails

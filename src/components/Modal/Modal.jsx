@@ -26,20 +26,15 @@ const Modal = (props) => {
     return (
         <ModalOverlay closeModal={props.closeModal} isActive={props.activeModal}>
             <div className={`${stylesModal.modal} pt-10 pb-10 pl-10 pr-10`}>
-                {
-                    props.title
-                        ? <div className={`${stylesModal.header}`}>
-                            <h3 className={`text text_type_main-large`}>{props.title}</h3>
-                            <div className={stylesModal.closeIcon} onClick={props.handleModalState}>
-                                <CloseIcon type={'primary'}/>
-                            </div>
-                        </div>
-                        : <div className={stylesModal.header}>
-                            <div className={`${stylesModal.closeIcon} ${stylesModal.closeIcon_withoutContent}`} onClick={props.handleModalState}>
-                                <CloseIcon type={'primary'}/>
-                            </div>
-                        </div>
-                }
+                <div className={`${stylesModal.header}`}>
+                    {
+                        props.title
+                        && <h3 className={`text text_type_main-large`}>{props.title}</h3>
+                    }
+                    <div className={stylesModal.closeIcon} onClick={props.handleModalState}>
+                        <CloseIcon type={'primary'}/>
+                    </div>
+                </div>
                 <div className={`${stylesModal.container}`}>
                     {props.children}
                 </div>
