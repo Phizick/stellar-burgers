@@ -39,19 +39,15 @@ const App = () => {
     }
 
     useEffect(() => {
-        const getResponse = async () => {
-            try {
-                const res = await fetch(apiUrl)
-                if (!res.ok) {
-                    throw new Error('error')
+        fetch(apiUrl)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
                 }
-                const resData = await res.json()
-                setIngredients(resData.data)
-            } catch (err) {
-                console.error(err)
-            }
-        }
-        getResponse()
+                return Promise.reject(res.status);
+            })
+            .then(response => setIngredients(response.data))
+            .catch(err => console.error(err))
     }, [])
 
     return (

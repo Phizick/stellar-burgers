@@ -14,10 +14,10 @@ const BurgerIngredient = (props) => {
     return (
         <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => {props.openModal(props.data)}} >
             <img src={props.data.image} alt={props.data.name} />
-            <p className={`${stylesBurgerIngredient.price} text text_type_digits-default mt-4 mb-4`}>
+            <div className={`${stylesBurgerIngredient.price} text text_type_digits-default mt-4 mb-4`}>
                 <p className={`${stylesBurgerIngredient.priceNumber} p-2`}>{props.data.price}</p>
                 <CurrencyIcon type="primary" />
-            </p>
+            </div>
             <p className={"text text_type_main-default"}>{props.data.name}</p>
         </li>
     );

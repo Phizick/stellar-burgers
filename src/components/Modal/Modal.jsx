@@ -34,7 +34,7 @@ const Modal = (props) => {
             <div className={`${stylesModal.modal} pt-10 pb-10 pl-10 pr-10`}>
                 {
                     props.title
-                        ? <div className={stylesModal.header} pt-10>
+                        ? <div className={`${stylesModal.header} pt-10`}>
                             <h3 className={`text text_type_main-large`}>{props.title}</h3>
                             <div className={stylesModal.closeIcon} onClick={props.handleModalState}>
                                 <CloseIcon type={'primary'}/>
@@ -49,10 +49,8 @@ const Modal = (props) => {
                 <div className={`${stylesModal.container}`}>
                     {props.children}
                 </div>
-
             </div>
         </ModalOverlay>
-
     )
 };
 
