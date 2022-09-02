@@ -65,7 +65,6 @@ const App = () => {
             <Modal activeModal={isOpenedOrderModal} handleModalState={handleOrderState} closeModal={closeOrderModal} >
                 <OrderDetails />
             </Modal>
-
         </>
     )
 };
