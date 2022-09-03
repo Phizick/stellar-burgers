@@ -1,0 +1,21 @@
+.overlay {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .8);
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+}
+
+.content {
+    box-sizing: border-box;
+}
+
+.overlay_active {
+    opacity: 1;
+    visibility: visible;
+}

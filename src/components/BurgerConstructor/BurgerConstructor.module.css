@@ -1,0 +1,48 @@
+.section {
+    max-width: 600px;
+    max-height: 912px;
+}
+
+.totalScore {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.list {
+    padding: 15px 0;
+    margin: 0;
+}
+
+.listItem {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.items {
+    overflow-y: scroll;
+    height: 580px;
+    outline: none;
+    padding-right: 15px;
+    padding-left: 0;
+}
+
+.items::-webkit-scrollbar {
+    width: 8px;
+}
+
+.items::-webkit-scrollbar-thumb {
+    background: rgba(133, 133, 173, 1);
+    border-radius: 0;
+}
+
+.items::-webkit-scrollbar-track {
+    background: rgba(47, 47, 55, 1);
+}
+
+.items::-webkit-scrollbar-thumb:hover {
+    background: rgba(51, 51, 255, .25);    
+}
