@@ -9,9 +9,9 @@ import {
 
 const initialState = {
     ingredients: [],
-    order: {},
-    orderRequest: false,
-    orderFailed: false,
+    orderData: {},
+    orderRequestProcessing: false,
+    orderRequestFailed: false,
     constructorIngredients: [],
     constructorBun: null
 };
@@ -43,3 +43,30 @@ export const getIngredientsData = (state = initialState, action) => {
     }
 };
 
+export const getOrderData = (state = initialState, action) => {
+    switch (action.type) {
+        case SEND_ORDER: {
+            return {
+                ...state,
+                orderRequestProcessing: true
+            }
+        }
+        case SEND_ORDER_SUCCESS: {
+            return {
+                ...state,
+                orderRequestProcessing: false,
+                orderData: action.order
+            }
+        }
+        case SEND_ORDER_FAILED: {
+            return {
+                ...state,
+                orderRequestProcessing: false,
+                orderRequestFailed: true
+            }
+        }
+        default: {
+            return state;
+        }
+    }
+};
