@@ -9,6 +9,16 @@ export const SEND_ORDER = 'SEND_ORDER';
 export const SEND_ORDER_SUCCESS = 'SEND_ORDER_SUCCESS';
 export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
 
+export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
+export const SET_CONSTRUCTOR = 'SET_CONSTRUCTOR';
+export const FILL_CONSTRUCTOR = 'FILL_CONSTRUCTOR';
+export const SORT_CONSTRUCTOR = 'SORT_CONSTRUCTOR';
+
+
+
+
+
+
 
 
 export const getIngredientsData = () => {
@@ -70,6 +80,6 @@ export const sendOrder = () => {
                 console.error(err)
             })
     }
+};
 
-}
 

@@ -4,7 +4,11 @@ import {
     GET_INGREDIENTS_FAILED,
     SEND_ORDER,
     SEND_ORDER_SUCCESS,
-    SEND_ORDER_FAILED
+    SEND_ORDER_FAILED,
+    CLEAR_CONSTRUCTOR,
+    SET_CONSTRUCTOR,
+    FILL_CONSTRUCTOR,
+    SORT_CONSTRUCTOR
 } from '../actions/index'
 
 const initialState = {
@@ -13,7 +17,8 @@ const initialState = {
     orderRequestProcessing: false,
     orderRequestFailed: false,
     constructorIngredients: [],
-    constructorBun: null
+    constructorBun: null,
+    selectedIngredient: {}
 };
 
 export const getIngredientsData = (state = initialState, action) => {
@@ -70,3 +75,23 @@ export const getOrderData = (state = initialState, action) => {
         }
     }
 };
+
+export const sortedBurger = (state = initialState, action) => {
+    switch (action.type) {
+        case SET_CONSTRUCTOR: {
+            return {
+                ...state,
+                constructorIngredients: [...state.constructorIngredients, action.constructorIngredients]
+            }
+        }
+        case CLEAR_CONSTRUCTOR: {
+            return {
+                ...state,
+                constructorIngredients: []
+            }
+        }
+        default: {
+            return state;
+        }
+    }
+}
