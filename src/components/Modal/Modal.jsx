@@ -51,15 +51,15 @@ const Modal = (props) => {
     )
 };
 
-Modal.defaultProps = {
-    title: ''
-};
-
-Modal.propTypes = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-    activeModal: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired
-};
+// Modal.defaultProps = {
+//     title: ''
+// };
+//
+// Modal.propTypes = {
+//     title: PropTypes.string.isRequired,
+//     children: PropTypes.node.isRequired,
+//     activeModal: PropTypes.bool.isRequired,
+//     closeModal: PropTypes.func.isRequired
+// };
 
 export default Modal

@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
-import { getOrderData, getIngredientsData } from './reducers/index'
+import {getOrderData, getIngredientsData, getIngredientCard} from './reducers/index'
 
 export const rootReducer = combineReducers({
-    getOrderData,
-    getIngredientsData
+    order: getOrderData,
+    ingredients: getIngredientsData,
+    ingredient: getIngredientCard
 })

@@ -37,9 +37,9 @@ const BurgerIngredients = (props) => {
     );
 };
 
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-    openModal: PropTypes.func.isRequired
-};
+// BurgerIngredients.propTypes = {
+//     data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+//     openModal: PropTypes.func.isRequired
+// };
 
 export default BurgerIngredients;

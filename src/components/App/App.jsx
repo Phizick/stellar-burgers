@@ -12,46 +12,55 @@ import stylesApp from '../App/App.module.css'
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import Modal from '../Modal/Modal'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-import {apiUrl} from "../../utils/constants";
+
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { useSelector, useDispatch } from "react-redux";
+import {getIngredients, getIngredient, deleteIngredient} from '../../services/actions/index'
 
 const App = () => {
-    const [ingredients, setIngredients] = useState([])
+    const dispatch = useDispatch();
+    const ingredients = useSelector(state => state.ingredients.ingredients)
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false)
     const [isOpenedOrderModal, setModalOrderState] = useState(false)
-    const [currentIngredient, setCurrentIngredient] = useState({})
+    // const [currentIngredient, setCurrentIngredient] = useState({})
+console.log(ingredients)
+    useEffect(() => {
+        dispatch(getIngredients())
+    }, [dispatch])
 
     const handleOrderState = () => {
         setModalOrderState(!isOpenedOrderModal)
     };
     const handleIngredientState = (i) => {
-        setCurrentIngredient(i);
-        setModalIngredientsState(t => !t)
+        dispatch(getIngredient(i));
+        setModalIngredientsState(true)
     };
     const closeOrderModal = () => {
+        dispatch(deleteIngredient())
         setModalOrderState(false)
     };
     const closeIngredientModal = () => {
         setModalIngredientsState(false)
     };
 
-    useEffect(() => {
-        fetch(apiUrl)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(res.status);
-            })
-            .then(response => setIngredients(response.data))
-            .catch(err => console.error(err))
-    }, [])
+    // useEffect(() => {
+    //     fetch(apiUrl)
+    //         .then(res => {
+    //             if (res.ok) {
+    //                 return res.json();
+    //             }
+    //             return Promise.reject(res.status);
+    //         })
+    //         .then(response => setIngredients(response.data))
+    //         .catch(err => console.error(err))
+    // }, [])
 
     return (
         <>
             <AppHeader />
             <main className={stylesApp.mainContent}>
+                <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
                 {ingredients.length &&
                     <>
                         <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
@@ -60,7 +69,7 @@ const App = () => {
                 }
             </main>
             <Modal activeModal={isOpenedIngredientsModal} title={"Детали ингредиента"} closeModal={closeIngredientModal}>
-                <IngredientDetails selectedElement={currentIngredient}/>
+                <IngredientDetails />
             </Modal>
             <Modal activeModal={isOpenedOrderModal} closeModal={closeOrderModal} >
                 <OrderDetails />

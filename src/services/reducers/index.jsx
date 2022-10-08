@@ -7,12 +7,13 @@ import {
     SEND_ORDER_FAILED,
     CLEAR_CONSTRUCTOR,
     SET_CONSTRUCTOR,
-    FILL_CONSTRUCTOR,
-    SORT_CONSTRUCTOR
+    CHOICE_INGREDIENT,
+    DELETE_INGREDIENT
 } from '../actions/index'
 
 const initialState = {
     ingredients: [],
+    ingredientsProcessing: false,
     orderData: {},
     orderRequestProcessing: false,
     orderRequestFailed: false,
@@ -26,20 +27,20 @@ export const getIngredientsData = (state = initialState, action) => {
         case GET_INGREDIENTS: {
             return {
                 ...state,
-                processing: true
+                ingredientsProcessing: true
             }
         }
         case GET_INGREDIENTS_SUCCESS: {
             return {
                 ...state,
-                processing: false,
+                ingredientsProcessing: false,
                 ingredients: action.ingredients
             }
         }
         case GET_INGREDIENTS_FAILED: {
             return {
                 ...state,
-                processing: false,
+                ingredientsProcessing: false,
                 ingredients: state.ingredients
             }
         }
@@ -94,4 +95,24 @@ export const sortedBurger = (state = initialState, action) => {
             return state;
         }
     }
+};
+
+export const getIngredientCard = (state = initialState, action) => {
+    switch (action.type) {
+        case CHOICE_INGREDIENT: {
+            return {
+                ...state,
+                ingredient: {...state.ingredient, ...action.data }
+            }
+        }
+        case DELETE_INGREDIENT: {
+            return {
+                ...state,
+                ingredient: {}
+            }
+        }
+        default:
+            return state;
+    }
 }
+

@@ -28,11 +28,11 @@ const BurgerIngredientTypeGroup = (props) => {
     )
 };
 
-BurgerIngredientTypeGroup.propTypes = {
-    title: PropTypes.string.isRequired,
-    listType: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-    openModal: PropTypes.func.isRequired
-};
+// BurgerIngredientTypeGroup.propTypes = {
+//     title: PropTypes.string.isRequired,
+//     listType: PropTypes.string.isRequired,
+//     data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+//     openModal: PropTypes.func.isRequired
+// };
 
 export default BurgerIngredientTypeGroup

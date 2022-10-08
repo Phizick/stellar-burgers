@@ -25,9 +25,9 @@ const BurgerIngredient = (props) => {
     );
 };
 
-BurgerIngredient.propTypes = {
-    data: ingredientType.isRequired,
-    openModal: PropTypes.func.isRequired
- };
+// BurgerIngredient.propTypes = {
+//     data: ingredientType.isRequired,
+//     openModal: PropTypes.func.isRequired
+//  };
 
 export default BurgerIngredient;

@@ -14,37 +14,34 @@ export const SET_CONSTRUCTOR = 'SET_CONSTRUCTOR';
 export const FILL_CONSTRUCTOR = 'FILL_CONSTRUCTOR';
 export const SORT_CONSTRUCTOR = 'SORT_CONSTRUCTOR';
 
+const checkResponse = (res) => {
+    if (!res.ok) {
+        throw new Error('connection failed')
+    }
+    return res.json();
+}
 
 
-
-
-
-
-
-export const getIngredientsData = () => {
+export const getIngredients = () => {
     return dispatch => {
         dispatch({
             type: GET_INGREDIENTS
         })
         fetch(`${apiUrl}/ingredients`)
-            .then(res => {
-                if (res.ok) {
-                    dispatch({
-                        type: GET_INGREDIENTS_SUCCESS,
-                        ingredients: res.data
-                    })
-                } else {
-                    dispatch({
-                        type: GET_INGREDIENTS_FAILED
-                    })
-                }
+            .then(res => checkResponse(res))
+            .then(res => console.log(res))
+            .then(json => {
+                dispatch({
+                    type: GET_INGREDIENTS_SUCCESS,
+                    ingredients: json.data
+                })
             })
             .catch(err => {
                 dispatch({
                     type: GET_INGREDIENTS_FAILED,
                     error: err.message
                 })
-                console.error(err)
+
             })
     }
 }
@@ -56,30 +53,41 @@ export const sendOrder = () => {
         })
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ 'ingredients': anyListOrder})
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({'ingredients': []})
         }
         fetch(`${apiUrl}/orders`, requestOptions)
+            .then(res => checkResponse(res))
             .then(res => {
-                if (res.ok) {
-                    dispatch({
-                        type: SEND_ORDER_SUCCESS,
-                        order: res.data
-                    })
-                } else {
-                    dispatch({
-                        type: SEND_ORDER_FAILED
-                    })
-                }
-            })
-            .catch(err => {
                 dispatch({
-                    type: SEND_ORDER_FAILED,
-                    error: err.message
+                    type: SEND_ORDER_SUCCESS,
+                    order: res.data
                 })
-                console.error(err)
+                    .catch(err => {
+                        dispatch({
+                            type: SEND_ORDER_FAILED,
+                            error: err.message
+                        })
+
+                    })
             })
     }
 };
 
+export const getIngredient = (ingredient) => {
+    return dispatch => {
+        dispatch({
+            type: CHOICE_INGREDIENT,
+            data: ingredient
+        })
+    }
+}
+
+export const deleteIngredient = () => {
+    return dispatch => {
+        dispatch({
+            type: DELETE_INGREDIENT
+        })
+    }
+};
 

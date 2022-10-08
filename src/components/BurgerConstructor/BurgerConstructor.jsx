@@ -66,9 +66,9 @@ const BurgerConstructor = (props) => {
     );
 };
 
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-    openModal: PropTypes.func.isRequired
-};
+// BurgerConstructor.propTypes = {
+//     data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+//     openModal: PropTypes.func.isRequired
+// };
 
 export default BurgerConstructor;
