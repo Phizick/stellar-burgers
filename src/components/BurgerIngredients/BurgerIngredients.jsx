@@ -10,10 +10,13 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
 import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/type";
+import {useDispatch} from "react-redux";
+
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = React.useState("one");
+    const dispatch = useDispatch();
+
     return (
         <section className={`${stylesBurgerIngredients.section} mt-10`}>
             <h2 className={"text text_type_main-large p-4"}>Соберите бургер</h2>
@@ -29,9 +32,9 @@ const BurgerIngredients = (props) => {
                 </Tab>
             </div>
             <ul className={`${stylesBurgerIngredients.list} mt-10 pl-1 pr-2`}>
-                <BurgerIngredientTypeGroup data={props.data} listType={"bun"} title={"Булки"} openModal={props.openModal}  />
-                <BurgerIngredientTypeGroup data={props.data} listType={"sauce"} title={"Соусы"} openModal={props.openModal} />
-                <BurgerIngredientTypeGroup data={props.data} listType={"main"} title={"Начинки"} openModal={props.openModal}  />
+                <BurgerIngredientTypeGroup listType={"bun"} title={"Булки"} openModal={props.openModal}  />
+                <BurgerIngredientTypeGroup listType={"sauce"} title={"Соусы"} openModal={props.openModal} />
+                <BurgerIngredientTypeGroup listType={"main"} title={"Начинки"} openModal={props.openModal}  />
             </ul>
         </section>
     );

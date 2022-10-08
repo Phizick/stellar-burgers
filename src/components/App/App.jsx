@@ -24,7 +24,7 @@ const App = () => {
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false)
     const [isOpenedOrderModal, setModalOrderState] = useState(false)
     // const [currentIngredient, setCurrentIngredient] = useState({})
-console.log(ingredients)
+console.log(typeof ingredients)
     useEffect(() => {
         dispatch(getIngredients())
     }, [dispatch])
@@ -44,27 +44,14 @@ console.log(ingredients)
         setModalIngredientsState(false)
     };
 
-    // useEffect(() => {
-    //     fetch(apiUrl)
-    //         .then(res => {
-    //             if (res.ok) {
-    //                 return res.json();
-    //             }
-    //             return Promise.reject(res.status);
-    //         })
-    //         .then(response => setIngredients(response.data))
-    //         .catch(err => console.error(err))
-    // }, [])
-
     return (
         <>
             <AppHeader />
             <main className={stylesApp.mainContent}>
-                <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
-                {ingredients.length &&
+                {ingredients &&
                     <>
-                        <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
-                        <BurgerConstructor data={ingredients} openModal={handleOrderState}/>
+                        <BurgerIngredients openModal={handleIngredientState} />
+                        <BurgerConstructor openModal={handleOrderState}/>
                     </>
                 }
             </main>

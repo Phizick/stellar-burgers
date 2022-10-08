@@ -8,8 +8,9 @@
 import React from "react";
 import stylesBurgerIngredient from "../BurgerIngredient/BurgerIngredient.module.css";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/type";
+// import PropTypes from "prop-types";
+// import {ingredientType} from "../../utils/type";
+import {useSelector, useDispatch} from "react-redux";
 
 const BurgerIngredient = (props) => {
     return (

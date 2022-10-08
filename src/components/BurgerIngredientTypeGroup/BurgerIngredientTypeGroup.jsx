@@ -8,15 +8,17 @@
 import React from 'react';
 import stylesBurgerIngredientTypeGroup from '../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup.module.css'
 import BurgerIngredient from '../BurgerIngredient/BurgerIngredient'
-import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/type";
+// import PropTypes from "prop-types";
+// import {ingredientType} from "../../utils/type";
+import {useSelector} from "react-redux";
 
 const BurgerIngredientTypeGroup = (props) => {
+    const burgerIngredients = useSelector(state => state.ingredients.ingredients)
     return (
         <section className={`${stylesBurgerIngredientTypeGroup.container} `}>
             <p className={`text text_type_main-medium m-2`}>{props.title}</p>
             <ul className={`${stylesBurgerIngredientTypeGroup.list} pl-4 pr-5`}>
-                {props.data.map((item) => {
+                {burgerIngredients.map((item) => {
                     if(item.type === props.listType) {
                         return (
                             <BurgerIngredient openModal={props.openModal} key={item._id} data={item}/>

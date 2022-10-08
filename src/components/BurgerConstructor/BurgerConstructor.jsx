@@ -10,8 +10,13 @@ import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.modu
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import {ingredientType} from "../../utils/type";
+import {useDispatch, useSelector} from "react-redux";
 
 const BurgerConstructor = (props) => {
+    const dispatch = useDispatch();
+    const price = useSelector(state => state.price.price);
+    const constructorIngredients = useSelector(state => state.constructor.constructorIngredients)
+
     return (
         <section className={`${stylesBurgerConstructor.section} mt-25 pb-30`}>
             <ul className={stylesBurgerConstructor.list}>

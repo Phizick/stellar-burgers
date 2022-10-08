@@ -8,7 +8,9 @@ import {
     CLEAR_CONSTRUCTOR,
     SET_CONSTRUCTOR,
     CHOICE_INGREDIENT,
-    DELETE_INGREDIENT
+    DELETE_INGREDIENT,
+    GET_CONSTRUCTOR,
+    CALC_PRICE
 } from '../actions/index'
 
 const initialState = {
@@ -19,7 +21,8 @@ const initialState = {
     orderRequestFailed: false,
     constructorIngredients: [],
     constructorBun: null,
-    selectedIngredient: {}
+    selectedIngredient: {},
+    price: ''
 };
 
 export const getIngredientsData = (state = initialState, action) => {
@@ -77,18 +80,32 @@ export const getOrderData = (state = initialState, action) => {
     }
 };
 
-export const sortedBurger = (state = initialState, action) => {
+export const constructorSortedIngredients = (state = initialState, action) => {
     switch (action.type) {
-        case SET_CONSTRUCTOR: {
+        case GET_CONSTRUCTOR: {
             return {
                 ...state,
                 constructorIngredients: [...state.constructorIngredients, action.constructorIngredients]
             }
         }
-        case CLEAR_CONSTRUCTOR: {
+        case SET_CONSTRUCTOR: {
+            const sortedConstructor = [...state.constructorIngredients];
+            sortedConstructor.splice(action, 0, sortedConstructor.splice(action, 1)[0])
             return {
                 ...state,
-                constructorIngredients: []
+                constructorIngredients: sortedConstructor
+            }
+        }
+        case CLEAR_CONSTRUCTOR: {
+            const itemForClear = state.constructorIngredients.find(item => item._id === action._id)
+            const itemForClearIndex = state.constructorIngredients.indexOf(itemForClear)
+            state.constructorIngredients.splice(itemForClearIndex, 1)
+            if (!itemForClear) {
+                return state
+            }
+            return {
+                ...state,
+                constructorIngredients: [...state.constructorIngredients]
             }
         }
         default: {
@@ -96,6 +113,23 @@ export const sortedBurger = (state = initialState, action) => {
         }
     }
 };
+
+export const orderTotalPrice = (state = initialState, action) => {
+    switch (action.type) {
+        case CALC_PRICE: {
+            return {
+                ...state,
+                price: action.price
+            }
+        }
+        default: {
+            return state;
+        }
+    }
+};
+
+export const
+
 
 export const getIngredientCard = (state = initialState, action) => {
     switch (action.type) {
