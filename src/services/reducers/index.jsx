@@ -128,9 +128,6 @@ export const orderTotalPrice = (state = initialState, action) => {
     }
 };
 
-export const
-
-
 export const getIngredientCard = (state = initialState, action) => {
     switch (action.type) {
         case CHOICE_INGREDIENT: {
