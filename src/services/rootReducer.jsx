@@ -1,16 +1,12 @@
 import { combineReducers } from "redux";
 import {
-    getOrderData,
-    getIngredientsData,
-    getIngredientCard,
-    constructorSortedIngredients,
-    orderTotalPrice
+    getIngredientsData, getIngredientCard, getOrderData
 } from './reducers/index'
+import {burgerConstructorData} from './reducers/burgerIngredients'
 
 export const rootReducer = combineReducers({
-    order: getOrderData,
     ingredients: getIngredientsData,
-    ingredient: getIngredientCard,
-    constructor: constructorSortedIngredients,
-    price: orderTotalPrice
+    burgerIngredients: burgerConstructorData,
+    ingredientDetail: getIngredientCard,
+    order: getOrderData
 })

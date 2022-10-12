@@ -10,7 +10,7 @@ import {
     CHOICE_INGREDIENT,
     DELETE_INGREDIENT,
     GET_CONSTRUCTOR,
-    CALC_PRICE
+    CALC_PRICE,
 } from '../actions/index'
 
 const initialState = {
@@ -22,8 +22,10 @@ const initialState = {
     constructorIngredients: [],
     constructorBun: null,
     selectedIngredient: {},
-    price: ''
+    price: '',
+    data: []
 };
+
 
 export const getIngredientsData = (state = initialState, action) => {
     switch (action.type) {
@@ -34,23 +36,27 @@ export const getIngredientsData = (state = initialState, action) => {
             }
         }
         case GET_INGREDIENTS_SUCCESS: {
+
             return {
                 ...state,
                 ingredientsProcessing: false,
-                ingredients: action.ingredients
+                data: action.data,
             }
+
         }
         case GET_INGREDIENTS_FAILED: {
             return {
                 ...state,
                 ingredientsProcessing: false,
-                ingredients: state.ingredients
+                data: state.data
             }
         }
         default:
             return state;
     }
 };
+
+
 
 export const getOrderData = (state = initialState, action) => {
     switch (action.type) {
@@ -80,39 +86,6 @@ export const getOrderData = (state = initialState, action) => {
     }
 };
 
-export const constructorSortedIngredients = (state = initialState, action) => {
-    switch (action.type) {
-        case GET_CONSTRUCTOR: {
-            return {
-                ...state,
-                constructorIngredients: [...state.constructorIngredients, action.constructorIngredients]
-            }
-        }
-        case SET_CONSTRUCTOR: {
-            const sortedConstructor = [...state.constructorIngredients];
-            sortedConstructor.splice(action, 0, sortedConstructor.splice(action, 1)[0])
-            return {
-                ...state,
-                constructorIngredients: sortedConstructor
-            }
-        }
-        case CLEAR_CONSTRUCTOR: {
-            const itemForClear = state.constructorIngredients.find(item => item._id === action._id)
-            const itemForClearIndex = state.constructorIngredients.indexOf(itemForClear)
-            state.constructorIngredients.splice(itemForClearIndex, 1)
-            if (!itemForClear) {
-                return state
-            }
-            return {
-                ...state,
-                constructorIngredients: [...state.constructorIngredients]
-            }
-        }
-        default: {
-            return state;
-        }
-    }
-};
 
 export const orderTotalPrice = (state = initialState, action) => {
     switch (action.type) {
@@ -133,13 +106,13 @@ export const getIngredientCard = (state = initialState, action) => {
         case CHOICE_INGREDIENT: {
             return {
                 ...state,
-                ingredient: {...state.ingredient, ...action.data }
+                selectedIngredient: {...state.selectedIngredient, ...action.selectedIngredient }
             }
         }
         case DELETE_INGREDIENT: {
             return {
                 ...state,
-                ingredient: {}
+                selectedIngredient: {}
             }
         }
         default:

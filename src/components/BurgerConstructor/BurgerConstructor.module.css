@@ -1,6 +1,7 @@
 .section {
     max-width: 600px;
     max-height: 912px;
+    border: 1px solid red;
 }
 
 .totalScore {

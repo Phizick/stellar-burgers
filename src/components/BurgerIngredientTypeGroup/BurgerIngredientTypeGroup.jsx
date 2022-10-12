@@ -13,12 +13,13 @@ import BurgerIngredient from '../BurgerIngredient/BurgerIngredient'
 import {useSelector} from "react-redux";
 
 const BurgerIngredientTypeGroup = (props) => {
-    const burgerIngredients = useSelector(state => state.ingredients.ingredients)
+    const burgerIngredients = useSelector(store => store.ingredients.data)
+    console.log(burgerIngredients)
     return (
         <section className={`${stylesBurgerIngredientTypeGroup.container} `}>
             <p className={`text text_type_main-medium m-2`}>{props.title}</p>
             <ul className={`${stylesBurgerIngredientTypeGroup.list} pl-4 pr-5`}>
-                {burgerIngredients.map((item) => {
+                {burgerIngredients.length > 0 && burgerIngredients.map((item) => {
                     if(item.type === props.listType) {
                         return (
                             <BurgerIngredient openModal={props.openModal} key={item._id} data={item}/>

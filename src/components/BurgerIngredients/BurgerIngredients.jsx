@@ -15,7 +15,6 @@ import {useDispatch} from "react-redux";
 
 const BurgerIngredients = (props) => {
     const [current, setCurrent] = React.useState("one");
-    const dispatch = useDispatch();
 
     return (
         <section className={`${stylesBurgerIngredients.section} mt-10`}>
