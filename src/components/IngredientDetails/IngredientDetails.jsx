@@ -8,11 +8,10 @@
 
 import React from 'react'
 import stylesIngredientDetails from '../IngredientDetails/IngredientDetails.module.css'
-
 import {useSelector} from "react-redux";
 
 const IngredientDetails = () => {
-    const ingredient = useSelector(state => state.ingredient.ingredient)
+    const ingredient = useSelector(state => state.ingredientDetail.selectedIngredient)
     return (
         <section className={stylesIngredientDetails.container}>
             <img src={ingredient.image_large} alt={ingredient.name}/>
@@ -38,7 +37,6 @@ const IngredientDetails = () => {
         </section>
     )
 };
-
 
 
 export default IngredientDetails

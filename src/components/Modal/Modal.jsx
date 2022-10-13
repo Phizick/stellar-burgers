@@ -15,8 +15,7 @@ import {modalContainer} from "../../utils/constants";
 
 
 const Modal = (props) => {
-
-    const isModalOpen = props.activeModal;
+    const isModalOpen = props.isOpened;
 
     useEffect(() => {
         const handleEscClose = (e) => {
@@ -31,7 +30,7 @@ const Modal = (props) => {
     }, [isModalOpen]);
 
     return ReactDOM.createPortal (
-        <ModalOverlay closeModal={props.closeModal} isActive={props.activeModal}>
+        <ModalOverlay closeModal={props.closeModal} isActive={props.isOpened}>
             <div className={`${stylesModal.modal} pt-10 pb-10 pl-10 pr-10`}>
                 <div className={`${stylesModal.header}`}>
                     {
@@ -51,15 +50,14 @@ const Modal = (props) => {
     )
 };
 
-// Modal.defaultProps = {
-//     title: ''
-// };
-//
-// Modal.propTypes = {
-//     title: PropTypes.string.isRequired,
-//     children: PropTypes.node.isRequired,
-//     activeModal: PropTypes.bool.isRequired,
-//     closeModal: PropTypes.func.isRequired
-// };
+Modal.defaultProps = {
+    title: ''
+};
+
+Modal.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    isOpened: PropTypes.bool.isRequired
+};
 
 export default Modal

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const ingredientType = PropTypes.shape({
+export const ingredientType = PropTypes.shape({
     calories: PropTypes.number,
     carbohydrates: PropTypes.number,
     fat: PropTypes.number,

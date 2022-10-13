@@ -12,53 +12,57 @@ import stylesApp from '../App/App.module.css'
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import Modal from '../Modal/Modal'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useSelector, useDispatch } from "react-redux";
-import {getIngredients, getIngredient, deleteIngredient} from '../../services/actions/index'
+import {clearIngredientDetails, getIngredientDetails, getIngredients, setOrder} from '../../services/actions/index'
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
 
 const App = () => {
     const dispatch = useDispatch();
-    const ingredients = useSelector(state => state.ingredients.ingredients)
-    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false)
-    const [isOpenedOrderModal, setModalOrderState] = useState(false)
-    // const [currentIngredient, setCurrentIngredient] = useState({})
-console.log(typeof ingredients)
+    const ingredients = useSelector(store => store.ingredients.data);
+    const [isOpenedOrderModal, setModalOrderState] = useState(false);
+    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
+
     useEffect(() => {
         dispatch(getIngredients())
-    }, [dispatch])
+    }, [dispatch]);
 
-    const handleOrderState = () => {
-        setModalOrderState(!isOpenedOrderModal)
+    const openOrderModal = () => {
+        setModalOrderState(true);
+        dispatch(
+            setOrder(ingredients.map(item => item._id))
+        )
     };
-    const handleIngredientState = (i) => {
-        dispatch(getIngredient(i));
-        setModalIngredientsState(true)
-    };
+
     const closeOrderModal = () => {
-        dispatch(deleteIngredient())
         setModalOrderState(false)
     };
+
+    const openIngredientModal = (i) => {
+        dispatch(getIngredientDetails(i));
+        setModalIngredientsState(true)
+    };
+
     const closeIngredientModal = () => {
-        setModalIngredientsState(false)
+        dispatch(clearIngredientDetails())
+        setModalIngredientsState(false);
     };
 
     return (
         <>
             <AppHeader />
+            <DndProvider backend={HTML5Backend}>
             <main className={stylesApp.mainContent}>
-                {ingredients &&
-                    <>
-                        <BurgerIngredients openModal={handleIngredientState} />
-                        <BurgerConstructor openModal={handleOrderState}/>
-                    </>
-                }
+                <BurgerIngredients  activeModal={openIngredientModal}/>
+                <BurgerConstructor openModal={openOrderModal}/>
             </main>
-            <Modal activeModal={isOpenedIngredientsModal} title={"Детали ингредиента"} closeModal={closeIngredientModal}>
+                </DndProvider>
+            <Modal  title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
                 <IngredientDetails />
             </Modal>
-            <Modal activeModal={isOpenedOrderModal} closeModal={closeOrderModal} >
+            <Modal activeModal={openOrderModal} closeModal={closeOrderModal} isOpened={isOpenedOrderModal}>
                 <OrderDetails />
             </Modal>
         </>

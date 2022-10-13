@@ -5,18 +5,34 @@
  * разметку карточки ингредиента бургера с функциональностью открытия модального окна с информацией о нем
  */
 
-import React from "react";
 import stylesBurgerIngredient from "../BurgerIngredient/BurgerIngredient.module.css";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-// import PropTypes from "prop-types";
-// import {ingredientType} from "../../utils/type";
-import {useSelector, useDispatch} from "react-redux";
+import { useDrag} from "react-dnd";
+import { useSelector} from "react-redux";
+import { ingredientType } from "../../utils/type";
 
 const BurgerIngredient = (props) => {
+    const ingredients = useSelector(store => store.burgerIngredients.ingredients)
+    const bun = useSelector(store => store.bunData.bun)
+    const setCounter = () => {
+        if (props.data.type !== 'bun') {
+            return ingredients.filter(item => item._id === props.data._id).length
+        } else if (bun?._id === props.data._id) {
+            return 2
+        } else return 0
+    };
+
+    const count = setCounter();
+
+    const [, dragRef] = useDrag({
+        type: 'ingredient',
+        item: props.data
+    });
+
     return (
-        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => {props.openModal(props.data)}} >
+        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => {props.activeModal(props.data)}} draggable ref={dragRef}>
             <img src={props.data.image} alt={props.data.name} />
-            <Counter count={1} size="default" />
+            {count > 0 ? <Counter count={count} size="default" /> : <></>}
             <div className={`${stylesBurgerIngredient.price} text text_type_digits-default mt-4 mb-4`}>
                 <p className={`${stylesBurgerIngredient.priceNumber} p-2`}>{props.data.price}</p>
                 <CurrencyIcon type="primary" />
@@ -26,9 +42,8 @@ const BurgerIngredient = (props) => {
     );
 };
 
-// BurgerIngredient.propTypes = {
-//     data: ingredientType.isRequired,
-//     openModal: PropTypes.func.isRequired
-//  };
+BurgerIngredient.propTypes = {
+    data: ingredientType.isRequired
+ };
 
 export default BurgerIngredient;

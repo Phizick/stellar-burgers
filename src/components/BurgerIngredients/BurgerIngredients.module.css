@@ -15,7 +15,6 @@
 .list::-webkit-scrollbar-thumb {
     background: rgba(133, 133, 173, 1);
     border-radius: 0;
-
 }
 
 .list::-webkit-scrollbar-track {
@@ -24,4 +23,9 @@
 
 .list::-webkit-scrollbar-thumb:hover {
     background: rgba(51, 51, 255, .25);
+}
+
+.link {
+    color: inherit;
+    text-decoration: none;
 }
