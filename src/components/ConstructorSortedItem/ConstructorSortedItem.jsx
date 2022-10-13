@@ -1,12 +1,11 @@
 
 import React, {useRef} from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
-import {ingredientType} from "../../utils/type";
 import { useDispatch} from "react-redux";
 import {useDrop, useDrag} from "react-dnd";
 import { DELETE_CONSTRUCTOR_INGREDIENT} from "../../services/actions";
 import stylesConstructorSortedItem from '../ConstructorSortedItem/ConstructorSortedItem.module.css'
+
 
 const ConstructorSortedItem = (props) => {
 
@@ -70,5 +69,6 @@ const ConstructorSortedItem = (props) => {
         </div>
     )
 };
+
 
 export default ConstructorSortedItem
