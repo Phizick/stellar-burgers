@@ -8,7 +8,6 @@
 
 import React from 'react'
 import stylesIngredientDetails from '../IngredientDetails/IngredientDetails.module.css'
-
 import {useSelector} from "react-redux";
 
 const IngredientDetails = () => {
@@ -38,7 +37,6 @@ const IngredientDetails = () => {
         </section>
     )
 };
-
 
 
 export default IngredientDetails

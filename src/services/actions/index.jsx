@@ -1,6 +1,3 @@
-import apiUrl from '../../utils/constants'
-
-
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
@@ -9,24 +6,18 @@ export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const SEND_ORDER = 'SEND_ORDER';
 export const SEND_ORDER_SUCCESS = 'SEND_ORDER_SUCCESS';
 export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
-export const GET_CONSTRUCTOR = 'GET_CONSTRUCTOR'
-export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
-export const SET_CONSTRUCTOR = 'SET_CONSTRUCTOR';
-export const CALC_PRICE = 'CALC_PRICE';
 export const ADD_CONSTRUCTOR_INGREDIENT = 'ADD_CONSTRUCTOR_INGREDIENT';
 export const SET_DEFAULT_CONSTRUCTOR = 'SET_DEFAULT_CONSTRUCTOR';
 export const DELETE_CONSTRUCTOR_INGREDIENT = 'DELETE_CONSTRUCTOR_INGREDIENT';
 export const SORTED_CONSTRUCTOR = 'SORTED_CONSTRUCTOR';
 export const REFRESH_CONSTRUCTOR_BUN ='REFRESH_CONSTRUCTOR_BUN'
 
-
-
 export function checkResponse(res) {
     if (res.ok) {
         return res.json();
     }
     return Promise.reject(`error ${res}`)
-}
+};
 
 export const getIngredients = () => {
     return dispatch => {
@@ -49,7 +40,7 @@ export const getIngredients = () => {
 
             })
     }
-}
+};
 
 export const setOrder = (ingredients) => {
     return dispatch => {
@@ -66,7 +57,7 @@ export const setOrder = (ingredients) => {
             .then(res => {
                 dispatch({
                     type: SEND_ORDER_SUCCESS,
-                    order: res.data.order.number
+                    order: res.order.number
                 })
                     .catch(err => {
                         dispatch({
@@ -86,7 +77,7 @@ export const getIngredientDetails = (ingredient) => {
             data: ingredient
         })
     }
-}
+};
 
 export const clearIngredientDetails = () => {
     return dispatch => {
@@ -94,6 +85,6 @@ export const clearIngredientDetails = () => {
             type: DELETE_INGREDIENT,
         })
     }
-}
+};
 
 

@@ -3,7 +3,7 @@ import { ADD_CONSTRUCTOR_INGREDIENT, SET_DEFAULT_CONSTRUCTOR, DELETE_CONSTRUCTOR
 
 const initialState = {
     ingredients: [],
-    bun: {}
+    bun: null
 }
 
 export const burgerConstructorReducer = (state = initialState, action) => {

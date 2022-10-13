@@ -5,16 +5,15 @@
  * разметку конструктора бургера со скроллом
  */
 
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback} from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
-import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import {ingredientType} from "../../utils/type";
 import { useSelector, useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
 import {
     SET_DEFAULT_CONSTRUCTOR,
-    DELETE_CONSTRUCTOR_INGREDIENT,
     SORTED_CONSTRUCTOR,
     REFRESH_CONSTRUCTOR_BUN
 } from "../../services/actions";
@@ -23,21 +22,17 @@ import { v4 as uuidv4 } from 'uuid';
 
 const BurgerConstructor = (props) => {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients);
-    const bunData = useSelector(store => store.bunData.bun)
-    console.log(bunData)
+    const bunData = useSelector(store => store.bunData.bun);
 
-
-    const dispatch = useDispatch()
-
-
+    const dispatch = useDispatch();
     const price = ingredients.reduce((a, b) => a + b.price, 0);
 
-    const [ {}, dropRef] = useDrop({
+    const [, dropRef] = useDrop({
         accept: 'ingredient',
         drop: (item => ingredientTypeOf(item))
-    })
+    });
 
-const ingredientTypeOf = (item) => {
+    const ingredientTypeOf = (item) => {
         if (item.type === 'bun' && ingredients.find(item => item.type === 'bun')) {
             dispatch({
                 type: REFRESH_CONSTRUCTOR_BUN,
@@ -48,6 +43,10 @@ const ingredientTypeOf = (item) => {
                 type: SET_DEFAULT_CONSTRUCTOR,
                 data: item
             })
+            dispatch({
+                type: REFRESH_CONSTRUCTOR_BUN,
+                data: item
+            })
         }
         else {
             dispatch({
@@ -55,19 +54,15 @@ const ingredientTypeOf = (item) => {
                 data: item
             })
         }
+    };
 
-}
-
-
-const moveIngredientCard = useCallback((dragIndex, hoverIndex) => {
-    dispatch({
-        type: SORTED_CONSTRUCTOR,
-        itemFrom: dragIndex,
-        itemTo: hoverIndex
-    })
-
-
-}, [ingredients]);
+    const moveIngredientCard = useCallback((dragIndex, hoverIndex) => {
+        dispatch({
+            type: SORTED_CONSTRUCTOR,
+            itemFrom: dragIndex,
+            itemTo: hoverIndex
+        })
+    }, [ingredients]);
 
 
     return (
@@ -91,7 +86,7 @@ const moveIngredientCard = useCallback((dragIndex, hoverIndex) => {
                         </li>
 
                         <ul className={stylesBurgerConstructor.items}>
-                            {ingredients.length > 0 ?
+                            {ingredients.length >= 1 ?
                                 ingredients
                                 .filter((item) => item.type !== "bun")
                                 .map((item, index) => {
@@ -100,9 +95,7 @@ const moveIngredientCard = useCallback((dragIndex, hoverIndex) => {
                                     return (
                                         <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2 pr-2`}
                                             key={index}>
-
-                                            <ConstructorSortedItem id={item._id} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
-
+                                            <ConstructorSortedItem id={item.ID} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
                                         </li>
                                     );
                                 })
@@ -124,17 +117,21 @@ const moveIngredientCard = useCallback((dragIndex, hoverIndex) => {
                             }
                         </li>
                     </ul>
-                    <div className={`${stylesBurgerConstructor.totalScore} mt-10`}>
-                        <p className={`text text_type_digits-medium mr-10`}>
-                            {price}
-                            <CurrencyIcon type={"primary"}/>
-                        </p>
-                        <div onClick={props.openModal}>
-                            <Button type="primary" size="large">
-                                Оформить заказ
-                            </Button>
+                    {ingredients.length > 1 && bunData ?
+                        <div className={`${stylesBurgerConstructor.totalScore} mt-10`}>
+                            <p className={`text text_type_digits-medium mr-10`}>
+                                {price}
+                                <CurrencyIcon type={"primary"}/>
+                            </p>
+                            <div onClick={props.openModal}>
+                                <Button type="primary" size="large">
+                                    Оформить заказ
+                                </Button>
+                            </div>
                         </div>
-                    </div>
+                        :
+                        <></>
+                    }
                 </>
                 :
                 <>
@@ -149,9 +146,8 @@ const moveIngredientCard = useCallback((dragIndex, hoverIndex) => {
     );
 };
 
-// BurgerConstructor.propTypes = {
-//     data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-//     openModal: PropTypes.func.isRequired
-// };
+BurgerConstructor.propTypes = {
+    openModal: PropTypes.func.isRequired
+};
 
 export default BurgerConstructor;

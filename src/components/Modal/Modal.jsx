@@ -15,7 +15,6 @@ import {modalContainer} from "../../utils/constants";
 
 
 const Modal = (props) => {
-
     const isModalOpen = props.isOpened;
 
     useEffect(() => {
@@ -51,15 +50,14 @@ const Modal = (props) => {
     )
 };
 
-// Modal.defaultProps = {
-//     title: ''
-// };
-//
-// Modal.propTypes = {
-//     title: PropTypes.string.isRequired,
-//     children: PropTypes.node.isRequired,
-//     activeModal: PropTypes.bool.isRequired,
-//     closeModal: PropTypes.func.isRequired
-// };
+Modal.defaultProps = {
+    title: ''
+};
+
+Modal.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    isOpened: PropTypes.bool.isRequired
+};
 
 export default Modal

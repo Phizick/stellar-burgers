@@ -5,11 +5,11 @@
  * разметку карточки ингредиента бургера с функциональностью открытия модального окна с информацией о нем
  */
 
-import React, {useState} from "react";
 import stylesBurgerIngredient from "../BurgerIngredient/BurgerIngredient.module.css";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag} from "react-dnd";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
+import { ingredientType } from "../../utils/type";
 
 const BurgerIngredient = (props) => {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients)
@@ -20,14 +20,15 @@ const BurgerIngredient = (props) => {
         } else if (bun?._id === props.data._id) {
             return 2
         } else return 0
-    }
+    };
 
-    const count = setCounter()
+    const count = setCounter();
 
     const [, dragRef] = useDrag({
         type: 'ingredient',
         item: props.data
-    })
+    });
+
     return (
         <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => {props.activeModal(props.data)}} draggable ref={dragRef}>
             <img src={props.data.image} alt={props.data.name} />
@@ -41,9 +42,8 @@ const BurgerIngredient = (props) => {
     );
 };
 
-// BurgerIngredient.propTypes = {
-//     data: ingredientType.isRequired,
-//     openModal: PropTypes.func.isRequired
-//  };
+BurgerIngredient.propTypes = {
+    data: ingredientType.isRequired
+ };
 
 export default BurgerIngredient;

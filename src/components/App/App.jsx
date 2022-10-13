@@ -22,21 +22,19 @@ import {DndProvider} from "react-dnd";
 const App = () => {
     const dispatch = useDispatch();
     const ingredients = useSelector(store => store.ingredients.data);
-    const [isOpenedOrderModal, setModalOrderState] = useState(false)
-    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false)
-
+    const [isOpenedOrderModal, setModalOrderState] = useState(false);
+    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
 
     useEffect(() => {
         dispatch(getIngredients())
-    }, [dispatch])
-
+    }, [dispatch]);
 
     const openOrderModal = () => {
         setModalOrderState(true);
         dispatch(
             setOrder(ingredients.map(item => item._id))
         )
-    }
+    };
 
     const closeOrderModal = () => {
         setModalOrderState(false)
@@ -45,22 +43,20 @@ const App = () => {
     const openIngredientModal = (i) => {
         dispatch(getIngredientDetails(i));
         setModalIngredientsState(true)
-    }
+    };
 
     const closeIngredientModal = () => {
         dispatch(clearIngredientDetails())
         setModalIngredientsState(false);
-
-    }
-
+    };
 
     return (
         <>
             <AppHeader />
             <DndProvider backend={HTML5Backend}>
             <main className={stylesApp.mainContent}>
-                        <BurgerIngredients  activeModal={openIngredientModal}/>
-                        <BurgerConstructor openModal={openOrderModal}/>
+                <BurgerIngredients  activeModal={openIngredientModal}/>
+                <BurgerConstructor openModal={openOrderModal}/>
             </main>
                 </DndProvider>
             <Modal  title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>

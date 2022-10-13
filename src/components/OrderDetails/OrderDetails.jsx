@@ -1,5 +1,5 @@
 /**
- * компонент деталей заказа. содержит информацию о заказе. хардкод
+ * компонент деталей заказа. содержит информацию о заказе.
  * @component
  * @returns
  * разметку деталей заказа для отображения в модальном окне
@@ -11,7 +11,8 @@ import stylesOrderDetails from '../OrderDetails/OrderDetails.module.css'
 import {useSelector} from "react-redux";
 
 const OrderDetails = () => {
-    const orderNumber = useSelector(store => store.order.order)
+    const orderNumber = useSelector(store => store.order.order);
+
     return (
         <section className={`${stylesOrderDetails.container} pb-20`}>
             <p className={`${stylesOrderDetails.title} text text_type_digits-large`}>{orderNumber}</p>

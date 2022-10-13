@@ -1,14 +1,15 @@
 
-import React, {useCallback, useRef} from "react";
-import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
-import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useRef} from "react";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import {ingredientType} from "../../utils/type";
-import { useSelector, useDispatch} from "react-redux";
+import { useDispatch} from "react-redux";
 import {useDrop, useDrag} from "react-dnd";
-import {SET_DEFAULT_BURGER, DELETE_CONSTRUCTOR_INGREDIENT, SORTED_CONSTRUCTOR} from "../../services/actions";
+import { DELETE_CONSTRUCTOR_INGREDIENT} from "../../services/actions";
+import stylesConstructorSortedItem from '../ConstructorSortedItem/ConstructorSortedItem.module.css'
 
 const ConstructorSortedItem = (props) => {
+
     const dispatch = useDispatch();
     const ref = useRef(null);
 
@@ -17,10 +18,10 @@ const ConstructorSortedItem = (props) => {
             type: DELETE_CONSTRUCTOR_INGREDIENT,
             data: removedIngredient
         })
-    }
+    };
 
     const [, drop] = useDrop({
-        accept: 'ingredientOne',
+        accept: 'ingredientList',
         hover(item, monitor) {
             if (!ref.current) {
                 return;
@@ -46,33 +47,28 @@ const ConstructorSortedItem = (props) => {
     });
 
     const id = props.id;
-    const index = props.index
+    const index = props.index;
 
     const [, dragRef] = useDrag({
-        type: 'ingredientOne',
+        type: 'ingredientList',
         item: () => {
             return {id, index}
-        },
-
-    })
+        }
+    });
 
     dragRef(drop(ref));
 
     return (
-        <div ref={ref}  style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', gap: '10px' }} >
+        <div ref={ref} className={`${stylesConstructorSortedItem.ref}`} >
             <DragIcon type="primary" />
-            <div>
                 <ConstructorElement
                     text={props.data.name}
                     handleClose={() => removeIngredient(props.id)}
                     price={props.data.price}
                     thumbnail={props.data.image}
-
                 />
-
-            </div>
         </div>
     )
-}
+};
 
 export default ConstructorSortedItem

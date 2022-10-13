@@ -1,7 +1,7 @@
 import {SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS} from "../actions";
 
 const initialState = {
-    orderData: {},
+    order: 0,
     orderRequestProcessing: false,
     orderRequestFailed: false
 };
@@ -18,7 +18,7 @@ export const getOrderData = (state = initialState, action) => {
             return {
                 ...state,
                 orderRequestProcessing: false,
-                orderData: action.order
+                order: action.order
             }
         }
         case SEND_ORDER_FAILED: {

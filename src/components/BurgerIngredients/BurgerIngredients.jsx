@@ -5,24 +5,15 @@
  * разметку-список ингредиентов для бургера, разбитых по категориям
  */
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
 import PropTypes from "prop-types";
-import {useDispatch} from "react-redux";
 
 
 const BurgerIngredients = (props) => {
-    const [current, setCurrent] = React.useState("one");
-
-    const [tabIndex, setTabIndex] = useState(0)
-
-    const listRef = useRef()
-
-
-
-
+    const [current, setCurrent] = useState("one");
 
     return (
         <section className={`${stylesBurgerIngredients.section} mt-10`}>
@@ -53,9 +44,8 @@ const BurgerIngredients = (props) => {
     );
 };
 
-// BurgerIngredients.propTypes = {
-//     data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-//     openModal: PropTypes.func.isRequired
-// };
+BurgerIngredients.propTypes = {
+    activeModal: PropTypes.func.isRequired
+};
 
 export default BurgerIngredients;
