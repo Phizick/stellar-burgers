@@ -5,7 +5,7 @@
  * разметку конструктора бургера со скроллом
  */
 
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useMemo, useRef} from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
@@ -17,14 +17,20 @@ import {
     REFRESH_CONSTRUCTOR_BUN
 } from "../../services/actions";
 import ConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem";
-import { v4 as uuidv4 } from 'uuid';
+
 
 const BurgerConstructor = (props) => {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients);
     const bunData = useSelector(store => store.bunData.bun);
 
     const dispatch = useDispatch();
-    const price = ingredients.reduce((a, b) => a + b.price, 0);
+
+    const price = useMemo(() => {
+        ingredients.reduce((a, b) => a + b.price, 0)
+    }, [ingredients])
+
+
+
 
     const [, dropRef] = useDrop({
         accept: 'ingredient',
@@ -89,12 +95,11 @@ const BurgerConstructor = (props) => {
                                 ingredients
                                 .filter((item) => item.type !== "bun")
                                 .map((item, index) => {
-                                    item.ID = uuidv4();
                                     item.index = index
                                     return (
                                         <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2 pr-2`}
                                             key={index}>
-                                            <ConstructorSortedItem id={item._id} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
+                                            <ConstructorSortedItem key={item.keyId} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
                                         </li>
                                     );
                                 })

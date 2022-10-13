@@ -16,7 +16,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         case ADD_CONSTRUCTOR_INGREDIENT:
             return {
                 ...state,
-                ingredients: [...state.ingredients.splice(0, action.data.index), {...action.data, uuid: action.data.uuid}, ...state.ingredients.slice(action.data.index)]
+                ingredients: [...state.ingredients.splice(0, action.data.index), {...action.data, keyId: action.keyId}, ...state.ingredients.slice(action.data.index)]
             }
         case SORTED_CONSTRUCTOR: {
             const newIngredients = [...state.ingredients];

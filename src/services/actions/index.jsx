@@ -1,3 +1,5 @@
+import { v4 as uuid4 } from 'uuid';
+
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
@@ -12,6 +14,7 @@ export const DELETE_CONSTRUCTOR_INGREDIENT = 'DELETE_CONSTRUCTOR_INGREDIENT';
 export const SORTED_CONSTRUCTOR = 'SORTED_CONSTRUCTOR';
 export const REFRESH_CONSTRUCTOR_BUN ='REFRESH_CONSTRUCTOR_BUN'
 
+const apiUrl = 'https://norma.nomoreparties.space/api/'
 export function checkResponse(res) {
     if (res.ok) {
         return res.json();
@@ -19,13 +22,16 @@ export function checkResponse(res) {
     return Promise.reject(`error ${res}`)
 };
 
+function request(url, options) {
+    return fetch(`${apiUrl}${url}`, options).then(checkResponse)
+}
+
 export const getIngredients = () => {
     return dispatch => {
         dispatch({
             type: GET_INGREDIENTS
         })
-        fetch(`https://norma.nomoreparties.space/api/ingredients`)
-            .then(res => checkResponse(res))
+        request(`ingredients`)
             .then(res => {
                 dispatch({
                     type: GET_INGREDIENTS_SUCCESS,
@@ -52,8 +58,7 @@ export const setOrder = (ingredients) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({'ingredients': ingredients})
         }
-        fetch(`https://norma.nomoreparties.space/api/orders`, requestOptions)
-            .then(res => checkResponse(res))
+        request(`orders`, requestOptions)
             .then(res => {
                 dispatch({
                     type: SEND_ORDER_SUCCESS,
@@ -71,20 +76,24 @@ export const setOrder = (ingredients) => {
 };
 
 export const getIngredientDetails = (ingredient) => {
-    return dispatch => {
-        dispatch({
+    return {
             type: CHOICE_INGREDIENT,
             data: ingredient
-        })
     }
 };
 
 export const clearIngredientDetails = () => {
-    return dispatch => {
-        dispatch({
+    return {
             type: DELETE_INGREDIENT,
-        })
     }
 };
+
+export const addConstructorIngredient = (item) => {
+    return {
+        type: ADD_CONSTRUCTOR_INGREDIENT,
+        data: item,
+        keyId: uuid4()
+    }
+}
 
 
