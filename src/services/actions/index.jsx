@@ -12,19 +12,20 @@ export const SEND_ORDER_FAILED = 'SEND_ORDER_FAILED';
 export const GET_CONSTRUCTOR = 'GET_CONSTRUCTOR'
 export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
 export const SET_CONSTRUCTOR = 'SET_CONSTRUCTOR';
-export const GET_BURGER = 'GET_BURGER';
 export const CALC_PRICE = 'CALC_PRICE';
 export const ADD_CONSTRUCTOR_INGREDIENT = 'ADD_CONSTRUCTOR_INGREDIENT';
-export const SET_DEFAULT_BURGER = 'SET_DEFAULT_BURGER';
+export const SET_DEFAULT_CONSTRUCTOR = 'SET_DEFAULT_CONSTRUCTOR';
 export const DELETE_CONSTRUCTOR_INGREDIENT = 'DELETE_CONSTRUCTOR_INGREDIENT';
-export const SORTED_CONSTRUCTOR = 'SORTED_CONSTRUCTOR'
+export const SORTED_CONSTRUCTOR = 'SORTED_CONSTRUCTOR';
+export const REFRESH_CONSTRUCTOR_BUN ='REFRESH_CONSTRUCTOR_BUN'
+
 
 
 export function checkResponse(res) {
     if (res.ok) {
         return res.json();
     }
-    return Promise.reject(`error @{res}`)
+    return Promise.reject(`error ${res}`)
 }
 
 export const getIngredients = () => {
@@ -57,7 +58,7 @@ export const setOrder = (ingredients) => {
         })
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-type': 'application/json'},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({'ingredients': ingredients})
         }
         fetch(`https://norma.nomoreparties.space/api/orders`, requestOptions)
@@ -65,7 +66,7 @@ export const setOrder = (ingredients) => {
             .then(res => {
                 dispatch({
                     type: SEND_ORDER_SUCCESS,
-                    order: res.data
+                    order: res.data.order.number
                 })
                     .catch(err => {
                         dispatch({
@@ -77,4 +78,22 @@ export const setOrder = (ingredients) => {
             })
     }
 };
+
+export const getIngredientDetails = (ingredient) => {
+    return dispatch => {
+        dispatch({
+            type: CHOICE_INGREDIENT,
+            data: ingredient
+        })
+    }
+}
+
+export const clearIngredientDetails = () => {
+    return dispatch => {
+        dispatch({
+            type: DELETE_INGREDIENT,
+        })
+    }
+}
+
 

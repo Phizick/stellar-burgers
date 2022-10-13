@@ -5,35 +5,69 @@
  * разметку конструктора бургера со скроллом
  */
 
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
 import {ingredientType} from "../../utils/type";
 import { useSelector, useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
-import { SET_DEFAULT_BURGER} from "../../services/actions";
+import {
+    SET_DEFAULT_CONSTRUCTOR,
+    DELETE_CONSTRUCTOR_INGREDIENT,
+    SORTED_CONSTRUCTOR,
+    REFRESH_CONSTRUCTOR_BUN
+} from "../../services/actions";
+import ConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem";
+import { v4 as uuidv4 } from 'uuid';
 
 const BurgerConstructor = (props) => {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients);
+    const bunData = useSelector(store => store.bunData.bun)
+    console.log(bunData)
+
 
     const dispatch = useDispatch()
 
 
+    const price = ingredients.reduce((a, b) => a + b.price, 0);
 
-    let bun = ingredients.length > 0 && ingredients.find(ingredient => ingredient.type === 'bun');
-    let price = ingredients.length > 0 && bun.price * 2 + ingredients.filter(ing => ing.type !== 'bun').reduce((acc, item) => acc + item.price, 0);
-
-
-    const [, dropRef] = useDrop({
+    const [ {}, dropRef] = useDrop({
         accept: 'ingredient',
-        drop(item)  {
+        drop: (item => ingredientTypeOf(item))
+    })
+
+const ingredientTypeOf = (item) => {
+        if (item.type === 'bun' && ingredients.find(item => item.type === 'bun')) {
             dispatch({
-                type: SET_DEFAULT_BURGER,
+                type: REFRESH_CONSTRUCTOR_BUN,
                 data: item
             })
-    }
+        } else if (item.type === 'bun') {
+            dispatch({
+                type: SET_DEFAULT_CONSTRUCTOR,
+                data: item
+            })
+        }
+        else {
+            dispatch({
+                type: SET_DEFAULT_CONSTRUCTOR,
+                data: item
+            })
+        }
+
+}
+
+
+const moveIngredientCard = useCallback((dragIndex, hoverIndex) => {
+    dispatch({
+        type: SORTED_CONSTRUCTOR,
+        itemFrom: dragIndex,
+        itemTo: hoverIndex
     })
+
+
+}, [ingredients]);
 
 
     return (
@@ -43,40 +77,51 @@ const BurgerConstructor = (props) => {
                 <>
                     <ul className={stylesBurgerConstructor.list}>
                         <li className={`${stylesBurgerConstructor.listItem} pl-5 mr-5 pb-2`}>
+                            {bunData ?
                             <ConstructorElement
                                 type="top"
                                 isLocked={true}
-                                text={`${bun.name} (верх)`}
-                                price={bun.price}
-                                thumbnail={bun.image}
+                                text={`${bunData.name} (верх)`}
+                                price={bunData.price}
+                                thumbnail={bunData.image}
                             />
+                                :
+                                <div className={`${stylesBurgerConstructor.bunareaTop} text text_type_main-default`}>выберете булку</div>
+                            }
                         </li>
+
                         <ul className={stylesBurgerConstructor.items}>
-                            {ingredients
+                            {ingredients.length > 0 ?
+                                ingredients
                                 .filter((item) => item.type !== "bun")
-                                .map((item) => {
+                                .map((item, index) => {
+                                    item.ID = uuidv4();
+                                    item.index = index
                                     return (
                                         <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2 pr-2`}
-                                            key={item._id}>
-                                            <DragIcon type={"primary"}/>
-                                            <ConstructorElement
-                                                text={item.name}
-                                                price={item.price}
-                                                thumbnail={item.image}
-                                                isLocked={false}
-                                            />
+                                            key={index}>
+
+                                            <ConstructorSortedItem id={item._id} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
+
                                         </li>
                                     );
-                                })}
+                                })
+                            :
+                            <div className={`${stylesBurgerConstructor.ingredientArea}  text text_type_main-default`}>выберете начинку</div>
+                            }
                         </ul>
                         <li className={`${stylesBurgerConstructor.listItem} pl-6 mr-5 pt-2`}>
-                            <ConstructorElement
-                                type="bottom"
-                                isLocked={true}
-                                text={`${bun.name} (низ)`}
-                                price={bun.price}
-                                thumbnail={bun.image}
-                            />
+                            {bunData ?
+                                <ConstructorElement
+                                    type="bottom"
+                                    isLocked={true}
+                                    text={`${bunData.name} (низ)`}
+                                    price={bunData.price}
+                                    thumbnail={bunData.image}
+                                />
+                                :
+                                <div className={`${stylesBurgerConstructor.bunareaBtm}  text text_type_main-default`}>выберете булку</div>
+                            }
                         </li>
                     </ul>
                     <div className={`${stylesBurgerConstructor.totalScore} mt-10`}>
@@ -92,7 +137,11 @@ const BurgerConstructor = (props) => {
                     </div>
                 </>
                 :
-                <div>Соберите бургер</div>
+                <>
+                    <div className={`${stylesBurgerConstructor.bunareaTop} text text_type_main-default`}>выберете булку</div>
+                    <div className={`${stylesBurgerConstructor.ingredientArea} text text_type_main-default`}>выберете начинку</div>
+                    <div className={`${stylesBurgerConstructor.bunareaBtm} text text_type_main-default`}>выберете булку</div>
+                </>
             }
 
         </section>

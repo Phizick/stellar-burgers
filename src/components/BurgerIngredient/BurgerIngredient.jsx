@@ -9,19 +9,29 @@ import React, {useState} from "react";
 import stylesBurgerIngredient from "../BurgerIngredient/BurgerIngredient.module.css";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag} from "react-dnd";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const BurgerIngredient = (props) => {
-    const [count, setCount] = useState(0)
-    const dispatch = useDispatch()
+    const ingredients = useSelector(store => store.burgerIngredients.ingredients)
+    const bun = useSelector(store => store.bunData.bun)
+    const setCounter = () => {
+        if (props.data.type !== 'bun') {
+            return ingredients.filter(item => item._id === props.data._id).length
+        } else if (bun?._id === props.data._id) {
+            return 2
+        } else return 0
+    }
+
+    const count = setCounter()
+
     const [, dragRef] = useDrag({
         type: 'ingredient',
         item: props.data
     })
     return (
-        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => {props.openModal(props.data)}} draggable ref={dragRef}>
+        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => {props.activeModal(props.data)}} draggable ref={dragRef}>
             <img src={props.data.image} alt={props.data.name} />
-            <Counter count={count} size="default" onClick={setCount}/>
+            {count > 0 ? <Counter count={count} size="default" /> : <></>}
             <div className={`${stylesBurgerIngredient.price} text text_type_digits-default mt-4 mb-4`}>
                 <p className={`${stylesBurgerIngredient.priceNumber} p-2`}>{props.data.price}</p>
                 <CurrencyIcon type="primary" />

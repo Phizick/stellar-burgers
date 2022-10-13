@@ -15,16 +15,15 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useSelector, useDispatch } from "react-redux";
-import {getIngredients, setOrder} from '../../services/actions/index'
+import {clearIngredientDetails, getIngredientDetails, getIngredients, setOrder} from '../../services/actions/index'
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
 
 const App = () => {
     const dispatch = useDispatch();
     const ingredients = useSelector(store => store.ingredients.data);
-    const selectedIngredientDetails = useSelector(store => store.ingredientDetail.selectedIngredient)
-
     const [isOpenedOrderModal, setModalOrderState] = useState(false)
+    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false)
 
 
     useEffect(() => {
@@ -43,11 +42,16 @@ const App = () => {
         setModalOrderState(false)
     };
 
-    // const handleIngrModal = () => {
-    //     dispatch(deleteIngredient())
-    // }
+    const openIngredientModal = (i) => {
+        dispatch(getIngredientDetails(i));
+        setModalIngredientsState(true)
+    }
 
+    const closeIngredientModal = () => {
+        dispatch(clearIngredientDetails())
+        setModalIngredientsState(false);
 
+    }
 
 
     return (
@@ -55,17 +59,16 @@ const App = () => {
             <AppHeader />
             <DndProvider backend={HTML5Backend}>
             <main className={stylesApp.mainContent}>
-                        <BurgerIngredients  />
+                        <BurgerIngredients  activeModal={openIngredientModal}/>
                         <BurgerConstructor openModal={openOrderModal}/>
-
             </main>
                 </DndProvider>
-            {/*<Modal activeModal={selectedIngredientDetails} title={"Детали ингредиента"} closeModal={handleIngrModal}>*/}
-            {/*    <IngredientDetails />*/}
-            {/*</Modal>*/}
-            {/*<Modal activeModal={isOpenedOrderModal} closeModal={closeOrderModal} >*/}
-            {/*    <OrderDetails />*/}
-            {/*</Modal>*/}
+            <Modal  title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
+                <IngredientDetails />
+            </Modal>
+            <Modal activeModal={openOrderModal} closeModal={closeOrderModal} isOpened={isOpenedOrderModal}>
+                <OrderDetails />
+            </Modal>
         </>
     )
 };

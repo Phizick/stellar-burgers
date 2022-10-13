@@ -16,15 +16,25 @@ const BurgerIngredientTypeGroup = (props) => {
     const burgerIngredients = useSelector(store => store.ingredients.data)
     console.log(burgerIngredients)
     return (
-        <section className={`${stylesBurgerIngredientTypeGroup.container} `}>
+        <section className={`${stylesBurgerIngredientTypeGroup.container} `} id={props.ID}>
             <p className={`text text_type_main-medium m-2`}>{props.title}</p>
             <ul className={`${stylesBurgerIngredientTypeGroup.list} pl-4 pr-5`}>
-                {burgerIngredients.length > 0 && burgerIngredients.map((item) => {
-                    if(item.type === props.listType) {
+                {burgerIngredients.length > 0 && burgerIngredients
+                    .filter(item => {
+                        return item.type === props.listType
+                    })
+                    .map((item) => {
+                        let counter = 0
+                        burgerIngredients.forEach(constItem => {
+                            if (constItem === item) {
+                                return counter++
+                            }
+                        })
+
                         return (
-                            <BurgerIngredient openModal={props.openModal} key={item._id} data={item}/>
+                            <BurgerIngredient activeModal={props.activeModal} key={item._id} data={item} counter={counter}/>
                         );
-                    }
+
                 })}
             </ul>
         </section>
