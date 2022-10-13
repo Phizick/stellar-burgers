@@ -9,7 +9,6 @@ import React, {useCallback} from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import {ingredientType} from "../../utils/type";
 import { useSelector, useDispatch} from "react-redux";
 import {useDrop} from "react-dnd";
 import {
@@ -95,7 +94,7 @@ const BurgerConstructor = (props) => {
                                     return (
                                         <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2 pr-2`}
                                             key={index}>
-                                            <ConstructorSortedItem id={item.ID} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
+                                            <ConstructorSortedItem id={item._id} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
                                         </li>
                                     );
                                 })
@@ -140,7 +139,6 @@ const BurgerConstructor = (props) => {
                     <div className={`${stylesBurgerConstructor.bunareaBtm} text text_type_main-default`}>выберете булку</div>
                 </>
             }
-
         </section>
         </>
     );
