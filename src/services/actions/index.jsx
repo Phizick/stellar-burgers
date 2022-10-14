@@ -12,6 +12,8 @@ export const ADD_CONSTRUCTOR_INGREDIENT = "ADD_CONSTRUCTOR_INGREDIENT";
 export const DELETE_CONSTRUCTOR_INGREDIENT = "DELETE_CONSTRUCTOR_INGREDIENT";
 export const SORTED_CONSTRUCTOR = "SORTED_CONSTRUCTOR";
 export const ADD_CONSTRUCTOR_BUN = "ADD_CONSTRUCTOR_BUN";
+export const CLEAR_ORDER = "CLEAR_ORDER";
+export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
 
 const baseUrl = "https://norma.nomoreparties.space/api/";
 export function checkResponse(res) {
@@ -56,17 +58,25 @@ export const setOrder = (ingredients) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ingredients: ingredients }),
         };
-        request(`orders`, requestOptions).then((res) => {
-            dispatch({
-                type: SEND_ORDER_SUCCESS,
-                order: res.order.number,
-            }).catch((err) => {
+        request(`orders`, requestOptions)
+            .then((res) => {
+                dispatch({
+                    type: SEND_ORDER_SUCCESS,
+                    order: res.order.number,
+                });
+            })
+            .then(() => {
+                dispatch({
+                    type: CLEAR_CONSTRUCTOR,
+                    data: [],
+                });
+            })
+            .catch((err) => {
                 dispatch({
                     type: SEND_ORDER_FAILED,
                     error: err.message,
                 });
             });
-        });
     };
 };
 

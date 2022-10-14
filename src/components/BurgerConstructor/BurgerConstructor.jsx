@@ -48,8 +48,6 @@ const BurgerConstructor = (props) => {
         dispatch(setDefaultConstructor(sortedIngredients));
     }, [ingredients])
 
-
-
     return (
         <>
             <section className={`${stylesBurgerConstructor.section}  mt-25 pb-30`} ref={dropRef}>

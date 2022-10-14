@@ -14,7 +14,12 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useSelector, useDispatch } from "react-redux";
-import { clearIngredientDetails, getIngredientDetails, getIngredients, setOrder } from "../../services/actions/index";
+import {
+    clearIngredientDetails,
+    getIngredientDetails,
+    getIngredients,
+    setOrder
+} from "../../services/actions/index";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 

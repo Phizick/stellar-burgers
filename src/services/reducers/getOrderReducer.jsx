@@ -1,4 +1,4 @@
-import { SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS } from "../actions";
+import { SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS, CLEAR_ORDER } from "../actions";
 
 const initialState = {
     order: 0,
