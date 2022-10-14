@@ -5,16 +5,15 @@
  * разметку информации об ингредиенте
  */
 
-
-import React from 'react'
-import stylesIngredientDetails from '../IngredientDetails/IngredientDetails.module.css'
-import {useSelector} from "react-redux";
+import React from "react";
+import stylesIngredientDetails from "../IngredientDetails/IngredientDetails.module.css";
+import { useSelector } from "react-redux";
 
 const IngredientDetails = () => {
-    const ingredient = useSelector(state => state.ingredientDetail.selectedIngredient)
+    const ingredient = useSelector((state) => state.ingredientDetail.selectedIngredient);
     return (
         <section className={stylesIngredientDetails.container}>
-            <img src={ingredient.image_large} alt={ingredient.name}/>
+            <img src={ingredient.image_large} alt={ingredient.name} />
             <p className={`${stylesIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{ingredient.name}</p>
             <ul className={`${stylesIngredientDetails.ingredientDetails}`}>
                 <li className={stylesIngredientDetails.listItem}>
@@ -35,8 +34,7 @@ const IngredientDetails = () => {
                 </li>
             </ul>
         </section>
-    )
+    );
 };
 
-
-export default IngredientDetails
+export default IngredientDetails;

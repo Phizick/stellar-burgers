@@ -1,12 +1,8 @@
-import {
-    GET_INGREDIENTS,
-    GET_INGREDIENTS_SUCCESS,
-    GET_INGREDIENTS_FAILED
-} from '../actions/index'
+import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from "../actions/index";
 
 const initialState = {
     ingredients: [],
-    data: []
+    data: [],
 };
 
 export const getIngredientsReducer = (state = initialState, action) => {
@@ -14,22 +10,22 @@ export const getIngredientsReducer = (state = initialState, action) => {
         case GET_INGREDIENTS: {
             return {
                 ...state,
-                ingredientsProcessing: true
-            }
+                ingredientsProcessing: true,
+            };
         }
         case GET_INGREDIENTS_SUCCESS: {
             return {
                 ...state,
                 ingredientsProcessing: false,
                 data: action.data,
-            }
+            };
         }
         case GET_INGREDIENTS_FAILED: {
             return {
                 ...state,
                 ingredientsProcessing: false,
-                data: state.data
-            }
+                data: state.data,
+            };
         }
         default:
             return state;

@@ -13,7 +13,7 @@ import { ingredientType } from "../../utils/type";
 
 const BurgerIngredient = (props) => {
     const ingredients = useSelector(store => store.burgerIngredients.ingredients)
-    const bun = useSelector(store => store.bunData.bun)
+    const bun = useSelector(store => store.burgerIngredients.bun)
     const setCounter = () => {
         if (props.data.type !== 'bun') {
             return ingredients.filter(item => item._id === props.data._id).length
@@ -44,6 +44,6 @@ const BurgerIngredient = (props) => {
 
 BurgerIngredient.propTypes = {
     data: ingredientType.isRequired
- };
+};
 
 export default BurgerIngredient;

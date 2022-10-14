@@ -17,6 +17,7 @@
     padding: 15px 0;
     margin: 0;
     height: fit-content;
+    transition: opacity .5s;
 }
 
 .listItem {
@@ -33,6 +34,10 @@
     padding-right: 15px;
     padding-left: 0;
     max-height: 580px;
+}
+
+.noneitems {
+    overflow-y: hidden;
 }
 
 .bunareaTop {
@@ -70,11 +75,11 @@
     display: flex;
     justify-content: center;
     border-radius: 40px;
-    margin: 15px 0;
+    margin: 15px 0 15px 25px;
 }
 
 .border_drag {
-    box-shadow: 0 0 16px 8px rgb(51 51 255 / 25%), 0 0 8px 8px rgb(51 51 255 / 25%);
+    opacity: .5;
 }
 
 
