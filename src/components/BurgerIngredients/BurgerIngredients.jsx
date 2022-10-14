@@ -45,15 +45,12 @@ const BurgerIngredients = (props) => {
             switch (tab) {
                 case "bun":
                     bunsRef.current.scrollIntoView({ behavior: "smooth" });
-                    setCurrent("bun");
                     break;
                 case "sauce":
                     saucesRef.current.scrollIntoView({ behavior: "smooth" });
-                    setCurrent("sauce");
                     break;
                 case "ingredients":
                     ingredientsRef.current.scrollIntoView({ behavior: "smooth" });
-                    setCurrent("ingredients");
             }
         }
     };

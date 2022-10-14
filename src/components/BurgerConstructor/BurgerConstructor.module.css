@@ -31,10 +31,14 @@
     overflow-y: scroll;
     height: fit-content;
     outline: none;
-    padding-right: 15px;
+    padding-right: 35px;
     padding-left: 0;
     max-height: 580px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
+
 
 .noneitems {
     overflow-y: hidden;

@@ -23,8 +23,8 @@ const BurgerConstructor = (props) => {
     const dispatch = useDispatch();
 
     const price = useMemo(() => {
-        return ingredients.reduce((a, b) => a + b.price, 0)
-    }, [ingredients])
+        return (ingredients.length > 0 && bunData) && bunData.price * 2 + ingredients.reduce((a, b) => a + b.price, 0);
+    }, [ingredients, bunData])
 
     const [ {isOver }, dropRef] = useDrop({
         accept: 'ingredient',
@@ -72,15 +72,13 @@ const BurgerConstructor = (props) => {
 
                             <ul className={ingredients.length === 0 ? `${stylesBurgerConstructor.items} ${stylesBurgerConstructor.noneitems}` : `${stylesBurgerConstructor.items}`}>
                                 {ingredients.length >= 1 ?
-                                    <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2 pr-2`} >
-                                        {ingredients
+                                    (ingredients
                                             .filter((item) => item.type !== "bun")
                                             .map((item, index) => {
                                                 return (
                                                     <ConstructorSortedItem  key={item.keyId} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
                                                 );
-                                            })}
-                                    </li>
+                                            }))
                                     :
                                     <div className={`${stylesBurgerConstructor.ingredientArea}  text text_type_main-default`}>выберете начинку</div>
                                 }
