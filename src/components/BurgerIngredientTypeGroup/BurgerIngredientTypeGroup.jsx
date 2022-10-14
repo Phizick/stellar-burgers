@@ -5,34 +5,36 @@
  * разметку списка ингредиентов, сортированных по типу
  */
 
-import React from 'react';
-import stylesBurgerIngredientTypeGroup from '../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup.module.css'
-import BurgerIngredient from '../BurgerIngredient/BurgerIngredient'
+import React, { forwardRef } from "react";
+import stylesBurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup.module.css";
+import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/type";
+import { useSelector } from "react-redux";
 
-const BurgerIngredientTypeGroup = (props) => {
+const BurgerIngredientTypeGroup = forwardRef((props, ref) => {
+    const burgerIngredients = useSelector((store) => store.ingredients.data);
     return (
-        <section className={`${stylesBurgerIngredientTypeGroup.container} `}>
+        <section className={`${stylesBurgerIngredientTypeGroup.container} `} ref={ref} id={props.id}>
             <p className={`text text_type_main-medium m-2`}>{props.title}</p>
             <ul className={`${stylesBurgerIngredientTypeGroup.list} pl-4 pr-5`}>
-                {props.data.map((item) => {
-                    if(item.type === props.listType) {
-                        return (
-                            <BurgerIngredient openModal={props.openModal} key={item._id} data={item}/>
-                        );
-                    }
-                })}
+                {burgerIngredients.length > 0 &&
+                    burgerIngredients
+                        .filter((item) => {
+                            return item.type === props.listType;
+                        })
+                        .map((item) => {
+                            return <BurgerIngredient activeModal={props.activeModal} key={item._id} data={item} />;
+                        })}
             </ul>
         </section>
-    )
-};
+    );
+});
 
 BurgerIngredientTypeGroup.propTypes = {
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     listType: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-    openModal: PropTypes.func.isRequired
+    activeModal: PropTypes.func.isRequired,
 };
 
-export default BurgerIngredientTypeGroup
+export default BurgerIngredientTypeGroup;

@@ -1,0 +1,14 @@
+.ref {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.dragging {
+    cursor: grabbing;
+    opacity: .2;
+}
+
+
+

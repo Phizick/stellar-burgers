@@ -5,69 +5,125 @@
  * разметку конструктора бургера со скроллом
  */
 
-import React from "react";
+import React, {useCallback, useMemo} from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
-import { ConstructorElement, CurrencyIcon, Button, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import {ingredientType} from "../../utils/type";
+import { useSelector, useDispatch} from "react-redux";
+import {useDrop} from "react-dnd";
+import {
+    addConstructorBun, addConstructorIngredient, setDefaultConstructor
+} from "../../services/actions";
+import ConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem";
+
 
 const BurgerConstructor = (props) => {
+    const ingredients = useSelector(store => store.burgerIngredients.ingredients);
+    const bunData = useSelector(store => store.burgerIngredients.bun);
+    const dispatch = useDispatch();
+
+    const price = useMemo(() => {
+        return (ingredients.length > 0 && bunData) && bunData.price * 2 + ingredients.reduce((a, b) => a + b.price, 0);
+    }, [ingredients, bunData])
+
+    const [ {isOver }, dropRef] = useDrop({
+        accept: 'ingredient',
+        drop: (item => {
+            if (item.type === 'bun') {
+                dispatch(addConstructorBun(item))
+            }
+            else {
+                dispatch(addConstructorIngredient(item))
+            }
+        }),
+        collect: monitor => ({
+            isOver: monitor.isOver()
+        })
+    });
+
+    const moveIngredientCard = useCallback((dragIndex, hoverIndex) => {
+        const sortedIngredients = [...ingredients];
+        sortedIngredients[dragIndex] = ingredients[hoverIndex];
+        sortedIngredients[hoverIndex] = ingredients[dragIndex];
+        dispatch(setDefaultConstructor(sortedIngredients));
+    }, [ingredients])
+
     return (
-        <section className={`${stylesBurgerConstructor.section} mt-25 pb-30`}>
-            <ul className={stylesBurgerConstructor.list}>
-                <li className={`${stylesBurgerConstructor.listItem} pl-5 mr-5 pb-2`}>
-                    <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text={`${props.data[0].name} (верх)`}
-                        price={props.data[0].price}
-                        thumbnail={props.data[0].image}
-                    />
-                </li>
-                <ul className={stylesBurgerConstructor.items}>
-                    {props.data
-                        .filter((item) => item.type !== "bun")
-                        .map((item) => {
-                            return (
-                                <li className={`${stylesBurgerConstructor.listItem} pb-2 pt-2 pr-2`} key={item._id}>
-                                    <DragIcon type={"primary"} />
+        <>
+            <section className={`${stylesBurgerConstructor.section}  mt-25 pb-30`} ref={dropRef}>
+                {ingredients.length >= 0 ?
+                    <>
+                        <ul className={isOver ? `${stylesBurgerConstructor.border_drag} ${stylesBurgerConstructor.list}` : `${stylesBurgerConstructor.list}`}>
+                            <li className={`${stylesBurgerConstructor.listItem} pl-5 mr-5 pb-2`}>
+                                {bunData ?
                                     <ConstructorElement
-                                        text={item.name}
-                                        price={item.price}
-                                        thumbnail={item.image}
-                                        isLocked={false}
+                                        type="top"
+                                        isLocked={true}
+                                        text={`${bunData.name} (верх)`}
+                                        price={bunData.price}
+                                        thumbnail={bunData.image}
                                     />
-                                </li>
-                            );
-                        })}
-                </ul>
-                <li className={`${stylesBurgerConstructor.listItem} pl-6 mr-5 pt-2`}>
-                    <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text={`${props.data[0].name} (низ)`}
-                        price={props.data[0].price}
-                        thumbnail={props.data[0].image}
-                    />
-                </li>
-            </ul>
-            <div className={`${stylesBurgerConstructor.totalScore} mt-10`}>
-                <p className={`text text_type_digits-medium mr-10`}>
-                    610
-                    <CurrencyIcon type={"primary"} />
-                </p>
-                <div onClick={props.openModal}>
-                    <Button type="primary" size="large">
-                        Оформить заказ
-                    </Button>
-                </div>
-            </div>
-        </section>
+                                    :
+                                    <div className={`${stylesBurgerConstructor.bunareaTop} text text_type_main-default`}>выберете булку</div>
+                                }
+                            </li>
+
+                            <ul className={ingredients.length === 0 ? `${stylesBurgerConstructor.items} ${stylesBurgerConstructor.noneitems}` : `${stylesBurgerConstructor.items}`}>
+                                {ingredients.length >= 1 ?
+                                    (ingredients
+                                            .filter((item) => item.type !== "bun")
+                                            .map((item, index) => {
+                                                return (
+                                                    <ConstructorSortedItem  key={item.keyId} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
+                                                );
+                                            }))
+                                    :
+                                    <div className={`${stylesBurgerConstructor.ingredientArea}  text text_type_main-default`}>выберете начинку</div>
+                                }
+                            </ul>
+                            <li className={`${stylesBurgerConstructor.listItem} pl-6 mr-5 pt-2`}>
+                                {bunData ?
+                                    <ConstructorElement
+                                        type="bottom"
+                                        isLocked={true}
+                                        text={`${bunData.name} (низ)`}
+                                        price={bunData.price}
+                                        thumbnail={bunData.image}
+                                    />
+                                    :
+                                    <div className={`${stylesBurgerConstructor.bunareaBtm}  text text_type_main-default`}>выберете булку</div>
+                                }
+                            </li>
+                        </ul>
+                        {ingredients.length >= 1 && bunData ?
+                            <div className={`${stylesBurgerConstructor.totalScore} mt-10`}>
+                                <p className={`text text_type_digits-medium mr-10`}>
+                                    {price}
+                                    <CurrencyIcon type={"primary"}/>
+                                </p>
+                                <div onClick={props.openModal}>
+                                    <Button type="primary" size="large">
+                                        Оформить заказ
+                                    </Button>
+                                </div>
+                            </div>
+                            :
+                            <></>
+                        }
+                    </>
+                    :
+                    <>
+                        <div className={`${stylesBurgerConstructor.bunareaTop} text text_type_main-default`}>выберете булку</div>
+                        <div className={`${stylesBurgerConstructor.ingredientArea} text text_type_main-default`}>выберете начинку</div>
+                        <div className={`${stylesBurgerConstructor.bunareaBtm} text text_type_main-default`}>выберете булку</div>
+                    </>
+                }
+            </section>
+        </>
     );
 };
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
     openModal: PropTypes.func.isRequired
 };
 

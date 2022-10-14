@@ -5,67 +5,69 @@
  * разметку страницы, содержащую компоненты BurgerIngredients / AppHeader / BurgerConstructor / Modal
  */
 
-
-import React,{useState, useEffect} from 'react';
-import {AppHeader} from '../AppHeader/AppHeader';
-import stylesApp from '../App/App.module.css'
+import React, { useState, useEffect } from "react";
+import { AppHeader } from "../AppHeader/AppHeader";
+import stylesApp from "../App/App.module.css";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import Modal from '../Modal/Modal'
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'
-import {apiUrl} from "../../utils/constants";
+import Modal from "../Modal/Modal";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    clearIngredientDetails,
+    getIngredientDetails,
+    getIngredients,
+    setOrder
+} from "../../services/actions/index";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 
 const App = () => {
-    const [ingredients, setIngredients] = useState([])
-    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false)
-    const [isOpenedOrderModal, setModalOrderState] = useState(false)
-    const [currentIngredient, setCurrentIngredient] = useState({})
-
-    const handleOrderState = () => {
-        setModalOrderState(!isOpenedOrderModal)
-    };
-    const handleIngredientState = (i) => {
-        setCurrentIngredient(i);
-        setModalIngredientsState(t => !t)
-    };
-    const closeOrderModal = () => {
-        setModalOrderState(false)
-    };
-    const closeIngredientModal = () => {
-        setModalIngredientsState(false)
-    };
+    const dispatch = useDispatch();
+    const ingredients = useSelector((store) => store.ingredients.data);
+    const [isOpenedOrderModal, setModalOrderState] = useState(false);
+    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
 
     useEffect(() => {
-        fetch(apiUrl)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(res.status);
-            })
-            .then(response => setIngredients(response.data))
-            .catch(err => console.error(err))
-    }, [])
+        dispatch(getIngredients());
+    }, [dispatch]);
+
+    const openOrderModal = () => {
+        setModalOrderState(true);
+        dispatch(setOrder(ingredients.map((item) => item._id)));
+    };
+
+    const closeOrderModal = () => {
+        setModalOrderState(false);
+    };
+
+    const openIngredientModal = (i) => {
+        dispatch(getIngredientDetails(i));
+        setModalIngredientsState(true);
+    };
+
+    const closeIngredientModal = () => {
+        dispatch(clearIngredientDetails());
+        setModalIngredientsState(false);
+    };
 
     return (
         <>
             <AppHeader />
-            <main className={stylesApp.mainContent}>
-                {ingredients.length &&
-                    <>
-                        <BurgerIngredients data={ingredients} openModal={handleIngredientState} />
-                        <BurgerConstructor data={ingredients} openModal={handleOrderState}/>
-                    </>
-                }
-            </main>
-            <Modal activeModal={isOpenedIngredientsModal} title={"Детали ингредиента"} closeModal={closeIngredientModal}>
-                <IngredientDetails selectedElement={currentIngredient}/>
+            <DndProvider backend={HTML5Backend}>
+                <main className={stylesApp.mainContent}>
+                    <BurgerIngredients activeModal={openIngredientModal} />
+                    <BurgerConstructor openModal={openOrderModal} />
+                </main>
+            </DndProvider>
+            <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
+                <IngredientDetails />
             </Modal>
-            <Modal activeModal={isOpenedOrderModal} closeModal={closeOrderModal} >
+            <Modal closeModal={closeOrderModal} isOpened={isOpenedOrderModal}>
                 <OrderDetails />
             </Modal>
         </>
-    )
+    );
 };
-export default App
+export default App;

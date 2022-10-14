@@ -1,6 +1,9 @@
 .section {
     max-width: 600px;
     max-height: 912px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .totalScore {
@@ -13,6 +16,8 @@
 .list {
     padding: 15px 0;
     margin: 0;
+    height: fit-content;
+    transition: opacity .5s;
 }
 
 .listItem {
@@ -24,11 +29,63 @@
 
 .items {
     overflow-y: scroll;
-    height: 580px;
+    height: fit-content;
     outline: none;
-    padding-right: 15px;
+    padding-right: 35px;
     padding-left: 0;
+    max-height: 580px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
+
+
+.noneitems {
+    overflow-y: hidden;
+}
+
+.bunareaTop {
+    border-radius: 88px 88px 40px 40px;
+    background: #2f2f37;
+    border: #8585ad 2px dashed;
+    height: 72px;
+    width: 535px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+
+.bunareaBtm {
+    border-radius: 40px 40px 88px 88px;
+    background: #2f2f37;
+    border: #8585ad 2px dashed;
+    height: 72px;
+    width: 535px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+
+.ingredientArea {
+    background: #2f2f37;
+    border: #8585ad 2px dashed;
+    height: 72px;
+    width: 535px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 40px;
+    margin: 15px 0 15px 25px;
+}
+
+.border_drag {
+    opacity: .5;
+}
+
 
 .items::-webkit-scrollbar {
     width: 8px;

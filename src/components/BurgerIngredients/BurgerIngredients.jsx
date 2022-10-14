@@ -5,41 +5,82 @@
  * разметку-список ингредиентов для бургера, разбитых по категориям
  */
 
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
 import PropTypes from "prop-types";
-import {ingredientType} from "../../utils/type";
+
 
 const BurgerIngredients = (props) => {
-    const [current, setCurrent] = React.useState("one");
+    const [current, setCurrent] = useState("bun");
+    const [bunActive, setBunActive] = useState(false);
+    const [sauceActive, setSauceActive] = useState(false);
+    const [ingredientsActive, setIngredientsActive] = useState(false);
+    const bunsRef = useRef(null);
+    const saucesRef = useRef(null);
+    const ingredientsRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                entry.target.id === "bun" && setBunActive(entry.isIntersecting);
+                entry.target.id === "sauce" && setSauceActive(entry.isIntersecting);
+                entry.target.id === "ingredients" && setIngredientsActive(entry.isIntersecting);
+            });
+        });
+        bunsRef.current !== null && observer.observe(bunsRef.current);
+        saucesRef.current !== null && observer.observe(saucesRef.current);
+        ingredientsRef.current !== null && observer.observe(ingredientsRef.current);
+    }, []);
+
+    useEffect(() => {
+        bunActive && setCurrent("bun");
+        !bunActive && sauceActive && setCurrent("sauce");
+        !sauceActive && ingredientsActive && setCurrent("ingredients");
+    }, [bunActive, sauceActive, ingredientsActive]);
+
+    const setCurrentTab = (tab) => {
+        if (tab !== current) {
+            switch (tab) {
+                case "bun":
+                    bunsRef.current.scrollIntoView({ behavior: "smooth" });
+                    break;
+                case "sauce":
+                    saucesRef.current.scrollIntoView({ behavior: "smooth" });
+                    break;
+                case "ingredients":
+                    ingredientsRef.current.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    };
+
     return (
-        <section className={`${stylesBurgerIngredients.section} mt-10`}>
+        <section className={`${stylesBurgerIngredients.section} mt-10`} id={"section_ingredients"}>
             <h2 className={"text text_type_main-large p-4"}>Соберите бургер</h2>
-            <div style={{ display: "flex" }}>
-                <Tab value="one" active={current === "one"} onClick={setCurrent}>
+            <div style={{ display: "flex" }} id={"tab_nav"}>
+                <Tab value="bun" active={current === "bun"} onClick={setCurrentTab} id={"bun"}>
                     Булки
                 </Tab>
-                <Tab value="two" active={current === "two"} onClick={setCurrent}>
+                <Tab value="sauce" active={current === "sauce"} onClick={setCurrentTab} id={"sauce"}>
                     Соусы
                 </Tab>
-                <Tab value="three" active={current === "three"} onClick={setCurrent}>
+                <Tab value="ingredients" active={current === "ingredients"} onClick={setCurrentTab} id={"ingredients"}>
                     Начинки
                 </Tab>
             </div>
-            <ul className={`${stylesBurgerIngredients.list} mt-10 pl-1 pr-2`}>
-                <BurgerIngredientTypeGroup data={props.data} listType={"bun"} title={"Булки"} openModal={props.openModal}  />
-                <BurgerIngredientTypeGroup data={props.data} listType={"sauce"} title={"Соусы"} openModal={props.openModal} />
-                <BurgerIngredientTypeGroup data={props.data} listType={"main"} title={"Начинки"} openModal={props.openModal}  />
+            <ul className={`${stylesBurgerIngredients.list} mt-10 pl-1 pr-2`} id={"ingredients_list"}>
+                <BurgerIngredientTypeGroup ref={bunsRef} listType={"bun"} title={"Булки"} activeModal={props.activeModal} id={"bun"} />
+                <BurgerIngredientTypeGroup ref={saucesRef} listType={"sauce"} title={"Соусы"} activeModal={props.activeModal} id={"sauce"} />
+                <BurgerIngredientTypeGroup ref={ingredientsRef} listType={"main"} title={"Начинки"} activeModal={props.activeModal} id={"ingredients"} />
             </ul>
         </section>
     );
 };
 
+
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-    openModal: PropTypes.func.isRequired
+    activeModal: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;
