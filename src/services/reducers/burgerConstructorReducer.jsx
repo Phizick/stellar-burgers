@@ -29,7 +29,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         case DELETE_CONSTRUCTOR_INGREDIENT:
             const newIngredientsState = { ...state };
             const indexIngredient = newIngredientsState.ingredients.findIndex(
-                (item) => item._id === action.data
+                (item) => item.key === action.data
             );
             if (indexIngredient !== -1) {
                 newIngredientsState.ingredients.splice(indexIngredient, 1);

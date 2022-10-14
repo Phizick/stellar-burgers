@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 
 
 const BurgerIngredients = (props) => {
-    const [current, setCurrent] = useState("one");
+    const [current, setCurrent] = useState("bun");
     const [bunActive, setBunActive] = useState(false);
     const [sauceActive, setSauceActive] = useState(false);
     const [ingredientsActive, setIngredientsActive] = useState(false);
@@ -35,22 +35,23 @@ const BurgerIngredients = (props) => {
     }, []);
 
     useEffect(() => {
-        bunActive && setCurrent('one');
-        (!bunActive && sauceActive) && setCurrent('two');
-        (!sauceActive && ingredientsActive) && setCurrent('three')
+        bunActive && setCurrent('bun');
+        (!bunActive && sauceActive) && setCurrent('sauce');
+        (!sauceActive && ingredientsActive) && setCurrent('ingredients')
     }, [bunActive, sauceActive, ingredientsActive]);
+
 
 
     const setCurrentTab = (tab) => {
         if (tab !== current) {
             switch (tab) {
-                case 'one':
+                case 'bun':
                     bunsRef.current?.scrollIntoView({behavior: 'smooth'});
                     break;
-                case 'two':
+                case 'sauce':
                     saucesRef.current?.scrollIntoView({behavior: 'smooth'});
                     break;
-                case 'three':
+                case 'ingredients':
                     ingredientsRef.current?.scrollIntoView({behavior: 'smooth'})
             }
         }
@@ -60,20 +61,20 @@ const BurgerIngredients = (props) => {
         <section className={`${stylesBurgerIngredients.section} mt-10`} id={'section_ingredients'}>
             <h2 className={"text text_type_main-large p-4"}>Соберите бургер</h2>
             <div style={{ display: "flex" }} id={'tab_nav'}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrentTab} id={'bun'}>
+                <Tab value="bun" active={current === 'bun'} onClick={setCurrentTab} id={'bun'}>
                     Булки
                 </Tab>
-                <Tab  value="two" active={current === 'two'} onClick={setCurrentTab} id={'sauce'}>
+                <Tab  value="sauce" active={current === 'sauce'} onClick={setCurrentTab} id={'sauce'}>
                     Соусы
                 </Tab>
-                <Tab  value="three" active={current === 'three'} onClick={setCurrentTab} id={'ingredients'}>
+                <Tab  value="ingredients" active={current === 'ingredients'} onClick={setCurrentTab} id={'ingredients'}>
                     Начинки
                 </Tab>
             </div>
             <ul className={`${stylesBurgerIngredients.list} mt-10 pl-1 pr-2`} id={'ingredients_list'}>
-                <BurgerIngredientTypeGroup ref={bunsRef} listType={"bun"} title={"Булки"} activeModal={props.activeModal} id='bun'/>
-                <BurgerIngredientTypeGroup ref={saucesRef} listType={"sauce"} title={"Соусы"} activeModal={props.activeModal} id='sauce'/>
-                <BurgerIngredientTypeGroup ref={ingredientsRef} listType={"main"} title={"Начинки"} activeModal={props.activeModal}  id='ingredients'/>
+                <BurgerIngredientTypeGroup ref={bunsRef} listType={"bun"} title={"Булки"} activeModal={props.activeModal}  id={'bun'}/>
+                <BurgerIngredientTypeGroup ref={saucesRef} listType={"sauce"} title={"Соусы"} activeModal={props.activeModal}  id={'sauce'}/>
+                <BurgerIngredientTypeGroup ref={ingredientsRef} listType={"main"} title={"Начинки"} activeModal={props.activeModal}   id={'ingredients'}/>
             </ul>
         </section>
     );

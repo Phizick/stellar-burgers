@@ -48,17 +48,20 @@ const ConstructorSortedItem = (props) => {
     const id = props.id;
     const index = props.index;
 
-    const [, dragRef] = useDrag({
+    const [{isDragging}, dragRef] = useDrag({
         type: 'ingredientList',
         item: () => {
             return {id, index}
-        }
+        },
+        collect: monitor => ({
+            isDragging: monitor.isDragging()
+        })
     });
 
     dragRef(drop(ref));
 
     return (
-        <div ref={ref} className={`${stylesConstructorSortedItem.ref}`} >
+        <div ref={ref} className={isDragging ? `${stylesConstructorSortedItem.ref} ${stylesConstructorSortedItem.dragging}` : `${stylesConstructorSortedItem.ref}`} >
             <DragIcon type="primary" />
                 <ConstructorElement
                     text={props.data.name}

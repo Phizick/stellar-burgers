@@ -14,7 +14,7 @@ export const DELETE_CONSTRUCTOR_INGREDIENT = 'DELETE_CONSTRUCTOR_INGREDIENT';
 export const SORTED_CONSTRUCTOR = 'SORTED_CONSTRUCTOR';
 export const REFRESH_CONSTRUCTOR_BUN ='REFRESH_CONSTRUCTOR_BUN'
 
-const apiUrl = 'https://norma.nomoreparties.space/api/'
+const baseUrl = 'https://norma.nomoreparties.space/api/'
 export function checkResponse(res) {
     if (res.ok) {
         return res.json();
@@ -23,7 +23,7 @@ export function checkResponse(res) {
 };
 
 function request(url, options) {
-    return fetch(`${apiUrl}${url}`, options).then(checkResponse)
+    return fetch(`${baseUrl}${url}`, options).then(checkResponse)
 }
 
 export const getIngredients = () => {

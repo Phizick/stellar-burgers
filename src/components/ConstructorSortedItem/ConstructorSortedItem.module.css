@@ -4,3 +4,11 @@
     flex-direction: row;
     gap: 10px;
 }
+
+.dragging {
+    cursor: grabbing;
+    opacity: .2;
+}
+
+
+

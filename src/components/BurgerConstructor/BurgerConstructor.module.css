@@ -73,6 +73,9 @@
     margin: 15px 0;
 }
 
+.border_drag {
+    box-shadow: 0 0 16px 8px rgb(51 51 255 / 25%), 0 0 8px 8px rgb(51 51 255 / 25%);
+}
 
 
 .items::-webkit-scrollbar {

@@ -5,7 +5,7 @@
  * разметку конструктора бургера со скроллом
  */
 
-import React, {useCallback, useEffect, useMemo, useRef} from "react";
+import React, {useCallback, useMemo} from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
@@ -26,15 +26,18 @@ const BurgerConstructor = (props) => {
     const dispatch = useDispatch();
 
     const price = useMemo(() => {
-        ingredients.reduce((a, b) => a + b.price, 0)
+        return ingredients.reduce((a, b) => a + b.price, 0)
     }, [ingredients])
 
 
 
 
-    const [, dropRef] = useDrop({
+    const [ {isOver }, dropRef] = useDrop({
         accept: 'ingredient',
-        drop: (item => ingredientTypeOf(item))
+        drop: (item => ingredientTypeOf(item)),
+        collect: monitor => ({
+        isOver: monitor.isOver()
+    })
     });
 
     const ingredientTypeOf = (item) => {
@@ -72,7 +75,7 @@ const BurgerConstructor = (props) => {
 
     return (
         <>
-        <section className={`${stylesBurgerConstructor.section} mt-25 pb-30`} ref={dropRef}>
+        <section className={isOver ? `${stylesBurgerConstructor.section} ${stylesBurgerConstructor.border_drag} mt-25 pb-30` : `${stylesBurgerConstructor.section} mt-25 pb-30`} ref={dropRef}>
             {ingredients.length > 0 ?
                 <>
                     <ul className={stylesBurgerConstructor.list}>
