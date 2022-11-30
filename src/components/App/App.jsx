@@ -22,17 +22,17 @@ import {
 } from "../../services/actions/index";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
+import {
+    BrowserRouter,
+    Switch,
+    Route
+} from "react-router-dom";
 
-const App = () => {
+const RoutesSwitchHandler = () => {
     const dispatch = useDispatch();
     const ingredients = useSelector((store) => store.ingredients.data);
     const [isOpenedOrderModal, setModalOrderState] = useState(false);
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
-
-    useEffect(() => {
-        dispatch(getIngredients());
-    }, [dispatch]);
-
     const openOrderModal = () => {
         setModalOrderState(true);
         dispatch(setOrder(ingredients.map((item) => item._id)));
@@ -55,19 +55,65 @@ const App = () => {
     return (
         <>
             <AppHeader />
-            <DndProvider backend={HTML5Backend}>
-                <main className={stylesApp.mainContent}>
-                    <BurgerIngredients activeModal={openIngredientModal} />
-                    <BurgerConstructor openModal={openOrderModal} />
-                </main>
-            </DndProvider>
-            <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
-                <IngredientDetails />
-            </Modal>
-            <Modal closeModal={closeOrderModal} isOpened={isOpenedOrderModal}>
-                <OrderDetails />
-            </Modal>
+            <Switch>
+                <Route path='/' exact={true}>
+                    <MainPage />
+                </Route>
+                <Route path='/login' exact={true}>
+                    <LoginPage />
+                </Route>
+                <Route path='/register' exact={true}>
+                    <RegisterPage />
+                </Route>
+                <Route path='/forgot-password' exact={true}>
+                    <ForgotPasswordPage />
+                </Route>
+                <Route path='/reset-password' exact={true}>
+                    <ResetPasswordPage />
+                </Route>
+                <Route path='/profile' exact={true}>
+                    <ProfilePage />
+                </Route>
+            </Switch>
+
         </>
-    );
+    )
 };
-export default App;
+
+const App = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getIngredients());
+    }, [dispatch]);
+
+    return (
+        <BrowserRouter>
+            <RoutesSwitchHandler />
+        </BrowserRouter>
+    )
+}
+
+// const App = () => {
+
+//
+//
+//
+//     return (
+//         <>
+//
+//             <DndProvider backend={HTML5Backend}>
+//                 <main className={stylesApp.mainContent}>
+//                     <BurgerIngredients activeModal={openIngredientModal} />
+//                     <BurgerConstructor openModal={openOrderModal} />
+//                 </main>
+//             </DndProvider>
+//             <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
+//                 <IngredientDetails />
+//             </Modal>
+//             <Modal closeModal={closeOrderModal} isOpened={isOpenedOrderModal}>
+//                 <OrderDetails />
+//             </Modal>
+//         </>
+//     );
+// };
+// export default App;
