@@ -32,6 +32,7 @@ export const LoginPage = () => {
                        placeholder={'E-mail'}
                        ref={loginInputRef}
                        name={'email'}
+                       extraClass="ml-1"
 
                 />
             </li>
@@ -42,6 +43,7 @@ export const LoginPage = () => {
                     onChange={(e) => {
                     setPasswordValue(e.target.value)
                 }}
+                    extraClass="ml-1"
 
                 />
             </li>

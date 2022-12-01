@@ -1,13 +1,12 @@
 import React from "react";
 import {useState} from "react";
 import {Form} from "../../components/Form/Form";
-import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Input} from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 export const ForgotPasswordPage = () => {
     const loginInputRef = React.useRef(null);
     const [value, setValue] = useState('')
-    const [passwordValue, setPasswordValue] = useState('')
 
     return (
         <Form formTitle={'Восстановление пароля'}
