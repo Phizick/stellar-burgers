@@ -40,7 +40,6 @@ export const RegisterPage = () => {
                        placeholder={'E-mail'}
                        ref={loginInputRef}
                        name={'email'}
-
                 />
             </li>
             <li className={`mt-6`}>

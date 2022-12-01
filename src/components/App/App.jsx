@@ -10,6 +10,7 @@ import { AppHeader } from "../AppHeader/AppHeader";
 import {MainPage} from "../../pages/MainPage/MainPage";
 import {LoginPage} from "../../pages/LoginPage/LoginPage";
 import {RegisterPage} from "../../pages/RegisterPage/RegisterPage";
+import {ForgotPasswordPage} from "../../pages/ForgotPasswordPage/ForgotPasswordPage";
 import { useDispatch } from "react-redux";
 import {
     getIngredients
@@ -22,6 +23,7 @@ import {
 } from "react-router-dom";
 
 const RoutesSwitchHandler = () => {
+
     return (
         <>
             <AppHeader />
@@ -35,9 +37,9 @@ const RoutesSwitchHandler = () => {
                 <Route path='/register' exact={true}>
                     <RegisterPage />
                 </Route>
-                {/*<Route path='/forgot-password' exact={true}>*/}
-                {/*    <ForgotPasswordPage />*/}
-                {/*</Route>*/}
+                <Route path='/forgot-password' exact={true}>
+                    <ForgotPasswordPage />
+                </Route>
                 {/*<Route path='/reset-password' exact={true}>*/}
                 {/*    <ResetPasswordPage />*/}
                 {/*</Route>*/}

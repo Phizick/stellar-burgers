@@ -17,7 +17,7 @@ export const LoginPage = () => {
               ForwardLinkFirst={'/register'}
               secondQuestion={'Забыли пароль?'}
               secondQuestionLinkText={'Восстановить пароль'}
-              ForwardLinkSecond={'/'}
+              ForwardLinkSecond={'/forgot-password'}
               FormSubmitFunc={(e) => {
                   e.preventDefault();
                   console.log(123)
