@@ -9,6 +9,7 @@ import React, {  useEffect } from "react";
 import { AppHeader } from "../AppHeader/AppHeader";
 import {MainPage} from "../../pages/MainPage/MainPage";
 import {LoginPage} from "../../pages/LoginPage/LoginPage";
+import {RegisterPage} from "../../pages/RegisterPage/RegisterPage";
 import { useDispatch } from "react-redux";
 import {
     getIngredients
@@ -31,9 +32,9 @@ const RoutesSwitchHandler = () => {
                 <Route path='/login' exact={true}>
                     <LoginPage />
                 </Route>
-                {/*<Route path='/register' exact={true}>*/}
-                {/*    <RegisterPage />*/}
-                {/*</Route>*/}
+                <Route path='/register' exact={true}>
+                    <RegisterPage />
+                </Route>
                 {/*<Route path='/forgot-password' exact={true}>*/}
                 {/*    <ForgotPasswordPage />*/}
                 {/*</Route>*/}

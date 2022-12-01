@@ -15,18 +15,21 @@ export const Form = (props) => {
                     {props.buttonText}
                 </Button>
             </div>
-            <p classname={stylesForm.text}>
+            {props.firstQuestion && (<p className={stylesForm.text}>
                 {props.firstQuestion}
-                <Link to={'/'} className={stylesForm.link}>
+                <Link to={props.ForwardLinkFirst} className={stylesForm.link}>
                     {props.fistQuestionLinkText}
                 </Link>
             </p>
+                )}
+            {props.secondQuestion && (
             <p className={stylesForm.text}>
                 {props.secondQuestion}
-                <Link to={'/'} className={stylesForm.link}>
+                <Link to={props.ForwardLinkSecond} className={stylesForm.link}>
                     {props.secondQuestionLinkText}
                 </Link>
             </p>
+            )}
         </form>
     )
 };

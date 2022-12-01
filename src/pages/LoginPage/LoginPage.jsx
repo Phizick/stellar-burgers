@@ -14,8 +14,10 @@ export const LoginPage = () => {
               buttonText={'Войти'}
               firstQuestion={'Вы - новый пользователь?'}
               fistQuestionLinkText={'Зарегитрироваться'}
+              ForwardLinkFirst={'/register'}
               secondQuestion={'Забыли пароль?'}
               secondQuestionLinkText={'Восстановить пароль'}
+              ForwardLinkSecond={'/'}
               FormSubmitFunc={(e) => {
                   e.preventDefault();
                   console.log(123)
