@@ -8,6 +8,7 @@
 import React from "react";
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesAppHeader from "./AppHeader.module.css";
+import {Link} from "react-router-dom";
 
 export const AppHeader = () => {
     return (
@@ -32,7 +33,9 @@ export const AppHeader = () => {
                     <li className={`${stylesAppHeader.li} pr-4`}>
                         <a className={`${stylesAppHeader.headerLink} pl-5 pr-5`}>
                             <ProfileIcon type={"secondary"} />
+                            <Link to={'/login'}>
                             <p className={"text text_type_main-default text_color_inactive pl-2"}>Личный кабинет</p>
+                            </Link>
                         </a>
                     </li>
                 </ul>

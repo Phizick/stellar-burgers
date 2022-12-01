@@ -1,0 +1,48 @@
+.form {
+    width: 480px;
+    min-height: 430px;
+    margin: 180px auto;
+    text-align: center;
+}
+
+.formTitle {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    font-family: "Jet Brains Mono", sans-serif;
+}
+
+.formList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+}
+ .formBtn {
+     margin: 24px 0 80px 0
+ }
+
+ .text {
+     font-weight: 400;
+     font-size: 16px;
+     line-height: 24px;
+     color: rgba(133,133,173,1);
+ }
+
+
+
+ .link {
+     margin-left: 8px;
+     color: rgba(76,76,255,1);
+     font-size: 16px;
+     font-weight: 400;
+     line-height: 24px;
+     text-decoration: none;
+     transition: .3s;
+ }
+
+ .link:hover {
+     opacity: .5;
+ }
