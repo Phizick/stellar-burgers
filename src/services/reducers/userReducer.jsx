@@ -13,7 +13,9 @@ const initialState = {
     token: '',
     name: '',
     success: false,
-    pending: true
+    pending: true,
+    accessToken: '',
+    refreshToken: ''
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -29,7 +31,9 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 success: true,
-                pending: false
+                pending: false,
+                accessToken: action.accessToken,
+                refreshToken: action.refreshToken
             };
         }
         case LOGIN_USER_FAILED: {
@@ -50,7 +54,9 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 success: true,
-                pending: false
+                pending: false,
+                accessToken: action.accessToken,
+                refreshToken: action.refreshToken
             };
         }
         case REGISTER_USER_FAILED: {

@@ -1,4 +1,6 @@
 import {request} from "./index";
+import {setCookie} from "../../utils/cookieFunc";
+
 
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCSESSFUL';
@@ -17,32 +19,34 @@ export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
 
 
-export const loginUser = (data) => {
+export const loginUser = (email, password, history) => {
     return (dispatch) => {
         dispatch({
             type: LOGIN_USER,
-            email: data.email,
-            password: data.password,
+            email: email,
+            password: password,
         });
         const requestOptions = {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email: `${data.email}`,
-                password: `${data.password}`,
+                email: `${email}`,
+                password: `${password}`,
             }),
         };
-        dispatch({
-            type: LOGIN_USER_SUCCESS
-        });
         request('auth/login', requestOptions)
             .then((res) => {
                if (res.success) {
                    if (!localStorage.length) {
-                       localStorage.setItem('accessToken', res.accessToken);
+                       setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
                        localStorage.setItem('refreshToken', res.refreshToken);
+                       dispatch({
+                           type: LOGIN_USER_SUCCESS,
+                           accessToken: res.accessToken,
+                           refreshToken: res.refreshToken
+                       });
                    }
-                   data.history.replace({pathname: '/'});
+                   history.replace({pathname: '/'});
                }
             })
             .catch((err) => {
@@ -54,31 +58,35 @@ export const loginUser = (data) => {
     }
 };
 
-export const registerUser = (data) => {
+export const registerUser = (email, password, name, history) => {
     return (dispatch) => {
         dispatch({
             type: REGISTER_USER,
-            email: data.email,
-            password: data.password,
-            name: data.name,
+            email: email,
+            password: password,
+            name: name,
         });
         const requestOptions = {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email: `${data.email}`,
-                password: `${data.password}`,
-                name: `${data.name}`,
+                email: `${email}`,
+                password: `${password}`,
+                name: `${name}`,
             }),
         };
-        dispatch({
-            type: REGISTER_USER_SUCCESS
-        });
         request('auth/register', requestOptions)
             .then((res) => {
-                res.success
-                    ? data.history.replace({pathname: '/login'})
-                    : console.log('invalid email')
+              if (res && res.success) {
+                  setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+                  localStorage.setItem('refreshToken', res.refreshToken);
+                  dispatch({
+                      type: REGISTER_USER_SUCCESS,
+                      accessToken: res.accessToken,
+                      refreshToken: res.refreshToken
+                  });
+              }
+                history.replace({pathname: '/'});
             })
             .catch((err) => {
                 dispatch({
@@ -89,7 +97,7 @@ export const registerUser = (data) => {
     }
 };
 
-export const forgotPassword = (data) => {
+const forgotPassword = (data) => {
     return (dispatch) => {
         dispatch({
             type: FORGOT_PASSWORD
@@ -147,6 +155,6 @@ export const resetPassword = (data) => {
 };
 
 
-
+export default forgotPassword
 
 

@@ -2,12 +2,26 @@ import React from "react";
 import {useState} from "react";
 import {Form} from "../../components/Form/Form";
 import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {useDispatch} from "react-redux";
+import {useHistory, Redirect} from "react-router-dom";
+import {loginUser} from "../../services/actions/user";
 
 
 export const LoginPage = () => {
     const loginInputRef = React.useRef(null);
     const [value, setValue] = useState('')
-    const [passwordValue, setPasswordValue] = useState('')
+    const [passwordValue, setPasswordValue] = useState('');
+    const userToken = window.localStorage.getItem('accessToken');
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handlePassword = (e) => {
+        setPasswordValue(e.target.value)
+    };
+
+    if (userToken) {
+        return <Redirect to={'/'}/>
+    }
 
     return (
         <Form formTitle={'Вход'}
@@ -20,7 +34,7 @@ export const LoginPage = () => {
               ForwardLinkSecond={'/forgot-password'}
               FormSubmitFunc={(e) => {
                   e.preventDefault();
-                  console.log(123)
+                  dispatch(loginUser(value, passwordValue, history))
               }}
               >
             <li className={`mt-6`}>
@@ -40,9 +54,7 @@ export const LoginPage = () => {
                 <PasswordInput
                     value={passwordValue}
                     name={'password'}
-                    onChange={(e) => {
-                    setPasswordValue(e.target.value)
-                }}
+                    onChange={handlePassword}
                     extraClass="ml-1"
 
                 />
