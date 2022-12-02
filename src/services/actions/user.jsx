@@ -11,6 +11,7 @@ export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
 export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 export const GET_USER = 'GET_USER';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
@@ -110,12 +111,40 @@ export const forgotPassword = (data) => {
             })
             .catch((err) => {
                 dispatch({
-                    type: REGISTER_USER_FAILED,
+                    type: FORGOT_PASSWORD_FAILED,
                     error: err.message
                 })
             })
     }
-}
+};
+
+export const resetPassword = (data) => {
+    return (dispatch) => {
+        dispatch({
+            type: RESET_PASSWORD
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password: data.password, token: data.token })
+        };
+        dispatch({
+            type: RESET_PASSWORD_SUCCESS
+        });
+        request('password-reset/reset', requestOptions)
+            .then((res) => {
+                if (!res.success) {
+                    return null
+                }
+            })
+            .catch((err) => {
+                dispatch({
+                    type: RESET_PASSWORD_FAILED,
+                    error: err.message
+                })
+            })
+    }
+};
 
 
 
