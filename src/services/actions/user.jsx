@@ -88,5 +88,34 @@ export const registerUser = (data) => {
     }
 };
 
+export const forgotPassword = (data) => {
+    return (dispatch) => {
+        dispatch({
+            type: FORGOT_PASSWORD
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: data.email})
+        };
+        dispatch({
+            type: FORGOT_PASSWORD_SUCCESS
+        });
+        request('password-reset', requestOptions)
+            .then((res) => {
+                if (res.success) {
+                    return data.history.replace({pathname: '/reset-password'});
+                }
+                return null;
+            })
+            .catch((err) => {
+                dispatch({
+                    type: REGISTER_USER_FAILED,
+                    error: err.message
+                })
+            })
+    }
+}
+
 
 
