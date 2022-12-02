@@ -51,6 +51,42 @@ export const loginUser = (data) => {
                 });
             });
     }
-}
+};
+
+export const registerUser = (data) => {
+    return (dispatch) => {
+        dispatch({
+            type: REGISTER_USER,
+            email: data.email,
+            password: data.password,
+            name: data.name,
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: `${data.email}`,
+                password: `${data.password}`,
+                name: `${data.name}`,
+            }),
+        };
+        dispatch({
+            type: REGISTER_USER_SUCCESS
+        });
+        request('auth/register', requestOptions)
+            .then((res) => {
+                res.success
+                    ? data.history.replace({pathname: '/login'})
+                    : console.log('invalid email')
+            })
+            .catch((err) => {
+                dispatch({
+                    type: REGISTER_USER_FAILED,
+                    error: err.message
+                })
+            })
+    }
+};
+
 
 
