@@ -17,6 +17,9 @@ export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 export const GET_USER = 'GET_USER';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
+export const PATCH_USER = 'PATCH_USER';
+export const PATCH_USER_SUCCESS = 'PATCH_USER_SUCCESS';
+export const PATCH_USER_FAILED = 'PATCH_USER_FAILED';
 
 
 export const loginUser = (email, password, history) => {
@@ -41,9 +44,8 @@ export const loginUser = (email, password, history) => {
                        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
                        localStorage.setItem('refreshToken', res.refreshToken);
                        dispatch({
-                           type: LOGIN_USER_SUCCESS,
-                           accessToken: res.accessToken,
-                           refreshToken: res.refreshToken
+                           type: LOGIN_USER_SUCCESS
+
                        });
                    }
                    history.replace({pathname: '/'});
@@ -81,9 +83,7 @@ export const registerUser = (email, password, name, history) => {
                   setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
                   localStorage.setItem('refreshToken', res.refreshToken);
                   dispatch({
-                      type: REGISTER_USER_SUCCESS,
-                      accessToken: res.accessToken,
-                      refreshToken: res.refreshToken
+                      type: REGISTER_USER_SUCCESS
                   });
               }
                 history.replace({pathname: '/'});
@@ -153,6 +153,71 @@ export const resetPassword = (data) => {
             })
     }
 };
+
+export const getUser = () => {
+    return (dispatch) => {
+        dispatch({
+            type: GET_USER
+        });
+        const requestOptions = {
+            method: 'GET',
+            headers: { "Content-Type": "application/json",
+                Authorization: window.localStorage.getItem("accessToken"),
+            }
+        }
+        request('auth/user', requestOptions)
+            .then((res) => {
+                if (res.success) {
+                    dispatch({
+                        type: GET_USER_SUCCESS,
+                        email: res.user.email,
+                        name: res.user.name
+                    })
+                }
+        })
+            .catch((err) => {
+                dispatch({
+                    type: GET_USER_FAILED,
+                    error: err.message
+                })
+            })
+    }
+};
+
+export const patchUser = (email, name) => {
+    return (dispatch) => {
+        dispatch({
+            type: PATCH_USER,
+            email: email,
+            name: name
+        });
+        const requestOptions = {
+            method: 'PATCH',
+            headers: { "Content-Type": "application/json",
+                Authorization: window.localStorage.getItem("accessToken"),
+            },
+            body: JSON.stringify({
+                email: email,
+                name: name
+            })
+        }
+        request('auth/user', requestOptions)
+            .then((res) => {
+                if (res.success) {
+                dispatch({
+                    type: PATCH_USER_SUCCESS
+                })
+            }
+            })
+            .catch((err) => {
+                dispatch({
+                    type: PATCH_USER_FAILED,
+                    error: err.message
+                })
+            })
+
+    }
+}
 
 
 export default forgotPassword

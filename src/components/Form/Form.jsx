@@ -1,7 +1,7 @@
 import React from "react";
 import stylesForm from './Form.module.css';
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 
 export const Form = (props) => {
     return (

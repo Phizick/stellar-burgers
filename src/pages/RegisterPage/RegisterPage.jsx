@@ -1,7 +1,7 @@
 import React from "react";
 import {useState} from "react";
 import {Form} from "../../components/Form/Form";
-import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Input, PasswordInput, EmailInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDispatch} from "react-redux";
 import {useHistory, Redirect} from "react-router-dom";
 import {registerUser} from "../../services/actions/user";
@@ -52,7 +52,7 @@ export const RegisterPage = () => {
                 />
             </li>
             <li className={`mt-6`}>
-                <Input value={value}
+                <EmailInput value={value}
                        onChange={handleUserEmail}
                        type={'email'}
                        placeholder={'E-mail'}

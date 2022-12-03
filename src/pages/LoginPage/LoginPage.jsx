@@ -47,7 +47,6 @@ export const LoginPage = () => {
                        ref={loginInputRef}
                        name={'email'}
                        extraClass="ml-1"
-
                 />
             </li>
             <li className={`mt-6`}>
@@ -56,7 +55,6 @@ export const LoginPage = () => {
                     name={'password'}
                     onChange={handlePassword}
                     extraClass="ml-1"
-
                 />
             </li>
         </Form>
