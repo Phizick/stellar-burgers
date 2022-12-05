@@ -1,5 +1,5 @@
 import {
-    FORGOT_PASSWORD, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_SUCCESS, GET_USER, GET_USER_FAILED, GET_USER_SUCCESS,
     LOGIN_USER,
     LOGIN_USER_FAILED,
     LOGIN_USER_SUCCESS, PATCH_USER, PATCH_USER_FAILED, PATCH_USER_SUCCESS,
@@ -8,12 +8,16 @@ import {
 } from "../actions/user";
 
 const initialState = {
-    email: '',
-    password: '',
-    token: '',
-    name: '',
+    user: {
+        email: '',
+        name: ''
+    },
+    accessToken: '',
+    refreshToken: '',
     success: false,
     pending: true,
+    password: '',
+    error: ''
 
 }
 
@@ -22,11 +26,26 @@ export const userReducer = (state = initialState, action) => {
         case LOGIN_USER: {
             return {
                 ...state,
-                email: action.email,
-                password: action.password
+                success: true,
+                pending: false,
             };
         }
         case LOGIN_USER_SUCCESS: {
+            return {
+                ...state,
+                user: action.user,
+                accessToken: action.accessToken,
+                refreshToken: action.refreshToken
+            };
+        }
+        case LOGIN_USER_FAILED: {
+            return {
+                ...state,
+                success: false,
+                error: action.error
+            };
+        }
+        case REGISTER_USER: {
             return {
                 ...state,
                 success: true,
@@ -34,32 +53,20 @@ export const userReducer = (state = initialState, action) => {
 
             };
         }
-        case LOGIN_USER_FAILED: {
-            return {
-                ...state,
-                success: false
-            };
-        }
-        case REGISTER_USER: {
-            return {
-                ...state,
-                email: action.email,
-                password: action.password,
-                name: action.name
-            };
-        }
         case REGISTER_USER_SUCCESS: {
             return {
                 ...state,
-                success: true,
-                pending: false,
+                user: action.user,
+                accessToken: action.accessToken,
+                refreshToken: action.refreshToken
 
             };
         }
         case REGISTER_USER_FAILED: {
             return {
                 ...state,
-                success: false
+                success: false,
+                error: action.error
             }
         }
         case FORGOT_PASSWORD: {
@@ -103,21 +110,41 @@ export const userReducer = (state = initialState, action) => {
         case PATCH_USER: {
             return {
                 ...state,
-                email: action.email,
-                name: action.name
+                success: true,
+                pending: false,
             }
         }
         case PATCH_USER_SUCCESS: {
             return {
                 ...state,
-                success: true,
-                pending: false
+                user: action.user
             }
         }
         case PATCH_USER_FAILED: {
             return {
                 ...state,
-                success: false
+                success: false,
+                error: action.error
+            }
+        }
+        case GET_USER: {
+            return {
+                ...state,
+                success: true,
+                accessToken: action.accessToken,
+                refreshToken: action.refreshToken
+            }
+        }
+        case GET_USER_SUCCESS: {
+            return {
+                ...state,
+                user: action.user
+            }
+        }
+        case GET_USER_FAILED: {
+            return {
+                ...state,
+                error: action.error
             }
         }
         default: {

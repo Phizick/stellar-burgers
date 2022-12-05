@@ -1,44 +1,44 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useState} from "react";
 
 import {EmailInput, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink} from "react-router-dom";
+
 import stylesProfile from './ProfilePage.module.css'
+import {ProfileNavigation} from "../../components/ProfileNavigation/ProfileNavigation";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {getUser, patchUser} from "../../services/actions/user";
+import {getCookie} from "../../utils/cookieFunc";
 
 export const ProfilePage = () => {
     const [value, setValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('');
     const [userName, setUserName] = useState('');
+    const  name  = useSelector((store) => store.user.name);
+    const  login  = useSelector((store) => store.user.email);
+    const user = getCookie('accessToken')
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (user) {
+            dispatch(getUser());
+            setUserName(name);
+            setValue(login);
+        }
+    }, [dispatch, name, login])
 
 
     return (
         <div className={stylesProfile.container}>
-            <div className={stylesProfile.nav}>
-                <ul className={stylesProfile.navList}>
-                    <li className={stylesProfile.navListItem}>
-                        <NavLink to={'/profile'} className={stylesProfile.navLink}>
-                            <p className={stylesProfile.text}>Профиль</p>
-                        </NavLink>
-                    </li>
-                    <li className={stylesProfile.navListItem}>
-                        <NavLink to={'/profile/orders'} className={stylesProfile.navLink}>
-                            <p className={stylesProfile.text}>История заказов</p>
-                        </NavLink>
-                    </li>
-                    <li className={stylesProfile.navListItem}>
-                        <NavLink to={'/profile'} className={stylesProfile.navLink}>
-                            <p className={stylesProfile.text}>Выход</p>
-                        </NavLink>
-                    </li>
-                    <p className={stylesProfile.about}>В этом разделе вы можете
-                        изменить свои персональные данные</p>
-                </ul>
-            </div>
-
-            <form>
+            <ProfileNavigation active={true}/>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                dispatch(patchUser(value, userName, passwordValue))
+            }}>
                 <ul className={stylesProfile.inputList}>
             <li className={`mt-6`}>
-                <Input value={userName}
+                <Input value={name}
                        onChange={(e) => {
                            setUserName(e.target.value)
                        }}
@@ -47,16 +47,18 @@ export const ProfilePage = () => {
                        name={'email'}
                        extraClass="ml-1"
                        icon={'EditIcon'}
+                       error={false}
                 />
             </li>
             <li className={`mt-6`}>
-                <EmailInput value={value}
+                <EmailInput value={login}
                             onChange={(e) => {
                                 setValue(e.target.value)
                             }}
                             type={'email'}
-                            placeholder={'E-mail'}
+                            placeholder={'Логин'}
                             name={'email'}
+                            icon={"EditIcon"}
                 />
             </li>
             <li className={`mt-6`}>

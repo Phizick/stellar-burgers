@@ -2,6 +2,7 @@ import React from "react";
 import {useState} from "react";
 import {Form} from "../../components/Form/Form";
 import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {resetPassword} from "../../services/actions/user";
 
 
 export const ResetPasswordPage = () => {

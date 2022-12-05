@@ -1,9 +1,9 @@
 import {request} from "./index";
-import {setCookie} from "../../utils/cookieFunc";
+import {getCookie, setCookie} from "../../utils/cookieFunc";
 
 
 export const LOGIN_USER = 'LOGIN_USER';
-export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCSESSFUL';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAILED = 'LOGIN_USER_FAILED';
 export const REGISTER_USER = 'REGISTER_USER';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -26,8 +26,6 @@ export const loginUser = (email, password, history) => {
     return (dispatch) => {
         dispatch({
             type: LOGIN_USER,
-            email: email,
-            password: password,
         });
         const requestOptions = {
             method: 'POST',
@@ -44,8 +42,10 @@ export const loginUser = (email, password, history) => {
                        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
                        localStorage.setItem('refreshToken', res.refreshToken);
                        dispatch({
-                           type: LOGIN_USER_SUCCESS
-
+                           type: LOGIN_USER_SUCCESS,
+                           user: res.user,
+                           accessToken: res.accessToken,
+                           refreshToken: res.refreshToken
                        });
                    }
                    history.replace({pathname: '/'});
@@ -63,10 +63,7 @@ export const loginUser = (email, password, history) => {
 export const registerUser = (email, password, name, history) => {
     return (dispatch) => {
         dispatch({
-            type: REGISTER_USER,
-            email: email,
-            password: password,
-            name: name,
+            type: REGISTER_USER
         });
         const requestOptions = {
             method: 'POST',
@@ -83,7 +80,10 @@ export const registerUser = (email, password, name, history) => {
                   setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
                   localStorage.setItem('refreshToken', res.refreshToken);
                   dispatch({
-                      type: REGISTER_USER_SUCCESS
+                      type: REGISTER_USER_SUCCESS,
+                      user: res.user,
+                      accessToken: res.accessToken,
+                      refreshToken: res.refreshToken
                   });
               }
                 history.replace({pathname: '/'});
@@ -162,7 +162,7 @@ export const getUser = () => {
         const requestOptions = {
             method: 'GET',
             headers: { "Content-Type": "application/json",
-                Authorization: window.localStorage.getItem("accessToken"),
+                Authorization: 'Bearer ' + getCookie('accessToken'),
             }
         }
         request('auth/user', requestOptions)
@@ -170,8 +170,7 @@ export const getUser = () => {
                 if (res.success) {
                     dispatch({
                         type: GET_USER_SUCCESS,
-                        email: res.user.email,
-                        name: res.user.name
+                        user: res.user
                     })
                 }
         })
@@ -184,28 +183,28 @@ export const getUser = () => {
     }
 };
 
-export const patchUser = (email, name) => {
+export const patchUser = (email, name, password) => {
     return (dispatch) => {
         dispatch({
-            type: PATCH_USER,
-            email: email,
-            name: name
+            type: PATCH_USER
         });
         const requestOptions = {
             method: 'PATCH',
             headers: { "Content-Type": "application/json",
-                Authorization: window.localStorage.getItem("accessToken"),
+                Authorization: 'Bearer ' + getCookie('accessToken'),
             },
             body: JSON.stringify({
-                email: email,
-                name: name
+                email: `${email}`,
+                password: `${password}`,
+                name: `${name}`
             })
         }
         request('auth/user', requestOptions)
             .then((res) => {
                 if (res.success) {
                 dispatch({
-                    type: PATCH_USER_SUCCESS
+                    type: PATCH_USER_SUCCESS,
+                    user: res.user
                 })
             }
             })

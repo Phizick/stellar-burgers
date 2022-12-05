@@ -1,61 +1,14 @@
 .container {
     display: flex;
     flex-direction: row;
-    margin: 0 auto;
-    max-width: 1280px;
-    padding-top: 120px;
     justify-content: center;
     gap: 60px;
-}
-
-.nav {
-
-
-}
-
-.navList {
-    list-style-type: none;
-    max-width: 320px;
-    padding: 0;
-}
-
-.navListItem {
-
-}
-
-.navLink {
-    text-decoration: none;
-    transition: .3s;
-}
-
-.navLink:hover {
-    opacity: .6;
-
-}
-
-.text {
-    font-family: "Jet Brains Mono", sans-serif;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 30px;
-    color: rgba(133,133,173,1);
-}
-
-.active {
-    color: rgba(242,242,243,1)
+    margin: 0 auto;
+    max-width: 1280px;
+    padding-top: 120px
 }
 
 .inputList {
     list-style-type: none;
     padding: 0;
-}
-
-.about {
-    font-size: 16px;
-    font-weight: 400;
-    font-family: "Jet Brains Mono", sans-serif;
-    line-height: 24px;
-    color: rgba(133,133,173,1);
-    max-width: 320px;
-    margin-top: 80px;
 }
