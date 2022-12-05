@@ -4,7 +4,7 @@ import {
     LOGIN_USER_FAILED,
     LOGIN_USER_SUCCESS, PATCH_USER, PATCH_USER_FAILED, PATCH_USER_SUCCESS,
     REGISTER_USER, REGISTER_USER_FAILED,
-    REGISTER_USER_SUCCESS, RESET_PASSWORD, RESET_PASSWORD_FAILED, RESET_PASSWORD_SUCCESS
+    REGISTER_USER_SUCCESS, RESET_PASSWORD, RESET_PASSWORD_FAILED, RESET_PASSWORD_SUCCESS,LOGOUT_USER_FAILED,LOGOUT_USER_SUCCESS,LOGOUT_USER
 } from "../actions/user";
 
 const initialState = {
@@ -17,7 +17,8 @@ const initialState = {
     success: false,
     pending: true,
     password: '',
-    error: ''
+    error: '',
+    authorizedUser: false
 
 }
 
@@ -35,7 +36,8 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 user: action.user,
                 accessToken: action.accessToken,
-                refreshToken: action.refreshToken
+                refreshToken: action.refreshToken,
+                authorizedUser: true
             };
         }
         case LOGIN_USER_FAILED: {
@@ -131,17 +133,37 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 success: true,
-                accessToken: action.accessToken,
-                refreshToken: action.refreshToken
             }
         }
         case GET_USER_SUCCESS: {
             return {
                 ...state,
-                user: action.user
+                user: action.user,
+                authorizedUser: true
             }
         }
         case GET_USER_FAILED: {
+            return {
+                ...state,
+                error: action.error
+            }
+        }
+        case LOGOUT_USER: {
+            return {
+                ...state,
+                success: true
+            }
+        }
+        case LOGOUT_USER_SUCCESS: {
+            return {
+                ...state,
+                user: action.user,
+                accessToken: action.accessToken,
+                refreshToken: action.refreshToken,
+                authorizedUser: false
+            }
+        }
+        case LOGOUT_USER_FAILED: {
             return {
                 ...state,
                 error: action.error

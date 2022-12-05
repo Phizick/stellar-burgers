@@ -20,6 +20,9 @@ export const GET_USER_FAILED = 'GET_USER_FAILED';
 export const PATCH_USER = 'PATCH_USER';
 export const PATCH_USER_SUCCESS = 'PATCH_USER_SUCCESS';
 export const PATCH_USER_FAILED = 'PATCH_USER_FAILED';
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
+export const LOGOUT_USER_FAILED = 'LOGOUT_USER_FAILED'
 
 
 export const loginUser = (email, password, history) => {
@@ -211,6 +214,41 @@ export const patchUser = (email, name, password) => {
             .catch((err) => {
                 dispatch({
                     type: PATCH_USER_FAILED,
+                    error: err.message
+                })
+            })
+
+    }
+}
+
+export const logoutUser = () => {
+    return (dispatch) => {
+        dispatch({
+            type: LOGOUT_USER
+        })
+        const requestOptions = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({
+                token: localStorage.getItem('refreshToken')
+            })
+        }
+        request('auth/logout', requestOptions)
+            .then((res) => {
+                if (res.success) {
+                    setCookie('accessToken', '')
+                    localStorage.removeItem(('refreshToken'));
+                    dispatch({
+                        type: LOGOUT_USER_SUCCESS,
+                        user: '',
+                        accessToken: '',
+                        refreshToken: ''
+                    })
+                }
+            })
+            .catch((err) => {
+                dispatch({
+                    type: LOGOUT_USER_FAILED,
                     error: err.message
                 })
             })
