@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import {useState} from "react";
 
-import {EmailInput, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, EmailInput, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import stylesProfile from './ProfilePage.module.css'
 import {ProfileNavigation} from "../../components/ProfileNavigation/ProfileNavigation";
 import {useDispatch, useSelector} from "react-redux";
-import {useHistory} from "react-router-dom";
+
 import {getUser, patchUser} from "../../services/actions/user";
 import {getCookie} from "../../utils/cookieFunc";
 
@@ -17,7 +17,6 @@ export const ProfilePage = () => {
     const  name  = useSelector((store) => store.user.name);
     const  login  = useSelector((store) => store.user.email);
     const user = getCookie('accessToken')
-    const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -55,7 +54,6 @@ export const ProfilePage = () => {
                             onChange={(e) => {
                                 setValue(e.target.value)
                             }}
-                            type={'email'}
                             placeholder={'Логин'}
                             name={'email'}
                             icon={"EditIcon"}
@@ -72,6 +70,12 @@ export const ProfilePage = () => {
                     icon={'EditIcon'}
                 />
             </li>
+                    <li className={stylesProfile.li}>
+                        <div className={stylesProfile.btn}>
+                            <Button type={"secondary"} size={'medium'} htmlType={'button'}>Отмена</Button>
+                            <Button type={'primary'} size={'medium'} htmlType={'submit'}>Сохранить</Button>
+                        </div>
+                    </li>
                 </ul>
             </form>
         </div>

@@ -29,6 +29,7 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 success: true,
                 pending: false,
+                authorizedUser: action.authorizedUser
             };
         }
         case LOGIN_USER_SUCCESS: {
@@ -36,8 +37,7 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 user: action.user,
                 accessToken: action.accessToken,
-                refreshToken: action.refreshToken,
-                authorizedUser: true
+                refreshToken: action.refreshToken
             };
         }
         case LOGIN_USER_FAILED: {
@@ -151,7 +151,8 @@ export const userReducer = (state = initialState, action) => {
         case LOGOUT_USER: {
             return {
                 ...state,
-                success: true
+                success: true,
+                authorizedUser: false
             }
         }
         case LOGOUT_USER_SUCCESS: {
@@ -159,8 +160,7 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 user: action.user,
                 accessToken: action.accessToken,
-                refreshToken: action.refreshToken,
-                authorizedUser: false
+                refreshToken: action.refreshToken
             }
         }
         case LOGOUT_USER_FAILED: {

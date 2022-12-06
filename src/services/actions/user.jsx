@@ -22,13 +22,18 @@ export const PATCH_USER_SUCCESS = 'PATCH_USER_SUCCESS';
 export const PATCH_USER_FAILED = 'PATCH_USER_FAILED';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS';
-export const LOGOUT_USER_FAILED = 'LOGOUT_USER_FAILED'
+export const LOGOUT_USER_FAILED = 'LOGOUT_USER_FAILED';
+export const UPDATE_USER_TOKEN = 'UPDATE_USER_TOKEN';
+export const UPDATE_USER_TOKEN_SUCCESS = 'UPDATE_USER_TOKEN_SUCCESS';
+export const UPDATE_USER_TOKEN_FAILED = 'UPDATE_USER_TOKEN_FAILED'
 
 
 export const loginUser = (email, password, history) => {
     return (dispatch) => {
         dispatch({
             type: LOGIN_USER,
+            authorizedUser: true
+
         });
         const requestOptions = {
             method: 'POST',
@@ -253,6 +258,39 @@ export const logoutUser = () => {
                 })
             })
 
+    }
+}
+
+export const updateUserToken = () => {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_USER_TOKEN
+        });
+        const requestOptions = {
+            method: 'POST',
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({
+                token: localStorage.getItem('refreshToken')
+            })
+        }
+        request('auth/token', requestOptions)
+            .then((res) => {
+                if (res.success) {
+                    setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+                    localStorage.setItem('refreshToken', res.refreshToken)
+                    dispatch({
+                        type: UPDATE_USER_TOKEN_SUCCESS,
+                        accessToken: res.accessToken,
+                        refreshToken: res.refreshToken
+                    })
+                }
+            })
+            .catch((err) => {
+                dispatch({
+                    type:  UPDATE_USER_TOKEN_FAILED,
+                    error: err.message
+                })
+            })
     }
 }
 

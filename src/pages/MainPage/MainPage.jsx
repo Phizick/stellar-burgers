@@ -10,21 +10,16 @@ import IngredientDetails from "../../components/IngredientDetails/IngredientDeta
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import {clearIngredientDetails, getIngredientDetails, setOrder} from "../../services/actions";
 
-export const MainPage = () => {
+export const MainPage = (props) => {
     const dispatch = useDispatch();
     const [isOpenedOrderModal, setModalOrderState] = useState(false);
-    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
+
     const ingredients = useSelector((store) => store.ingredients.data);
 
-    const openIngredientModal = (i) => {
-        dispatch(getIngredientDetails(i));
-        setModalIngredientsState(true);
-    };
 
-    const closeIngredientModal = () => {
-        dispatch(clearIngredientDetails());
-        setModalIngredientsState(false);
-    };
+
+
+
 
 
     const openOrderModal = () => {
@@ -41,13 +36,11 @@ export const MainPage = () => {
 
                         <DndProvider backend={HTML5Backend}>
                             <main className={MainPageStyles.mainContent}>
-                                <BurgerIngredients activeModal={openIngredientModal} />
+                                <BurgerIngredients activeModal={props.openModal} />
                                 <BurgerConstructor openModal={openOrderModal} />
                             </main>
                         </DndProvider>
-                        <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
-                            <IngredientDetails />
-                         </Modal>
+
                          <Modal closeModal={closeOrderModal} isOpened={isOpenedOrderModal}>
                              <OrderDetails />
                          </Modal>

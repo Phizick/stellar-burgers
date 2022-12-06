@@ -1,7 +1,7 @@
 import { CHOICE_INGREDIENT, DELETE_INGREDIENT } from "../actions";
 
 const initialState = {
-    selectedIngredient: {},
+    selectedIngredient: {}
 };
 
 export const getIngredientCard = (state = initialState, action) => {
@@ -9,13 +9,13 @@ export const getIngredientCard = (state = initialState, action) => {
         case CHOICE_INGREDIENT: {
             return {
                 ...state,
-                selectedIngredient: { ...state.selectedIngredient, ...action.data },
+                selectedIngredient: {...state.selectedIngredient, ...action.data}
             };
         }
         case DELETE_INGREDIENT: {
             return {
                 ...state,
-                selectedIngredient: {},
+                selectedIngredient: {}
             };
         }
         default:
