@@ -42,7 +42,7 @@ export const AppHeader = () => {
                     </li>
                     </Link>
                 </ul>
-                <Link to={'/'}>
+                <Link to={'/'} onClick={() => setLinkState('')}>
                 <Logo />
                 </Link>
                 <ul className={stylesAppHeader.ul}>

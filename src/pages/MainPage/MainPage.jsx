@@ -9,10 +9,13 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import {clearIngredientDetails, getIngredientDetails, setOrder} from "../../services/actions";
+import {getCookie} from "../../utils/cookieFunc";
+import {useHistory} from "react-router-dom";
 
 export const MainPage = (props) => {
     const dispatch = useDispatch();
     const [isOpenedOrderModal, setModalOrderState] = useState(false);
+    const history = useHistory()
 
     const ingredients = useSelector((store) => store.ingredients.data);
 
@@ -23,8 +26,16 @@ export const MainPage = (props) => {
 
 
     const openOrderModal = () => {
-        setModalOrderState(true);
-        dispatch(setOrder(ingredients.map((item) => item._id)));
+
+        const refreshToken = localStorage.getItem('refreshToken');
+        console.log(refreshToken)
+        const accessToken = getCookie('accessToken')
+        if (refreshToken && accessToken) {
+            setModalOrderState(true);
+            dispatch(setOrder(ingredients.map((item) => item._id)));
+        } else {
+            history.push('/login')
+        }
     };
 
     const closeOrderModal = () => {
