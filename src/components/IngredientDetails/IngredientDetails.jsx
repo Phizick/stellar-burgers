@@ -22,8 +22,8 @@ const IngredientDetails = ({active}) => {
 
 
     useEffect(() => {
-             // const findItem = ingredients.find((i) => i._id === id);
-        const findItem = ingredients.find((i) => i._id === '60d3b41abdacab0026a733c7')
+             const findItem = ingredients.find((i) => i._id === id);
+        // const findItem = ingredients.find((i) => i._id === '60d3b41abdacab0026a733c7')
         console.log(findItem)
 
             dispatch(getIngredientDetails(findItem))

@@ -15,6 +15,7 @@ import {ResetPasswordPage} from "../../pages/ResetPasswordPage/ResetPasswordPage
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
 import {ProtectedRoute} from "../ProtectedRoute/ProtectedRoute";
 
+
 import {useDispatch} from "react-redux";
 import {
     clearIngredientDetails, getIngredientDetails,
@@ -79,11 +80,11 @@ const RoutesSwitchHandler = () => {
                 <ProtectedRoute path='/profile' exact={true}>
                     <ProfilePage />
                 </ProtectedRoute>
-                <Route patch='/ingredients/:id' exact={true}>
-                    <IngredientDetails active={true}/>
-                </Route>
                 <Route path='*'>
                     <ErrorPage/>
+                </Route>
+                <Route patch='/ingredients/:id' exact={true}>
+                    <IngredientDetails active={true}/>
                 </Route>
             </Switch>
             {background && (

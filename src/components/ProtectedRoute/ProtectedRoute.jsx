@@ -5,7 +5,6 @@ import {getCookie} from "../../utils/cookieFunc";
 export const ProtectedRoute = ({children, ...rest}) => {
     const user = useSelector((store) => store.user);
     const accessToken = getCookie('accessToken');
-    console.log(user.authorizedUser)
 
     return (
         <Route {...rest}

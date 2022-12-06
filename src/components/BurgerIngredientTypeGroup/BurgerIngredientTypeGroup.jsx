@@ -26,8 +26,8 @@ const BurgerIngredientTypeGroup = forwardRef((props, ref) => {
                         })
                         .map((item) => {
                             return (
-                            <Link to={{pathname: `/ingredients/${item._id}`, state:{background: location}}} key={item._id}>
-                                <BurgerIngredient activeModal={props.activeModal} key={item._id} data={item} />;
+                            <Link className={stylesBurgerIngredientTypeGroup.link} to={{pathname: `/ingredients/${item._id}`, state:{background: location}}} key={item._id}>
+                                <BurgerIngredient activeModal={props.activeModal} key={item._id} data={item} />
                             </Link>
                             )
                         })}

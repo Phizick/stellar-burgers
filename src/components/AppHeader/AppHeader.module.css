@@ -40,4 +40,12 @@
 
 .link {
     cursor: pointer;
+    text-decoration: none;
+    color: #8585AD;
+}
+
+.linkActive {
+    cursor: pointer;
+    text-decoration: none;
+    color: #F2F2F3;
 }
