@@ -242,7 +242,7 @@ export const logoutUser = () => {
             .then((res) => {
                 if (res.success) {
                     setCookie('accessToken', '')
-                    localStorage.removeItem(('refreshToken'));
+                    localStorage.removeItem('refreshToken');
                     dispatch({
                         type: LOGOUT_USER_SUCCESS,
                         user: '',

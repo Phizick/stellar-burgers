@@ -54,6 +54,9 @@ const RoutesSwitchHandler = () => {
         dispatch(getIngredientDetails(data))
     }
 
+    console.log(window.localStorage)
+
+
 
 
 
