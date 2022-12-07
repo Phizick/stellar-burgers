@@ -1,23 +1,8 @@
 .container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     gap: 60px;
     margin: 0 auto;
     max-width: 650px;
     padding-top: 120px
 }
-
-.inputList {
-    list-style-type: none;
-    padding: 0;
-}
-
-.btn {
-
-}
-
-.li {
-    padding-top: 24px;
-}
-

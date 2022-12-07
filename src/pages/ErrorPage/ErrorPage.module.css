@@ -28,15 +28,6 @@
     display: block;
     text-decoration: none;
     margin: 0 auto;
+    font-family: "Jet Brains Mono", sans-serif;
+
 }
-
-/*.button {*/
-/*    font-family: "Jet Brains Mono", sans-serif;*/
-/*    font-size: 18px;*/
-/*    cursor: pointer;*/
-/*    transition: .2s;*/
-/*}*/
-
-/*.button:hover {*/
-/*    opacity: .7;*/
-/*}*/

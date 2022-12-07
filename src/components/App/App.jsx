@@ -14,14 +14,11 @@ import {ForgotPasswordPage} from "../../pages/ForgotPasswordPage/ForgotPasswordP
 import {ResetPasswordPage} from "../../pages/ResetPasswordPage/ResetPasswordPage";
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
 import {ProtectedRoute} from "../ProtectedRoute/ProtectedRoute";
-
-
 import {useDispatch} from "react-redux";
 import {
     clearIngredientDetails, getIngredientDetails,
     getIngredients
 } from "../../services/actions/index";
-
 import {
     BrowserRouter,
     Switch,
@@ -32,6 +29,7 @@ import {getCookie} from "../../utils/cookieFunc";
 import {getUser, updateUserToken} from "../../services/actions/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
+import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/ProfileOrdersHistoryPage";
 
 const RoutesSwitchHandler = () => {
     const history = useHistory();
@@ -39,7 +37,6 @@ const RoutesSwitchHandler = () => {
     const background = location.state && location.state.background;
     const dispatch = useDispatch()
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
-    // const ingredient = useSelector((state) => state.ingredientDetail.selectedIngredient)
 
     const closeIngredientModal = () => {
         dispatch(clearIngredientDetails());
@@ -47,19 +44,10 @@ const RoutesSwitchHandler = () => {
         history.goBack()
     };
 
-
-
     const openIngredientModal = (data) => {
         setModalIngredientsState(true)
         dispatch(getIngredientDetails(data))
     }
-
-
-
-
-
-
-
 
     return (
         <>
@@ -86,6 +74,9 @@ const RoutesSwitchHandler = () => {
                 <Route path='/ingredients/:id' exact={true}>
                     <IngredientDetails active={true}/>
                 </Route>
+                <Route path='/profile/orders' exact={true}>
+                    <ProfileOrdersHistoryPage/>
+                </Route>
                 <Route path='*'>
                     <ErrorPage/>
                 </Route>
@@ -93,11 +84,10 @@ const RoutesSwitchHandler = () => {
             {background && (
                 <Route path='/ingredients/:id'>
                     <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
-                        <IngredientDetails />
+                        <IngredientDetails active={false}/>
                     </Modal>
                 </Route>
                 )}
-
         </>
     )
 };

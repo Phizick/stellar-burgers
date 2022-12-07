@@ -5,37 +5,32 @@
  * разметку информации об ингредиенте
  */
 
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import stylesIngredientDetails from "../IngredientDetails/IngredientDetails.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { getIngredientDetails } from "../../services/actions";
+import { useParams } from "react-router-dom";
+import { InfinitySpin } from "react-loader-spinner";
 
-import {getIngredientDetails} from "../../services/actions";
-import {useParams} from "react-router-dom";
-
-const IngredientDetails = ({active}) => {
+const IngredientDetails = ({ active }) => {
     const ingredient = useSelector((state) => state.ingredientDetail.selectedIngredient);
-    const ingredients = useSelector((state) => state.ingredients.data)
-    const { isLoad } = useSelector((state) => state.ingredients)
+    const ingredients = useSelector((state) => state.ingredients.data);
+    const { isLoad } = useSelector((state) => state.ingredients);
     const dispatch = useDispatch();
-    const { id } = useParams()
-
-
-
-
+    const { id } = useParams();
 
     useEffect(() => {
-             const findItem = ingredients.find((i) => i._id === id);
-            dispatch(getIngredientDetails(findItem))
-    }, [dispatch,  id, ingredients])
-
+        const findItem = ingredients.find((i) => i._id === id);
+        dispatch(getIngredientDetails(findItem));
+    }, [dispatch, id, ingredients]);
 
     return (
         <>
-        {
-            isLoad ? (
+            {isLoad ? (
                 <section className={stylesIngredientDetails.container}>
                     {active && <h1 className={stylesIngredientDetails.head}>Детали ингредиента</h1>}
-                    <img src={ingredient?.image_large} alt={ingredient?.name} className={stylesIngredientDetails.img}/>
+                    <img src={ingredient?.image_large} alt={ingredient?.name} className={stylesIngredientDetails.img} />
                     <p className={`${stylesIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{ingredient?.name}</p>
                     <ul className={`${stylesIngredientDetails.ingredientDetails}`}>
                         <li className={stylesIngredientDetails.listItem}>
@@ -56,12 +51,17 @@ const IngredientDetails = ({active}) => {
                         </li>
                     </ul>
                 </section>
-            ) : ( 'load' )
-
-
-        }
+            ) : (
+                <div className={stylesIngredientDetails.loader}>
+                    <InfinitySpin width="200" color="#4c4cff" />
+                </div>
+            )}
         </>
-    )
+    );
+};
+
+IngredientDetails.propTypes = {
+    active: PropTypes.bool.isRequired,
 };
 
 export default IngredientDetails;

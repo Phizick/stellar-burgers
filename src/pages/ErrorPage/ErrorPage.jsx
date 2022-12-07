@@ -24,7 +24,6 @@ export const ErrorPage = () => {
             </p>
             <Link className={stylesErrorPage.link} to="/">
                 <Button
-
                     type={'primary'}
                     size={'small'}
                 >
