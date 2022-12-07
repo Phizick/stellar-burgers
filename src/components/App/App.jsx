@@ -54,7 +54,7 @@ const RoutesSwitchHandler = () => {
         dispatch(getIngredientDetails(data))
     }
 
-    console.log(window.localStorage)
+
 
 
 
@@ -83,15 +83,15 @@ const RoutesSwitchHandler = () => {
                 <ProtectedRoute path='/profile' exact={true}>
                     <ProfilePage />
                 </ProtectedRoute>
+                <Route path='/ingredients/:id' exact={true}>
+                    <IngredientDetails active={true}/>
+                </Route>
                 <Route path='*'>
                     <ErrorPage/>
                 </Route>
-                <Route patch='/ingredients/:id' exact={true}>
-                    <IngredientDetails active={true}/>
-                </Route>
             </Switch>
             {background && (
-                <Route patch='/ingredients/:id'>
+                <Route path='/ingredients/:id'>
                     <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
                         <IngredientDetails />
                     </Modal>

@@ -3,12 +3,13 @@ import {useState} from "react";
 import {Form} from "../../components/Form/Form";
 import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {resetPassword} from "../../services/actions/user";
+import {useDispatch} from "react-redux";
 
 
 export const ResetPasswordPage = () => {
-    const loginInputRef = React.useRef(null);
     const [value, setValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
+    const dispatch = useDispatch()
 
     return (
         <Form formTitle={'Восстановление пароля'}
@@ -18,7 +19,8 @@ export const ResetPasswordPage = () => {
               ForwardLinkFirst={'/login'}
               FormSubmitFunc={(e) => {
                   e.preventDefault();
-                  console.log(123)
+                  dispatch(resetPassword({password: passwordValue, token: value}))
+
               }}
         >
             <li className={`mt-6`}>
@@ -39,7 +41,6 @@ export const ResetPasswordPage = () => {
                        }}
                        type={'text'}
                        placeholder={'Введите код из письма'}
-                       ref={loginInputRef}
                        name={'email'}
                 />
             </li>

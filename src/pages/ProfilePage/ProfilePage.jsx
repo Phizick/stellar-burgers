@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {getUser, patchUser} from "../../services/actions/user";
 import {getCookie} from "../../utils/cookieFunc";
+import {enable} from "core-js/internals/internal-metadata";
 
 export const ProfilePage = () => {
     const [value, setValue] = useState('')
@@ -26,6 +27,11 @@ export const ProfilePage = () => {
             setValue(login);
         }
     }, [dispatch, name, login])
+
+    const restoreChanges = () => {
+        setUserName(name);
+        setValue(login)
+    }
 
 
     return (
@@ -50,13 +56,17 @@ export const ProfilePage = () => {
                 />
             </li>
             <li className={`mt-6`}>
-                <EmailInput value={login}
+                <Input value={login}
                             onChange={(e) => {
                                 setValue(e.target.value)
                             }}
-                            placeholder={'Логин'}
+                            placeholder={'Email'}
                             name={'email'}
                             icon={"EditIcon"}
+                            readOnly={false}
+                            selected={true}
+
+
                 />
             </li>
             <li className={`mt-6`}>
@@ -68,11 +78,12 @@ export const ProfilePage = () => {
                     }}
                     extraClass="ml-1"
                     icon={'EditIcon'}
+
                 />
             </li>
                     <li className={stylesProfile.li}>
                         <div className={stylesProfile.btn}>
-                            <Button type={"secondary"} size={'medium'} htmlType={'button'}>Отмена</Button>
+                            <Button type={"secondary"} size={'medium'} htmlType={'button'} onClick={restoreChanges}>Отмена</Button>
                             <Button type={'primary'} size={'medium'} htmlType={'submit'}>Сохранить</Button>
                         </div>
                     </li>

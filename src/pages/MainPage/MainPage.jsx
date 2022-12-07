@@ -26,7 +26,6 @@ export const MainPage = (props) => {
 
 
     const openOrderModal = () => {
-
         const refreshToken = localStorage.getItem('refreshToken');
         console.log(refreshToken)
         const accessToken = getCookie('accessToken')
