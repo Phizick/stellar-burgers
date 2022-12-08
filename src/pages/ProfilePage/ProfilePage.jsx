@@ -1,34 +1,30 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
-
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import stylesProfile from "./ProfilePage.module.css";
 import { ProfileNavigation } from "../../components/ProfileNavigation/ProfileNavigation";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, patchUser } from "../../services/actions/user";
+import {useForm} from "../../services/hooks/useForm";
 
 export const ProfilePage = () => {
-    const [value, setValue] = useState("");
-    const [passwordValue, setPasswordValue] = useState("");
-    const [userName, setUserName] = useState("");
     const name = useSelector((state) => state.user.user.name);
     const login = useSelector((state) => state.user.user.email);
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
 
+    const {values, handleChange, setValues} = useForm({ email: '', name: '', password: ''});
+
     useEffect(() => {
         if (user) {
             dispatch(getUser());
-            setUserName(name);
-            setValue(login);
+            setValues({name: name, email: login, password: ''});
         }
     }, []);
 
     const restoreChanges = () => {
-        setUserName(name);
-        setValue(login);
+        setValues({email: login, name: name, password: ''});
     };
+
 
     return (
         <div className={stylesProfile.container}>
@@ -36,19 +32,17 @@ export const ProfilePage = () => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    dispatch(patchUser(value, userName, passwordValue));
+                    dispatch(patchUser(values));
                 }}
             >
                 <ul className={stylesProfile.inputList}>
                     <li className={`mt-6`}>
                         <Input
-                            value={userName}
-                            onChange={(e) => {
-                                setUserName(e.target.value);
-                            }}
+                            value={values.name}
+                            onChange={handleChange}
                             type={"text"}
                             placeholder={"Имя"}
-                            name={"email"}
+                            name={"name"}
                             extraClass="ml-1"
                             icon={"EditIcon"}
                             error={false}
@@ -56,10 +50,8 @@ export const ProfilePage = () => {
                     </li>
                     <li className={`mt-6`}>
                         <Input
-                            value={value}
-                            onChange={(e) => {
-                                setValue(e.target.value);
-                            }}
+                            value={values.email}
+                            onChange={handleChange}
                             placeholder={"Email"}
                             name={"email"}
                             icon={"EditIcon"}
@@ -67,11 +59,9 @@ export const ProfilePage = () => {
                     </li>
                     <li className={`mt-6`}>
                         <PasswordInput
-                            value={passwordValue}
+                            value={values.password}
                             name={"password"}
-                            onChange={(e) => {
-                                setPasswordValue(e.target.value);
-                            }}
+                            onChange={handleChange}
                             extraClass="ml-1"
                             icon={"EditIcon"}
                         />

@@ -1,23 +1,15 @@
-import { useState } from "react";
 import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../../services/actions/user";
-import { getCookie } from "../../utils/cookieFunc";
+import {useForm} from "../../services/hooks/useForm";
 
 export const RegisterPage = () => {
-    const [value, setValue] = useState("");
-    const [passwordValue, setPasswordValue] = useState("");
-    const [userName, setUserName] = useState("");
     const dispatch = useDispatch();
     const history = useHistory();
+    const {values, handleChange} = useForm({ email: '', name: '', password: ''});
 
-    const refreshToken = localStorage.getItem("refreshToken");
-    const accessToken = getCookie("accessToken");
-    if (refreshToken && accessToken) {
-        history.push("/");
-    } else {
         return (
             <Form
                 formTitle={"Регистрация"}
@@ -27,7 +19,7 @@ export const RegisterPage = () => {
                 ForwardLinkFirst={"/login"}
                 FormSubmitFunc={(e) => {
                     e.preventDefault();
-                    dispatch(registerUser(value, passwordValue, userName, history));
+                    dispatch(registerUser(values, history));
                 }}
                 ForwardLinkSecond={""}
                 firstQuestionLinkText={""}
@@ -36,10 +28,8 @@ export const RegisterPage = () => {
             >
                 <li className={`mt-6`}>
                     <Input
-                        value={userName}
-                        onChange={(e) => {
-                            setUserName(e.target.value);
-                        }}
+                        value={values.name}
+                        onChange={handleChange}
                         type={"text"}
                         placeholder={"Имя"}
                         name={"name"}
@@ -47,10 +37,8 @@ export const RegisterPage = () => {
                 </li>
                 <li className={`mt-6`}>
                     <Input
-                        value={value}
-                        onChange={(e) => {
-                            setValue(e.target.value);
-                        }}
+                        value={values.email}
+                        onChange={handleChange}
                         type={"email"}
                         placeholder={"E-mail"}
                         name={"email"}
@@ -58,14 +46,12 @@ export const RegisterPage = () => {
                 </li>
                 <li className={`mt-6`}>
                     <PasswordInput
-                        value={passwordValue}
+                        value={values.password}
                         name={"password"}
-                        onChange={(e) => {
-                            setPasswordValue(e.target.value);
-                        }}
+                        onChange={handleChange}
                     />
                 </li>
             </Form>
         );
-    }
+
 };

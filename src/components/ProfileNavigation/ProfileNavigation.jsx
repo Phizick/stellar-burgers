@@ -21,7 +21,7 @@ export const ProfileNavigation = (props) => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/profile"} className={stylesProfile.navLink} onClick={() => dispatch(logoutUser())}>
+                    <NavLink to={"/login"} className={stylesProfile.navLink} onClick={() => dispatch(logoutUser())}>
                         <p className={stylesProfile.text}>Выход</p>
                     </NavLink>
                 </li>

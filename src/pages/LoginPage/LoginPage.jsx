@@ -1,24 +1,17 @@
 import React from "react";
-import { useState } from "react";
 import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../../services/actions/user";
-import { getCookie } from "../../utils/cookieFunc";
+import {useForm} from "../../services/hooks/useForm";
 
 export const LoginPage = () => {
-    const loginInputRef = React.useRef(null);
-    const [value, setValue] = useState("");
-    const [passwordValue, setPasswordValue] = useState("");
+
     const dispatch = useDispatch();
     const history = useHistory();
+    const {values, handleChange} = useForm({ email: '', password: ''});
 
-    const refreshToken = localStorage.getItem("refreshToken");
-    const accessToken = getCookie("accessToken");
-    if (refreshToken && accessToken) {
-        history.push("/");
-    } else {
         return (
             <Form
                 formTitle={"Вход"}
@@ -31,32 +24,27 @@ export const LoginPage = () => {
                 ForwardLinkSecond={"/forgot-password"}
                 FormSubmitFunc={(e) => {
                     e.preventDefault();
-                    dispatch(loginUser(value, passwordValue, history));
+                    dispatch(loginUser(values, history));
                 }}
                 firstQuestionLinkText={''}
             >
                 <li className={`mt-6`}>
                     <Input
-                        value={value}
-                        onChange={(e) => {
-                            setValue(e.target.value);
-                        }}
+                        value={values.email}
+                        onChange={handleChange}
                         type={"email"}
                         placeholder={"E-mail"}
-                        ref={loginInputRef}
                         name={"email"}
                     />
                 </li>
                 <li className={`mt-6`}>
                     <PasswordInput
-                        value={passwordValue}
+                        value={values.password}
                         name={"password"}
-                        onChange={(e) => {
-                            setPasswordValue(e.target.value);
-                        }}
+                        onChange={handleChange}
                     />
                 </li>
             </Form>
         );
-    }
+
 };

@@ -53,28 +53,28 @@ const RoutesSwitchHandler = () => {
         <>
             <AppHeader />
             <Switch location={ background || location}>
-                <Route path='/' exact={true}>
+                <Route path='/' exact>
                     <MainPage openModal={openIngredientModal}/>
                 </Route>
-                <Route path='/login' exact={true}>
+                <ProtectedRoute path='/login' onlyForAuth={false} exact>
                     <LoginPage />
-                </Route>
-                <Route path='/register' exact={true}>
+                </ProtectedRoute>
+                <ProtectedRoute path='/register' onlyForAuth={false} exact>
                     <RegisterPage />
-                </Route>
-                <Route path='/forgot-password' exact={true}>
+                </ProtectedRoute>
+                <ProtectedRoute path='/forgot-password' onlyForAuth={false} exact>
                     <ForgotPasswordPage />
-                </Route>
-                <Route path='/reset-password' exact={true}>
+                </ProtectedRoute>
+                <ProtectedRoute path='/reset-password' onlyForAuth={false} exact>
                     <ResetPasswordPage />
-                </Route>
-                <ProtectedRoute path='/profile' exact={true}>
+                </ProtectedRoute>
+                <ProtectedRoute path='/profile' onlyForAuth={true} exact>
                     <ProfilePage />
                 </ProtectedRoute>
-                <Route path='/ingredients/:id' exact={true}>
+                <Route path='/ingredients/:id' exact>
                     <IngredientDetails active={true}/>
                 </Route>
-                <Route path='/profile/orders' exact={true}>
+                <Route path='/profile/orders' exact>
                     <ProfileOrdersHistoryPage/>
                 </Route>
                 <Route path='*'>
@@ -82,10 +82,11 @@ const RoutesSwitchHandler = () => {
                 </Route>
             </Switch>
             {background && (
-                <Route path='/ingredients/:id'>
-                    <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal} isOpened={isOpenedIngredientsModal}>
-                        <IngredientDetails active={false}/>
-                    </Modal>
+                <Route path='/ingredients/:id' exact>
+                    <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal}
+                               isOpened={isOpenedIngredientsModal}>
+                            <IngredientDetails active={false}/>
+                        </Modal>
                 </Route>
                 )}
         </>

@@ -1,26 +1,33 @@
 import { Route, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { getCookie } from "../../utils/cookieFunc";
+import {useLocation} from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const ProtectedRoute = ({ children, ...rest }) => {
-    const user = useSelector((store) => store.user);
-    const accessToken = getCookie("accessToken");
+export const ProtectedRoute = ({ onlyForAuth, children, ...rest }) => {
+    const isAuthorized = getCookie("accessToken");
+    const location = useLocation();
 
-    return (
-        <Route
-            {...rest}
-            render={({ location }) =>
-                accessToken || user.authorizedUser || user?.name ? (
-                    children
-                ) : (
-                    <Redirect
-                        to={{
-                            pathname: "/login",
-                            state: { from: location },
-                        }}
-                    />
-                )
-            }
-        />
-    );
+    if (!onlyForAuth && isAuthorized) {
+        const { from } = location.state || { from: { pathname: "/" } };
+        return (
+            <Route {...rest}>
+                <Redirect to={from} />
+            </Route>
+        );
+    }
+
+    if (onlyForAuth && !isAuthorized) {
+        return (
+            <Route {...rest}>
+                <Redirect to={{ pathname: "/login", state: { from: location } }} />
+            </Route>
+        );
+    }
+
+    return <Route {...rest}>{children}</Route>;
+};
+
+ProtectedRoute.propTypes = {
+    children: PropTypes.node.isRequired,
+    onlyForAuth: PropTypes.bool.isRequired,
 };

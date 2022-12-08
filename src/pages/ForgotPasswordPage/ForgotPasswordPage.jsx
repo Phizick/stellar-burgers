@@ -1,24 +1,16 @@
 import React from "react";
-import { useState } from "react";
 import { Form } from "../../components/Form/Form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import forgotPassword from "../../services/actions/user";
-import { getCookie } from "../../utils/cookieFunc";
+import {useForm} from "../../services/hooks/useForm";
 
 export const ForgotPasswordPage = () => {
-    const loginInputRef = React.useRef(null);
-    const [value, setValue] = useState("");
     const history = useHistory();
     const dispatch = useDispatch();
+    const {values, handleChange } = useForm({ email: ''});
 
-    const refreshToken = localStorage.getItem("refreshToken");
-    const accessToken = getCookie("accessToken");
-
-    if (refreshToken && accessToken) {
-        history.push("/");
-    } else {
         return (
             <Form
                 formTitle={"Восстановление пароля"}
@@ -28,7 +20,7 @@ export const ForgotPasswordPage = () => {
                 ForwardLinkFirst={"/reset-password"}
                 FormSubmitFunc={(e) => {
                     e.preventDefault();
-                    dispatch(forgotPassword(value, history));
+                    dispatch(forgotPassword(values.email, history));
                     history.push("/reset-password");
                 }}
                 ForwardLinkSecond={""}
@@ -38,17 +30,13 @@ export const ForgotPasswordPage = () => {
             >
                 <li className={`mt-6`}>
                     <Input
-                        value={value}
-                        onChange={(e) => {
-                            setValue(e.target.value);
-                        }}
+                        value={values.email}
+                        onChange={handleChange}
                         size={"default"}
                         placeholder={"укажите e-mail"}
-                        ref={loginInputRef}
                         name={"email"}
                     />
                 </li>
             </Form>
         );
-    }
 };

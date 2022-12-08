@@ -26,7 +26,7 @@ export const UPDATE_USER_TOKEN = "UPDATE_USER_TOKEN";
 export const UPDATE_USER_TOKEN_SUCCESS = "UPDATE_USER_TOKEN_SUCCESS";
 export const UPDATE_USER_TOKEN_FAILED = "UPDATE_USER_TOKEN_FAILED";
 
-export const loginUser = (email, password, history) => {
+export const loginUser = (values, history) => {
     return (dispatch) => {
         dispatch({
             type: LOGIN_USER,
@@ -36,8 +36,8 @@ export const loginUser = (email, password, history) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email: `${email}`,
-                password: `${password}`,
+                email: `${values.email}`,
+                password: `${values.password}`,
             }),
         };
         request("auth/login", requestOptions)
@@ -65,7 +65,7 @@ export const loginUser = (email, password, history) => {
     };
 };
 
-export const registerUser = (email, password, name, history) => {
+export const registerUser = (values, history) => {
     return (dispatch) => {
         dispatch({
             type: REGISTER_USER,
@@ -74,9 +74,9 @@ export const registerUser = (email, password, name, history) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email: `${email}`,
-                password: `${password}`,
-                name: `${name}`,
+                email: `${values.email}`,
+                password: `${values.password}`,
+                name: `${values.name}`,
             }),
         };
         request("auth/register", requestOptions)
@@ -186,7 +186,7 @@ export const getUser = () => {
     };
 };
 
-export const patchUser = (email, name, password) => {
+export const patchUser = (values) => {
     return (dispatch) => {
         dispatch({
             type: PATCH_USER,
@@ -195,9 +195,9 @@ export const patchUser = (email, name, password) => {
             method: "PATCH",
             headers: { "Content-Type": "application/json", Authorization: "Bearer " + getCookie("accessToken") },
             body: JSON.stringify({
-                email: `${email}`,
-                password: `${password}`,
-                name: `${name}`,
+                email: `${values.email}`,
+                password: `${values.password}`,
+                name: `${values.name}`,
             }),
         };
         request("auth/user", requestOptions)

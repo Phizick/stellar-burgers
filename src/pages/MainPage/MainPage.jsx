@@ -9,7 +9,7 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import { setOrder } from "../../services/actions";
 import { getCookie } from "../../utils/cookieFunc";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
 
 export const MainPage = (props) => {
@@ -17,6 +17,7 @@ export const MainPage = (props) => {
     const [isOpenedOrderModal, setModalOrderState] = useState(false);
     const history = useHistory();
     const ingredients = useSelector((store) => store.ingredients.data);
+
 
     const openOrderModal = () => {
         const refreshToken = localStorage.getItem("refreshToken");
@@ -28,6 +29,7 @@ export const MainPage = (props) => {
             history.push("/login");
         }
     };
+
 
     const closeOrderModal = () => {
         setModalOrderState(false);
