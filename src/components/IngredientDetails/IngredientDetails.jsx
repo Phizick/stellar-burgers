@@ -5,36 +5,63 @@
  * разметку информации об ингредиенте
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import stylesIngredientDetails from "../IngredientDetails/IngredientDetails.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { getIngredientDetails } from "../../services/actions";
+import { useParams } from "react-router-dom";
+import { InfinitySpin } from "react-loader-spinner";
 
-const IngredientDetails = () => {
+const IngredientDetails = ({ active }) => {
     const ingredient = useSelector((state) => state.ingredientDetail.selectedIngredient);
+    const ingredients = useSelector((state) => state.ingredients.data);
+    const { isLoad } = useSelector((state) => state.ingredients);
+    const dispatch = useDispatch();
+    const { id } = useParams();
+
+    useEffect(() => {
+        const findItem = ingredients.find((i) => i._id === id);
+        dispatch(getIngredientDetails(findItem));
+    }, [dispatch, id, ingredients]);
+
     return (
-        <section className={stylesIngredientDetails.container}>
-            <img src={ingredient.image_large} alt={ingredient.name} />
-            <p className={`${stylesIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{ingredient.name}</p>
-            <ul className={`${stylesIngredientDetails.ingredientDetails}`}>
-                <li className={stylesIngredientDetails.listItem}>
-                    <p className={`text text_type_main-default text_color_inactive`}>Калории,ккал</p>
-                    <p className={`text text_type_digits-default text_color_inactive pt-3`}>{ingredient.calories}</p>
-                </li>
-                <li className={stylesIngredientDetails.listItem}>
-                    <p className={`text text_type_main-default text_color_inactive`}>Белки, г</p>
-                    <p className={`text text_type_digits-default text_color_inactive pt-3`}>{ingredient.proteins}</p>
-                </li>
-                <li className={stylesIngredientDetails.listItem}>
-                    <p className={`text text_type_main-default text_color_inactive`}>Жиры, г</p>
-                    <p className={`text text_type_digits-default text_color_inactive pt-3`}>{ingredient.fat}</p>
-                </li>
-                <li className={stylesIngredientDetails.listItem}>
-                    <p className={`text text_type_main-default text_color_inactive`}>Углеводы, г</p>
-                    <p className={`text text_type_digits-default text_color_inactive pt-3`}>{ingredient.carbohydrates}</p>
-                </li>
-            </ul>
-        </section>
+        <>
+            {isLoad ? (
+                <section className={stylesIngredientDetails.container}>
+                    {active && <h1 className={stylesIngredientDetails.head}>Детали ингредиента</h1>}
+                    <img src={ingredient?.image_large} alt={ingredient?.name} className={stylesIngredientDetails.img} />
+                    <p className={`${stylesIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{ingredient?.name}</p>
+                    <ul className={`${stylesIngredientDetails.ingredientDetails}`}>
+                        <li className={stylesIngredientDetails.listItem}>
+                            <p className={`text text_type_main-default text_color_inactive`}>Калории,ккал</p>
+                            <p className={`text text_type_digits-default text_color_inactive pt-3`}>{ingredient?.calories}</p>
+                        </li>
+                        <li className={stylesIngredientDetails.listItem}>
+                            <p className={`text text_type_main-default text_color_inactive`}>Белки, г</p>
+                            <p className={`text text_type_digits-default text_color_inactive pt-3`}>{ingredient?.proteins}</p>
+                        </li>
+                        <li className={stylesIngredientDetails.listItem}>
+                            <p className={`text text_type_main-default text_color_inactive`}>Жиры, г</p>
+                            <p className={`text text_type_digits-default text_color_inactive pt-3`}>{ingredient?.fat}</p>
+                        </li>
+                        <li className={stylesIngredientDetails.listItem}>
+                            <p className={`text text_type_main-default text_color_inactive`}>Углеводы, г</p>
+                            <p className={`text text_type_digits-default text_color_inactive pt-3`}>{ingredient?.carbohydrates}</p>
+                        </li>
+                    </ul>
+                </section>
+            ) : (
+                <div className={stylesIngredientDetails.loader}>
+                    <InfinitySpin width="200" color="#4c4cff" />
+                </div>
+            )}
+        </>
     );
+};
+
+IngredientDetails.propTypes = {
+    active: PropTypes.bool.isRequired,
 };
 
 export default IngredientDetails;

@@ -10,9 +10,11 @@ import stylesBurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/Burger
 import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import {Link, useLocation} from "react-router-dom";
 
 const BurgerIngredientTypeGroup = forwardRef((props, ref) => {
     const burgerIngredients = useSelector((store) => store.ingredients.data);
+    const location = useLocation()
     return (
         <section className={`${stylesBurgerIngredientTypeGroup.container} `} ref={ref} id={props.id}>
             <p className={`text text_type_main-medium m-2`}>{props.title}</p>
@@ -23,7 +25,11 @@ const BurgerIngredientTypeGroup = forwardRef((props, ref) => {
                             return item.type === props.listType;
                         })
                         .map((item) => {
-                            return <BurgerIngredient activeModal={props.activeModal} key={item._id} data={item} />;
+                            return (
+                            <Link className={stylesBurgerIngredientTypeGroup.link} to={{pathname: `/ingredients/${item._id}`, state:{background: location}}} key={item._id}>
+                                <BurgerIngredient activeModal={props.activeModal} key={item._id} data={item} />
+                            </Link>
+                            )
                         })}
             </ul>
         </section>

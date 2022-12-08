@@ -8,8 +8,12 @@
 import React from "react";
 import stylesModalOverlay from "../ModalOverlay/ModalOverlay.module.css";
 import PropTypes from "prop-types";
+import {useParams} from "react-router-dom";
+
 
 const ModalOverlay = (props) => {
+    const { id } = useParams()
+
     const handleOverlay = (e) => {
         if (e.target === e.currentTarget) {
             props.closeModal();
@@ -17,7 +21,7 @@ const ModalOverlay = (props) => {
     };
 
     return (
-        <section className={props.isActive ? `${stylesModalOverlay.overlay} ${stylesModalOverlay.overlay_active}` : `${stylesModalOverlay.overlay}`} onClick={handleOverlay}>
+        <section className={props.isActive || id  ? `${stylesModalOverlay.overlay} ${stylesModalOverlay.overlay_active}` : `${stylesModalOverlay.overlay}`} onClick={handleOverlay}>
             <div className={stylesModalOverlay.content}>{props.children}</div>
         </section>
     );

@@ -23,7 +23,7 @@ export function checkResponse(res) {
     return Promise.reject(`error ${res}`);
 }
 
-function request(url, options) {
+export function request(url, options) {
     return fetch(`${baseUrl}${url}`, options).then(checkResponse);
 }
 

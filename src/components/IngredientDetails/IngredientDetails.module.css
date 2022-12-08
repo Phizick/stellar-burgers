@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-width: 640px;
+    margin: 0 auto;
 }
 
 .title {
@@ -21,3 +23,24 @@
     list-style-type: none;
 }
 
+.img {
+    max-width: 480px;
+    max-height: 240px;
+    margin: 0 auto;
+}
+
+.head {
+    font-family: "Jet Brains Mono",sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 40px;
+    text-align: center;
+    margin: 120px 0 20px 0;
+}
+
+.loader {
+    margin: 0 auto;
+    padding: 120px 0;
+    display: flex;
+    justify-content: center;
+}

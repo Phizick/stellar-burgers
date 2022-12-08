@@ -3,6 +3,9 @@ import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from
 const initialState = {
     ingredients: [],
     data: [],
+    ingredientsProcessing: false,
+    isLoad: false
+
 };
 
 export const getIngredientsReducer = (state = initialState, action) => {
@@ -18,6 +21,7 @@ export const getIngredientsReducer = (state = initialState, action) => {
                 ...state,
                 ingredientsProcessing: false,
                 data: action.data,
+                isLoad: true
             };
         }
         case GET_INGREDIENTS_FAILED: {

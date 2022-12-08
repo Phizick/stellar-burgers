@@ -1,0 +1,33 @@
+
+.div {
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 40px;
+    background-color: rgba(19,19,22,1)
+}
+
+.title {
+    font-family: "Jet Brains Mono", sans-serif;
+    font-size: 60px;
+    line-height: 120%;
+    margin: 0;
+}
+
+.text {
+    font-family: "Jet Brains Mono", sans-serif;
+    max-width: 600px;
+    margin: 0;
+}
+
+.link {
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+    font-family: "Jet Brains Mono", sans-serif;
+
+}
