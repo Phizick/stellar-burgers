@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 16px;
+    width: 100%;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    max-width: 110px;
+    gap: 9px;
+}

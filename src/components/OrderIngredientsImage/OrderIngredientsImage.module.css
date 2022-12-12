@@ -18,6 +18,7 @@
     border-radius: 100px;
     border: 2px solid transparent;
     background: linear-gradient(to right, rgba(128, 26, 178, 1), rgba(76, 76, 255, 1));
+    width: fit-content;
 }
 
 

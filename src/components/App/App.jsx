@@ -31,6 +31,7 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/ProfileOrdersHistoryPage";
 import {FeedPage} from "../../pages/FeedPage/FeedPage";
+import {OrderInfo} from "../OrderInfo/OrderInfo";
 
 const RoutesSwitchHandler = () => {
     const history = useHistory();
@@ -73,7 +74,7 @@ const RoutesSwitchHandler = () => {
                     <FeedPage/>
                 </Route>
                 <Route path='/feed/123' exact>
-
+                    <OrderInfo/>
                 </Route>
                 <ProtectedRoute path='/profile' onlyForAuth={true} exact>
                     <ProfilePage />
