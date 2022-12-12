@@ -69,9 +69,12 @@ const RoutesSwitchHandler = () => {
                 <ProtectedRoute path='/reset-password' onlyForAuth={false} exact>
                     <ResetPasswordPage />
                 </ProtectedRoute>
-                <ProtectedRoute path='/orders' onlyForAuth={false}>
+                <Route path='/orders'  exact>
                     <FeedPage/>
-                </ProtectedRoute>
+                </Route>
+                <Route path='/feed/123' exact>
+
+                </Route>
                 <ProtectedRoute path='/profile' onlyForAuth={true} exact>
                     <ProfilePage />
                 </ProtectedRoute>
