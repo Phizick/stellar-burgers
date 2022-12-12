@@ -30,11 +30,12 @@ import {getUser, updateUserToken} from "../../services/actions/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/ProfileOrdersHistoryPage";
+import {FeedPage} from "../../pages/FeedPage/FeedPage";
 
 const RoutesSwitchHandler = () => {
     const history = useHistory();
     const location = useLocation();
-    const background = location.state && location.state.background;
+    const background = location.state?.background;
     const dispatch = useDispatch()
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
 
@@ -67,6 +68,9 @@ const RoutesSwitchHandler = () => {
                 </ProtectedRoute>
                 <ProtectedRoute path='/reset-password' onlyForAuth={false} exact>
                     <ResetPasswordPage />
+                </ProtectedRoute>
+                <ProtectedRoute path='/orders' onlyForAuth={false}>
+                    <FeedPage/>
                 </ProtectedRoute>
                 <ProtectedRoute path='/profile' onlyForAuth={true} exact>
                     <ProfilePage />
