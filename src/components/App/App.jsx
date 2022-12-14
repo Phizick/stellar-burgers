@@ -33,12 +33,15 @@ import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/Pro
 import {FeedPage} from "../../pages/FeedPage/FeedPage";
 import {OrderInfo} from "../OrderInfo/OrderInfo";
 
+
 const RoutesSwitchHandler = () => {
     const history = useHistory();
     const location = useLocation();
     const background = location.state?.background;
     const dispatch = useDispatch()
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
+
+
 
     const closeIngredientModal = () => {
         dispatch(clearIngredientDetails());
@@ -97,6 +100,7 @@ const RoutesSwitchHandler = () => {
                         </Modal>
                 </Route>
                 )}
+
         </>
     )
 };

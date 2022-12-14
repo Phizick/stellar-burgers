@@ -16,6 +16,7 @@ export const CLEAR_ORDER = "CLEAR_ORDER";
 export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
 
 const baseUrl = "https://norma.nomoreparties.space/api/";
+
 export function checkResponse(res) {
     if (res.ok) {
         return res.json();
