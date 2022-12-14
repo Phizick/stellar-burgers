@@ -1,24 +1,22 @@
 import stylesOrderList from './OrdersList.module.css'
 import {OrderCard} from "../OrderCard/OrderCard";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 
 export const OrdersList = () => {
+    const location = useLocation()
+    const orders = useSelector(state => state.wsOrders.orders)
+
     return (
         <div className={stylesOrderList.list}>
-            <Link className={stylesOrderList.link} to={{pathname: `/feed/123`}}>
-            <OrderCard/>
-            </Link>
-            <Link className={stylesOrderList.link} to={{pathname: `/feed/123`}}>
-                <OrderCard/>
-            </Link>
-            <Link className={stylesOrderList.link} to={{pathname: `/feed/123`}}>
-                <OrderCard/>
-            </Link>
-            <Link className={stylesOrderList.link} to={{pathname: `/feed/123`}}>
-                <OrderCard/>
-            </Link>
-
+            { orders && orders.map((item, index) => {
+                return(
+                    <Link className={stylesOrderList.link} to={{pathname: `/feed/${item._id}`, state: {background: location}}} key={item._id}>
+                        <OrderCard order={item} key={index}/>
+                    </Link>
+                )
+            })}
         </div>
     )
 

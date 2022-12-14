@@ -1,7 +1,13 @@
 import {
     WS_CONNECTION_CLOSED,
     WS_CONNECTION_FAILED,
-    WS_CONNECTION_SUCCESS, WS_GET_ORDERS, WS_AUTH_GET_ORDERS, WS_AUTH_CONNECTION_SUCCESS, WS_AUTH_CONNECTION_FAILED, WS_AUTH_CONNECTION_CLOSED
+    WS_CONNECTION_SUCCESS,
+    WS_GET_ORDERS,
+    WS_AUTH_GET_ORDERS,
+    WS_AUTH_CONNECTION_SUCCESS,
+    WS_AUTH_CONNECTION_FAILED,
+    WS_AUTH_CONNECTION_CLOSED,
+    WS_CONNECTION_START
 } from "../actions/wsActions";
 
 
@@ -12,7 +18,7 @@ const initialState = {
     totalToday: 0
 }
 
-export const wsReduser = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action) => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS:
             return {
@@ -32,16 +38,15 @@ export const wsReduser = (state = initialState, action) => {
         case WS_GET_ORDERS:
             return {
                 ...state,
-                orders: action.payload.orders,
-                total: action.payload.total,
-                totalToday: action.payload.totalToday
+                orders: [action.payload],
+
             };
         default:
             return state
     }
 };
 
-export const wsAuthReduser = (state = initialState, action) => {
+export const wsAuthReducer = (state = initialState, action) => {
     switch (action.type) {
         case WS_AUTH_CONNECTION_SUCCESS:
             return {

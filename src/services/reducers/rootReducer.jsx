@@ -4,11 +4,15 @@ import {getIngredientsReducer} from './getIngredientsReducer'
 import {getOrderData} from "./getOrderReducer";
 import {getIngredientCard} from './getIngredientCardReducer'
 import {userReducer} from "./userReducer";
+import {wsAuthReducer, wsReducer} from "./wsReducers";
+
 
 export const rootReducer = combineReducers({
     ingredients: getIngredientsReducer,
     burgerIngredients: burgerConstructorReducer,
     ingredientDetail: getIngredientCard,
     order: getOrderData,
-    user: userReducer
+    user: userReducer,
+    wsOrders: wsReducer,
+    wsAuthOrders: wsAuthReducer
 });
