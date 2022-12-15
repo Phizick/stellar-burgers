@@ -8,6 +8,7 @@ import { useMemo } from "react";
 export const OrderCard = (props) => {
     const ingredients = useSelector(state => state.ingredients.data);
     const { createdAt, number, name } = props.order
+    console.log(props.order)
 
     const orderMaxLength = props.order.ingredients.length;
     const ingredientsLength = orderMaxLength - 6;
@@ -28,11 +29,11 @@ export const OrderCard = (props) => {
             <div className={stylesOrderCard.about}>
                 <ul className={stylesOrderCard.ingredientsList}>
                     {orderIngredients && ingredientsLength <= 5 && orderIngredients
-                        .map((item) => {
+                        .map((item, index) => {
                             return (
-                                <li className={stylesOrderCard.listItem}>
+                                <li className={stylesOrderCard.listItem} key={index}>
                                     {item &&
-                                        <OrderIngredientsImage item={item.image} alt={item.name}/>
+                                        <OrderIngredientsImage item={item.image} alt={item.name} key={index}/>
                                     }
                                 </li>
                             )

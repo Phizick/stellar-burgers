@@ -7,6 +7,8 @@ import {useSelector} from "react-redux";
 export const OrdersList = () => {
     const location = useLocation()
     const orders = useSelector(state => state.wsOrders.orders)
+    console.log(orders)
+
 
     return (
         <div className={stylesOrderList.list}>
@@ -14,7 +16,7 @@ export const OrdersList = () => {
                 orders
                     .map((item, index) => {
                         return(
-                            <Link className={stylesOrderList.link} to={{pathname: `/feed/${item._id}`, state: {background: location}}} key={item._id}>
+                            <Link className={stylesOrderList.link} to={{pathname: `/feed/${item._id}`, state: {background: location}}} key={index}>
                                 <OrderCard order={item} key={index}/>
                             </Link>
                         )

@@ -38,7 +38,9 @@ export const wsReducer = (state = initialState, action) => {
         case WS_GET_ORDERS:
             return {
                 ...state,
-                orders: [action.payload],
+                orders: action.payload.orders,
+                total: action.payload.total,
+                totalToday: action.payload.totalToday,
 
             };
         default:

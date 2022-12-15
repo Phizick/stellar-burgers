@@ -20,7 +20,6 @@ export const FeedPage = () => {
         <div className={stylesFeedPage.container}>
             <OrdersList/>
             <OrderStates/>
-
         </div>
         </>
 
