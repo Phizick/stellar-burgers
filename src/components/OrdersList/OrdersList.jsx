@@ -10,13 +10,16 @@ export const OrdersList = () => {
 
     return (
         <div className={stylesOrderList.list}>
-            { orders && orders.map((item, index) => {
-                return(
-                    <Link className={stylesOrderList.link} to={{pathname: `/feed/${item._id}`, state: {background: location}}} key={item._id}>
-                        <OrderCard order={item} key={index}/>
-                    </Link>
-                )
-            })}
+            { orders &&
+                orders
+                    .map((item, index) => {
+                        return(
+                            <Link className={stylesOrderList.link} to={{pathname: `/feed/${item._id}`, state: {background: location}}} key={item._id}>
+                                <OrderCard order={item} key={index}/>
+                            </Link>
+                        )
+                    })
+            }
         </div>
     )
 
