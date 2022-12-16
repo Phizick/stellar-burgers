@@ -1,4 +1,5 @@
 import { v4 as uuid4 } from "uuid";
+import {getCookie} from "../../utils/cookieFunc";
 
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -56,7 +57,9 @@ export const setOrder = (ingredients) => {
         });
         const requestOptions = {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: 'Bearer ' + getCookie('accessToken')},
             body: JSON.stringify({ ingredients: ingredients }),
         };
         request(`orders`, requestOptions)

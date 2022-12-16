@@ -16,7 +16,9 @@ export const MainPage = (props) => {
     const dispatch = useDispatch();
     const [isOpenedOrderModal, setModalOrderState] = useState(false);
     const history = useHistory();
-    const ingredients = useSelector((store) => store.ingredients.data);
+    // const ingredients = useSelector((store) => store.ingredients.data);
+    const { ingredientsAdded } = useSelector(state => state.burgerIngredients)
+    console.log(ingredientsAdded)
 
 
     const openOrderModal = () => {
@@ -24,7 +26,7 @@ export const MainPage = (props) => {
         const accessToken = getCookie("accessToken");
         if (refreshToken && accessToken) {
             setModalOrderState(true);
-            dispatch(setOrder(ingredients.map((item) => item._id)));
+            dispatch(setOrder(ingredientsAdded));
         } else {
             history.push("/login");
         }

@@ -9,10 +9,10 @@ export const OrderStates = () => {
 
     const completedOrders = ordersData.orders
         .filter(order => order.status === 'done')
-        .filter((order, index) => index < 20);
+        .filter((order, index) => index < 15);
     const upcomingOrders = ordersData.orders
         .filter(order => order.status !== 'done')
-        .filter((order, index) => index >= 20);
+        .filter((order, index) => index >= 10);
 
 
     return (
@@ -21,7 +21,7 @@ export const OrderStates = () => {
                 <div className={stylesOrdersStates.listContainer}>
                     <h2 className={stylesOrdersStates.title}>Готовы:</h2>
                     <ul className={stylesOrdersStates.list}>
-                        {completedOrders &&
+                        {
                             completedOrders
                                 .map((order, index) => {
                                     return (
@@ -34,7 +34,7 @@ export const OrderStates = () => {
                 <div className={stylesOrdersStates.listContainer}>
                     <h2 className={stylesOrdersStates.title}>В работе:</h2>
                     <ul className={stylesOrdersStates.list}>
-                        {upcomingOrders &&
+                        {
                             upcomingOrders
                                 .map((order, index) => {
                                     return (

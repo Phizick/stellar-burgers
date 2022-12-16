@@ -8,7 +8,6 @@ import { useMemo } from "react";
 export const OrderCard = (props) => {
     const ingredients = useSelector(state => state.ingredients.data);
     const { createdAt, number, name, status } = props.order
-    console.log(props.order)
 
     const orderMaxLength = props.order.ingredients.length;
     const ingredientsLength = orderMaxLength - 6;
@@ -28,7 +27,7 @@ export const OrderCard = (props) => {
                 <p className={`text text_type_main-default text_color_inactive`}>{orderDay ? 'Сегодня' : 'Вчера'}, {createdAt.slice(11, 16)} {`i-GMT+3`}</p>
             </div>
             <p className={`text text_type_main-medium ${stylesOrderCard.title}`}>{name}</p>
-            <p className={`text text_type_main-default ${stylesOrderCard.status}`}>{status}</p>
+            <p className={`text text_type_main-default ${stylesOrderCard.status}`}>{status === 'done' ? 'Выполнен' : status === 'pending' ? 'Готовится' : status === 'created' ? 'Создан' : 'Выполнен'}</p>
             <div className={stylesOrderCard.about}>
                 <ul className={stylesOrderCard.ingredientsList}>
                     {orderIngredients && ingredientsLength <= 5 && orderIngredients

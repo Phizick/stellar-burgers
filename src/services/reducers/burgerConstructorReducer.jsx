@@ -3,6 +3,7 @@ import { ADD_CONSTRUCTOR_INGREDIENT, ADD_CONSTRUCTOR_BUN, DELETE_CONSTRUCTOR_ING
 const initialState = {
     ingredients: [],
     bun: null,
+    ingredientsAdded: []
 };
 
 export const burgerConstructorReducer = (state = initialState, action) => {
@@ -10,12 +11,14 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         case ADD_CONSTRUCTOR_INGREDIENT:
             return {
                 ...state,
-                ingredients: [...state.ingredients, { ...action.data, keyId: action.keyId }]
+                ingredients: [...state.ingredients, { ...action.data, keyId: action.keyId }],
+                ingredientsAdded: [...state.ingredientsAdded, action.data._id]
             };
         case ADD_CONSTRUCTOR_BUN:
             return {
                 ...state,
                 bun: action.data,
+                ingredientsAdded: [...state.ingredientsAdded, action.data._id]
             };
         case SORTED_CONSTRUCTOR: {
             return {

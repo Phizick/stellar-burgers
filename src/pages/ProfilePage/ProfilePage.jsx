@@ -5,7 +5,7 @@ import { ProfileNavigation } from "../../components/ProfileNavigation/ProfileNav
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, patchUser } from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
-import {wsAuthConnectionClosed, wsAuthConnectionOpen} from "../../services/actions/wsActions";
+
 
 export const ProfilePage = () => {
     const name = useSelector((state) => state.user.user.name);
@@ -18,10 +18,8 @@ export const ProfilePage = () => {
     useEffect(() => {
         if (user) {
             dispatch(getUser());
-            dispatch(wsAuthConnectionOpen())
             setValues({name: name, email: login, password: ''});
         }
-        dispatch(wsAuthConnectionClosed())
     }, []);
 
     const restoreChanges = () => {
