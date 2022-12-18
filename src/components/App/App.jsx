@@ -93,12 +93,26 @@ const RoutesSwitchHandler = () => {
                 </Route>
             </Switch>
             {background && (
+                <>
                 <Route path='/ingredients/:id' exact>
                     <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal}
                                isOpened={isOpenedIngredientsModal}>
                             <IngredientDetails active={false}/>
                         </Modal>
                 </Route>
+                <ProtectedRoute path='/profile/orders/:id' exact onlyForAuth={true}>
+                <Modal title={""} closeModal={closeIngredientModal}
+                isOpened={isOpenedIngredientsModal}>
+                <OrderInfo/>
+                </Modal>
+                </ProtectedRoute>
+                <Route path='/feed/:id' exact>
+                <Modal title={""} closeModal={closeIngredientModal}
+                isOpened={isOpenedIngredientsModal}>
+                <OrderInfo/>
+                </Modal>
+                </Route>
+                </>
                 )}
 
         </>

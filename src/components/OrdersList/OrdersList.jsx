@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 export const OrdersList = () => {
     const location = useLocation()
     const orders = useSelector(state => state.wsOrders.orders)
-    console.log(orders)
+
 
 
     return (

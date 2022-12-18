@@ -7,7 +7,7 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 import Modal from "../../components/Modal/Modal";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
-import { setOrder } from "../../services/actions";
+import {clearOrderNum, setOrder} from "../../services/actions";
 import { getCookie } from "../../utils/cookieFunc";
 import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -35,7 +35,8 @@ export const MainPage = (props) => {
 
     const closeOrderModal = () => {
         setModalOrderState(false);
-    };
+        // dispatch(clearOrderNum())
+        };
 
     return (
         <>

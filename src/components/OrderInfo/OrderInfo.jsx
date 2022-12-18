@@ -3,10 +3,22 @@ import {useSelector} from "react-redux";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {OrderIngredientsImage} from "../OrderIngredientsImage/OrderIngredientsImage";
 import {OrderIngredientsInfo} from "../OrderIngredientsInfo/OrderIngredientsInfo";
+import {useParams} from "react-router-dom";
 
 
 export const OrderInfo = () => {
     const ingredients = useSelector(state => state.ingredients.data)
+    const orders = useSelector(state => state.wsOrders.orders)
+
+    const { id } = useParams()
+
+
+    const selectedOrder = orders.filter((item) => item._id === id)[0]
+    const selectedOrderIngredients = selectedOrder.ingredients.map((item) => {
+        return ingredients.filter((ing) => ing._id === item)
+    })
+    console.log(selectedOrderIngredients)
+
     return (
         <div className={stylesOrderInfo.container}>
             <p className={`text text_type_digits-default ${stylesOrderInfo.orderNumber}`}>#34533</p>
@@ -17,9 +29,7 @@ export const OrderInfo = () => {
             <p className={`text text_type_main-medium ${stylesOrderInfo.about}`}>Состав:</p>
             <ul className={stylesOrderInfo.ingredients}>
                 {ingredients && ingredients
-                    .slice(0, 5)
                     .map((item) => {
-                        console.log(item)
                         return (
                             <li className={stylesOrderInfo.listItem}>
                                 {item &&

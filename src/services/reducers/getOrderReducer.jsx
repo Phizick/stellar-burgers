@@ -28,6 +28,12 @@ export const getOrderData = (state = initialState, action) => {
                 orderRequestFailed: true,
             };
         }
+        case CLEAR_ORDER: {
+            return {
+                ...state,
+                order: 0
+            }
+        }
         default: {
             return state;
         }

@@ -4,9 +4,36 @@
     gap: 60px;
     margin: 0 auto;
     justify-content: center;
-    padding-top: 120px
+    padding-top: 120px;
 }
 
 .link {
     text-decoration: none;
+}
+
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 850px;
+    overflow-y: scroll;
+    height: 620px;
+    outline: none;
+}
+
+
+.listContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.listContainer::-webkit-scrollbar-thumb {
+    background: rgba(133, 133, 173, 1);
+    border-radius: 0;
+}
+
+.listContainer::-webkit-scrollbar-track {
+    background: rgba(47, 47, 55, .7);
+}
+
+.listContainer::-webkit-scrollbar-thumb:hover {
+    background: rgba(51, 51, 255, .25);
 }

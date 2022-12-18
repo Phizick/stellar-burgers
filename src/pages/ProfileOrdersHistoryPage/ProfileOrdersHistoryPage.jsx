@@ -23,14 +23,16 @@ export const ProfileOrdersHistoryPage = () => {
     return (
         <div className={stylesProfileOrder.container}>
             <ProfileNavigation isActive={true} active={false} />
-            {orders?.map((item) => {
+            <div className={stylesProfileOrder.listContainer}>
+            {orders?.map((item, index) => {
                     return (
                         <Link className={stylesProfileOrder.link} to={{pathname: `/profile/orders/${item._id}`, state: {background: location}}} key={item._id}>
-                            <OrderCard order={item}/>
+                            <OrderCard order={item} key={index}/>
                         </Link>
                     )
             })
             }
+            </div>
         </div>
     );
 };

@@ -9,10 +9,11 @@ export const OrderStates = () => {
 
     const completedOrders = ordersData.orders
         .filter(order => order.status === 'done')
-        .filter((order, index) => index < 15);
+        .filter((order, index) => index <= 17);
     const upcomingOrders = ordersData.orders
-        .filter(order => order.status !== 'done')
-        .filter((order, index) => index >= 10);
+        .filter(order => order.status === 'pending')
+        .filter((order, index) => index >= 17);
+
 
 
     return (
@@ -38,7 +39,7 @@ export const OrderStates = () => {
                             upcomingOrders
                                 .map((order, index) => {
                                     return (
-                                        <li className={`text text_type_digits-default ${stylesOrdersStates.li}`} key={index}>{order.number}</li>
+                                        <li className={`text text_type_digits-default ${stylesOrdersStates.li_upcoming}`} key={index}>{order.number}</li>
                                     )
                                 })
                         }

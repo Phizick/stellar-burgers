@@ -13,7 +13,7 @@ export const OrderCard = (props) => {
     const ingredientsLength = orderMaxLength - 6;
     const currentDay = new Date().getDate()
     const orderDay = createdAt.includes(`${currentDay}`)
-    console.log(orderDay)
+
 
 
     const orderIngredients = useMemo(() => props.order?.ingredients.map((id) => ingredients?.find((item) => id === item._id)), [props.order?.ingredients, ingredients]);
@@ -30,7 +30,7 @@ export const OrderCard = (props) => {
             <p className={`text text_type_main-default ${stylesOrderCard.status}`}>{status === 'done' ? 'Выполнен' : status === 'pending' ? 'Готовится' : status === 'created' ? 'Создан' : 'Выполнен'}</p>
             <div className={stylesOrderCard.about}>
                 <ul className={stylesOrderCard.ingredientsList}>
-                    {orderIngredients && ingredientsLength <= 5 && orderIngredients
+                    {orderIngredients && orderMaxLength <= 5 && orderIngredients
                         .map((item, index) => {
                             return (
                                 <li className={stylesOrderCard.listItem} key={index}>
@@ -41,8 +41,8 @@ export const OrderCard = (props) => {
                             )
                         })
                     }
-                    {orderIngredients && ingredientsLength > 6 && orderIngredients
-                        .slice(5, 6)
+                    {orderIngredients && orderMaxLength >= 6 && orderIngredients
+                        .slice(0, 5)
                         .map((item) => {
                         return (
                             <li className={stylesOrderCard.listItem}>
@@ -52,6 +52,23 @@ export const OrderCard = (props) => {
                             </li>
                         )
                     })
+                    }
+                    {orderIngredients && orderMaxLength > 6 && orderIngredients
+                        .slice(5, 6)
+                        .map((item) => {
+                            return (
+                                <li className={stylesOrderCard.listItem}>
+                                    {item &&
+                                        <>
+                                            <p className={`text text_type_main-default ${stylesOrderCard.disabledCount}`}>{`+${ingredientsLength}`}</p>
+                                            <div className={stylesOrderCard.disabledImage}>
+                                        <OrderIngredientsImage item={item.image} alt={item.name}/>
+                                            </div>
+                                        </>
+                                    }
+                                </li>
+                            )
+                        })
                     }
                 </ul>
                 <div className={stylesOrderCard.price}>

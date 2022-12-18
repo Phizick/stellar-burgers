@@ -40,7 +40,8 @@ export const burgerConstructorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredients: action.data,
-                bun: null
+                bun: null,
+                ingredientsAdded: []
             }
         default: {
             return state;

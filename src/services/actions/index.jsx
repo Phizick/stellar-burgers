@@ -16,6 +16,7 @@ export const ADD_CONSTRUCTOR_BUN = "ADD_CONSTRUCTOR_BUN";
 export const CLEAR_ORDER = "CLEAR_ORDER";
 export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
 
+
 const baseUrl = "https://norma.nomoreparties.space/api/";
 
 export function checkResponse(res) {
@@ -125,3 +126,9 @@ export const deleteConstructorElement = (id) => {
         index: id,
     };
 };
+
+export const clearOrderNum = () => {
+    return {
+        type: CLEAR_ORDER,
+    }
+}
