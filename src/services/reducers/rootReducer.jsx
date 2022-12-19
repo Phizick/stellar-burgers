@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import {burgerConstructorReducer} from './burgerConstructorReducer'
 import {getIngredientsReducer} from './getIngredientsReducer'
-import {getOrderData} from "./getOrderReducer";
+import {getOrderData, getOrderReducer} from "./getOrderReducer";
 import {getIngredientCard} from './getIngredientCardReducer'
 import {userReducer} from "./userReducer";
 import {wsAuthReducer, wsReducer} from "./wsReducers";
@@ -14,5 +14,6 @@ export const rootReducer = combineReducers({
     order: getOrderData,
     user: userReducer,
     wsOrders: wsReducer,
-    wsAuthOrders: wsAuthReducer
+    wsAuthOrders: wsAuthReducer,
+    orderState: getOrderReducer
 });

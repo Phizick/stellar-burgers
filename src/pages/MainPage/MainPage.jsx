@@ -16,9 +16,8 @@ export const MainPage = (props) => {
     const dispatch = useDispatch();
     const [isOpenedOrderModal, setModalOrderState] = useState(false);
     const history = useHistory();
-    // const ingredients = useSelector((store) => store.ingredients.data);
     const { ingredientsAdded } = useSelector(state => state.burgerIngredients)
-    console.log(ingredientsAdded)
+
 
 
     const openOrderModal = () => {

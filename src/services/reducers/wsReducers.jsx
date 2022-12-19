@@ -23,7 +23,7 @@ export const wsReducer = (state = initialState, action) => {
         case WS_CONNECTION_SUCCESS:
             return {
                 ...state,
-                wsConnected: true
+                wsConnected: true,
             };
         case WS_CONNECTION_FAILED:
             return {
@@ -41,7 +41,6 @@ export const wsReducer = (state = initialState, action) => {
                 orders: action.payload.orders,
                 total: action.payload.total,
                 totalToday: action.payload.totalToday,
-
             };
         default:
             return state

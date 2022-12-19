@@ -14,7 +14,7 @@ import {ForgotPasswordPage} from "../../pages/ForgotPasswordPage/ForgotPasswordP
 import {ResetPasswordPage} from "../../pages/ResetPasswordPage/ResetPasswordPage";
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
 import {ProtectedRoute} from "../ProtectedRoute/ProtectedRoute";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
     clearIngredientDetails, getIngredientDetails,
     getIngredients
@@ -32,7 +32,8 @@ import Modal from "../Modal/Modal";
 import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/ProfileOrdersHistoryPage";
 import {FeedPage} from "../../pages/FeedPage/FeedPage";
 import {OrderInfo} from "../OrderInfo/OrderInfo";
-
+import {useRouteMatch} from "react-router-dom";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 const RoutesSwitchHandler = () => {
     const history = useHistory();
@@ -40,7 +41,8 @@ const RoutesSwitchHandler = () => {
     const background = location.state?.background;
     const dispatch = useDispatch()
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
-
+    const orderNumber = useSelector(state => state.order.order);
+    const orderRoute = useRouteMatch(['/profile/orders/:id','/feed/:id'])?.params?.id;
 
 
     const closeIngredientModal = () => {
@@ -73,11 +75,8 @@ const RoutesSwitchHandler = () => {
                 <ProtectedRoute path='/reset-password' onlyForAuth={false} exact>
                     <ResetPasswordPage />
                 </ProtectedRoute>
-                <Route path='/orders'  exact>
+                <Route path='/feed'  exact>
                     <FeedPage/>
-                </Route>
-                <Route path='/feed/123' exact>
-                    <OrderInfo/>
                 </Route>
                 <ProtectedRoute path='/profile' onlyForAuth={true} exact>
                     <ProfilePage />
@@ -85,21 +84,31 @@ const RoutesSwitchHandler = () => {
                 <Route path='/ingredients/:id' exact>
                     <IngredientDetails active={true}/>
                 </Route>
-                <Route path='/profile/orders' exact>
+                <ProtectedRoute path='/profile/orders' exact onlyForAuth={true}>
                     <ProfileOrdersHistoryPage/>
+                </ProtectedRoute>
+                <ProtectedRoute path='/profile/orders/:id' exact onlyForAuth={true}>
+                        <OrderInfo/>
+                    </ProtectedRoute>
+                <Route path='/feed/:id' exact >
+                        <OrderInfo/>
                 </Route>
                 <Route path='*'>
                     <ErrorPage/>
                 </Route>
             </Switch>
             {background && (
-                <>
+
                 <Route path='/ingredients/:id' exact>
                     <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal}
-                               isOpened={isOpenedIngredientsModal}>
-                            <IngredientDetails active={false}/>
-                        </Modal>
+                           isOpened={isOpenedIngredientsModal}>
+                        <IngredientDetails active={false}/>
+                    </Modal>
                 </Route>
+            )
+            }
+            {background && orderRoute && (
+                <>
                 <ProtectedRoute path='/profile/orders/:id' exact onlyForAuth={true}>
                 <Modal title={""} closeModal={closeIngredientModal}
                 isOpened={isOpenedIngredientsModal}>
@@ -112,8 +121,15 @@ const RoutesSwitchHandler = () => {
                 <OrderInfo/>
                 </Modal>
                 </Route>
-                </>
+                    </>
                 )}
+            {!!orderNumber &&
+                <Modal title={''} closeModal={closeIngredientModal}
+                       isOpened={isOpenedIngredientsModal}>
+                    <OrderDetails/>
+                </Modal>
+            }
+
 
         </>
     )
@@ -133,7 +149,7 @@ const App = () => {
         } else if (cookie && userToken) {
             dispatch(getUser())
         }
-    }, [cookie, userToken])
+    }, [dispatch, cookie, userToken])
 
     return (
         <BrowserRouter>

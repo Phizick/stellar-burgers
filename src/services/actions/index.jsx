@@ -1,5 +1,6 @@
 import { v4 as uuid4 } from "uuid";
 import {getCookie} from "../../utils/cookieFunc";
+import {GET_USER, GET_USER_FAILED, GET_USER_SUCCESS} from "./user";
 
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -15,6 +16,9 @@ export const SORTED_CONSTRUCTOR = "SORTED_CONSTRUCTOR";
 export const ADD_CONSTRUCTOR_BUN = "ADD_CONSTRUCTOR_BUN";
 export const CLEAR_ORDER = "CLEAR_ORDER";
 export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
+export const GET_ORDER = 'GET_ORDER';
+export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
+export const GET_ORDER_FAILED = 'GET_ORDER_FAILED'
 
 
 const baseUrl = "https://norma.nomoreparties.space/api/";
@@ -85,6 +89,32 @@ export const setOrder = (ingredients) => {
     };
 };
 
+export const getOrder = (data) => {
+    return (dispatch) => {
+        dispatch({
+            type: GET_ORDER,
+        });
+        const requestOptions = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        };
+        request('orders/'`${data}`, requestOptions)
+            .then((res) => {
+                if (res.success) {
+                    dispatch({
+                        type: GET_ORDER_SUCCESS,
+                        user: res.user,
+                    });
+                }
+            })
+            .catch((err) => {
+                dispatch({
+                    type: GET_ORDER_FAILED,
+                    error: err.message,
+                });
+            });
+    };
+}
 export const getIngredientDetails = (ingredient) => {
     return {
         type: CHOICE_INGREDIENT,
