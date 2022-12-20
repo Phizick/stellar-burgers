@@ -30,17 +30,8 @@ export const wsAuthActions = {
     wsSendMessage: WS_AUTH_SEND_ORDERS
 }
 
-
-export const wsConnectionSuccess = () => {
-    return { type: WS_CONNECTION_SUCCESS }
-}
-
 export const wsConnectionOpen = () => {
     return { type: WS_CONNECTION_START }
-}
-
-export const wsConnectionError = () => {
-    return { type: WS_CONNECTION_FAILED }
 }
 
 export const wsConnectionClosed = () => {
@@ -54,7 +45,7 @@ export const wsGetMessage = (data) => {
     }
 }
 
-export const wsSendOrders = (data) => {
+export const wsSendMessage = (data) => {
     return {
         type: WS_SEND_ORDERS,
         payload: data
@@ -62,17 +53,10 @@ export const wsSendOrders = (data) => {
 }
 
 
-export const wsAuthConnectionSuccess = () => {
-    return { type: WS_AUTH_CONNECTION_SUCCESS }
-}
-
 export const wsAuthConnectionOpen = () => {
     return { type: WS_AUTH_CONNECTION_START }
 }
 
-export const wsAuthConnectionError = () => {
-    return { type: WS_AUTH_CONNECTION_FAILED }
-}
 
 export const wsAuthConnectionClosed = () => {
     return { type: WS_AUTH_CONNECTION_CLOSED }
@@ -85,7 +69,7 @@ export const wsAuthGetMessage = (data) => {
     }
 }
 
-export const wsAuthSendOrders = (data) => {
+export const wsAuthSendMessage = (data) => {
     return {
         type: WS_AUTH_SEND_ORDERS,
         payload: data

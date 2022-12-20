@@ -15,10 +15,7 @@ import {ResetPasswordPage} from "../../pages/ResetPasswordPage/ResetPasswordPage
 import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
 import {ProtectedRoute} from "../ProtectedRoute/ProtectedRoute";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    clearIngredientDetails, getIngredientDetails,
-    getIngredients
-} from "../../services/actions/index";
+import {getIngredients} from "../../services/actions/ingredients";
 import {
     BrowserRouter,
     Switch,
@@ -34,8 +31,9 @@ import {FeedPage} from "../../pages/FeedPage/FeedPage";
 import {OrderInfo} from "../OrderInfo/OrderInfo";
 import {useRouteMatch} from "react-router-dom";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import {ModalSwitcher} from "../../services/hocs/ModalSwitcher";
 
-const RoutesSwitchHandler = () => {
+const App = () => {
     const history = useHistory();
     const location = useLocation();
     const background = location.state?.background;
@@ -43,6 +41,20 @@ const RoutesSwitchHandler = () => {
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
     const orderNumber = useSelector(state => state.order.order);
     const orderRoute = useRouteMatch(['/profile/orders/:id','/feed/:id'])?.params?.id;
+    const cookie = getCookie('accessToken')
+    const userToken = localStorage.getItem('refreshToken')
+    useEffect(() => {
+        dispatch(getIngredients());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (!cookie && userToken) {
+            dispatch(updateUserToken())
+        } else if (cookie && userToken) {
+            dispatch(getUser())
+        }
+    }, [dispatch, cookie, userToken])
+
 
 
     const closeIngredientModal = () => {
@@ -91,7 +103,7 @@ const RoutesSwitchHandler = () => {
                         <OrderInfo/>
                     </ProtectedRoute>
                 <Route path='/feed/:id' exact >
-                        <OrderInfo/>
+                    <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'orderModal'} modalTitle={''}/>
                 </Route>
                 <Route path='*'>
                     <ErrorPage/>
@@ -101,7 +113,7 @@ const RoutesSwitchHandler = () => {
 
                 <Route path='/ingredients/:id' exact>
                     <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal}
-                           isOpened={isOpenedIngredientsModal}>
+                           >
                         <IngredientDetails active={false}/>
                     </Modal>
                 </Route>
@@ -111,13 +123,13 @@ const RoutesSwitchHandler = () => {
                 <>
                 <ProtectedRoute path='/profile/orders/:id' exact onlyForAuth={true}>
                 <Modal title={""} closeModal={closeIngredientModal}
-                isOpened={isOpenedIngredientsModal}>
+                >
                 <OrderInfo/>
                 </Modal>
                 </ProtectedRoute>
                 <Route path='/feed/:id' exact>
                 <Modal title={""} closeModal={closeIngredientModal}
-                isOpened={isOpenedIngredientsModal}>
+                >
                 <OrderInfo/>
                 </Modal>
                 </Route>
@@ -135,28 +147,4 @@ const RoutesSwitchHandler = () => {
     )
 };
 
-const App = () => {
-    const dispatch = useDispatch();
-    const cookie = getCookie('accessToken')
-    const userToken = localStorage.getItem('refreshToken')
-    useEffect(() => {
-        dispatch(getIngredients());
-    }, [dispatch]);
-
-    useEffect(() => {
-        if (!cookie && userToken) {
-            dispatch(updateUserToken())
-        } else if (cookie && userToken) {
-            dispatch(getUser())
-        }
-    }, [dispatch, cookie, userToken])
-
-    return (
-        <BrowserRouter>
-            <RoutesSwitchHandler />
-        </BrowserRouter>
-    )
-}
-
-
-export default App;
+export default App

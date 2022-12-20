@@ -12,7 +12,6 @@ export const socketMiddleware = (wsUrl, wsActions, isAuth= false) => {
 
             if (type === wsInit) {
                 if(!isAuth) {
-                    console.log(wsUrl)
                     socket = new WebSocket(wsUrl)
                 } else {
                     socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
