@@ -17,7 +17,6 @@ import {ProtectedRoute} from "../ProtectedRoute/ProtectedRoute";
 import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../../services/actions/ingredients";
 import {
-    BrowserRouter,
     Switch,
     Route, useLocation, useHistory
 } from "react-router-dom";
@@ -25,12 +24,9 @@ import {ErrorPage} from "../../pages/ErrorPage/ErrorPage";
 import {getCookie} from "../../utils/cookieFunc";
 import {getUser, updateUserToken} from "../../services/actions/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import Modal from "../Modal/Modal";
 import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/ProfileOrdersHistoryPage";
 import {FeedPage} from "../../pages/FeedPage/FeedPage";
 import {OrderInfo} from "../OrderInfo/OrderInfo";
-import {useRouteMatch} from "react-router-dom";
-import OrderDetails from "../OrderDetails/OrderDetails";
 import {ModalSwitcher} from "../../services/hocs/ModalSwitcher";
 
 const App = () => {
@@ -39,8 +35,7 @@ const App = () => {
     const background = location.state?.background;
     const dispatch = useDispatch()
     const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
-    const orderNumber = useSelector(state => state.order.order);
-    const orderRoute = useRouteMatch(['/profile/orders/:id','/feed/:id'])?.params?.id;
+
     const cookie = getCookie('accessToken')
     const userToken = localStorage.getItem('refreshToken')
     useEffect(() => {
@@ -94,13 +89,13 @@ const App = () => {
                     <ProfilePage />
                 </ProtectedRoute>
                 <Route path='/ingredients/:id' exact>
-                    <IngredientDetails active={true}/>
+                    <ModalSwitcher modalComponent={IngredientDetails} pageComponent={OrderInfo} nameOfModal={'ingredientModal'} modalTitle={''}/>
                 </Route>
                 <ProtectedRoute path='/profile/orders' exact onlyForAuth={true}>
                     <ProfileOrdersHistoryPage/>
                 </ProtectedRoute>
                 <ProtectedRoute path='/profile/orders/:id' exact onlyForAuth={true}>
-                        <OrderInfo/>
+                    <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'profileOrderModal'} modalTitle={''}/>
                     </ProtectedRoute>
                 <Route path='/feed/:id' exact >
                     <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'orderModal'} modalTitle={''}/>
@@ -109,40 +104,6 @@ const App = () => {
                     <ErrorPage/>
                 </Route>
             </Switch>
-            {background && (
-
-                <Route path='/ingredients/:id' exact>
-                    <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal}
-                           >
-                        <IngredientDetails active={false}/>
-                    </Modal>
-                </Route>
-            )
-            }
-            {background && orderRoute && (
-                <>
-                <ProtectedRoute path='/profile/orders/:id' exact onlyForAuth={true}>
-                <Modal title={""} closeModal={closeIngredientModal}
-                >
-                <OrderInfo/>
-                </Modal>
-                </ProtectedRoute>
-                <Route path='/feed/:id' exact>
-                <Modal title={""} closeModal={closeIngredientModal}
-                >
-                <OrderInfo/>
-                </Modal>
-                </Route>
-                    </>
-                )}
-            {!!orderNumber &&
-                <Modal title={''} closeModal={closeIngredientModal}
-                       isOpened={isOpenedIngredientsModal}>
-                    <OrderDetails/>
-                </Modal>
-            }
-
-
         </>
     )
 };

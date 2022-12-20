@@ -30,7 +30,7 @@ const BurgerIngredient = (props) => {
     });
 
     return (
-        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => {props.activeModal(props.data)}} draggable ref={dragRef}>
+        <li className={`${stylesBurgerIngredient.li} mt-6`} onClick={() => props.activeModal(props.data)} draggable ref={dragRef}>
             <img src={props.data.image} alt={props.data.name} />
             {count > 0 ? <Counter count={count} size="default" /> : <></>}
             <div className={`${stylesBurgerIngredient.price} text text_type_digits-default mt-4 mb-4`}>

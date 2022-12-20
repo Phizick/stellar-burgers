@@ -32,10 +32,6 @@ export const MainPage = (props) => {
     };
 
 
-    const closeOrderModal = () => {
-        setModalOrderState(false);
-        // dispatch(clearOrderNum())
-        };
 
     return (
         <>
@@ -45,9 +41,6 @@ export const MainPage = (props) => {
                     <BurgerConstructor openModal={openOrderModal} />
                 </main>
             </DndProvider>
-            <Modal closeModal={closeOrderModal} isOpened={isOpenedOrderModal}>
-                <OrderDetails />
-            </Modal>
         </>
     );
 };

@@ -1,11 +1,11 @@
-import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from "../actions/index";
+import {GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED, SET_INGREDIENTS_MODAL, DELETE_INGREDIENTS_MODAL} from "../actions/ingredients";
 
 const initialState = {
     ingredients: [],
     data: [],
     ingredientsProcessing: false,
-    isLoad: false
-
+    isLoad: false,
+    modalData: {}
 };
 
 export const getIngredientsReducer = (state = initialState, action) => {
@@ -30,6 +30,18 @@ export const getIngredientsReducer = (state = initialState, action) => {
                 ingredientsProcessing: false,
                 data: state.data,
             };
+        }
+        case SET_INGREDIENTS_MODAL: {
+            return {
+                ...state,
+                modalData: action.payload
+            }
+        }
+        case DELETE_INGREDIENTS_MODAL: {
+            return {
+                ...state,
+                modalData: initialState.modalData
+            }
         }
         default:
             return state;
