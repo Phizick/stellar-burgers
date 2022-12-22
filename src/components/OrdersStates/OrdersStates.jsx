@@ -4,7 +4,8 @@ import { useSelector} from "react-redux";
 
 
 export const OrderStates = () => {
-    const ordersData = useSelector(state => state.wsOrders);
+    const ordersData = useSelector(state => state.wsOrders.data)
+    console.log(ordersData)
 
 
     const completedOrders = ordersData.orders

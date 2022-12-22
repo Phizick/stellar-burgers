@@ -13,7 +13,8 @@ import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {MODAL_OPENED} from "../../services/actions";
-import {DELETE_INGREDIENTS_MODAL} from "../../services/actions/ingredients";
+import {DELETE_INGREDIENTS_MODAL, getIngredients} from "../../services/actions/ingredients";
+import {getIngredientDetails} from "../../services/actions/ingredients";
 
 
 const BurgerIngredients = () => {
@@ -70,6 +71,7 @@ const BurgerIngredients = () => {
                 isOpened: true
             }
         })
+        dispatch(getIngredientDetails(item));
         dispatch({
             type: DELETE_INGREDIENTS_MODAL,
             payload: {
@@ -103,8 +105,6 @@ const BurgerIngredients = () => {
 };
 
 
-BurgerIngredients.propTypes = {
-    activeModal: PropTypes.func.isRequired
-};
+
 
 export default BurgerIngredients;

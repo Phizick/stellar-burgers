@@ -7,7 +7,7 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 import Modal from "../../components/Modal/Modal";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
-import {clearOrderNum, setOrder} from "../../services/actions";
+import {clearOrderNum, MODAL_OPENED, setOrder} from "../../services/actions";
 import { getCookie } from "../../utils/cookieFunc";
 import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -20,11 +20,18 @@ export const MainPage = (props) => {
 
 
 
+
     const openOrderModal = () => {
         const refreshToken = localStorage.getItem("refreshToken");
         const accessToken = getCookie("accessToken");
         if (refreshToken && accessToken) {
-            setModalOrderState(true);
+            dispatch({
+                type: MODAL_OPENED,
+                payload: {
+                    isOpened: true,
+                    modalType: 'setOrder'
+                }
+            })
             dispatch(setOrder(ingredientsAdded));
         } else {
             history.push("/login");
@@ -45,6 +52,4 @@ export const MainPage = (props) => {
     );
 };
 
-MainPage.propTypes = {
-    openModal: PropTypes.func.isRequired,
-};
+

@@ -1,35 +1,45 @@
 import stylesFeedPage from './FeedPage.module.css'
 import {OrderStates} from "../../components/OrdersStates/OrdersStates";
 import {OrdersList} from "../../components/OrdersList/OrdersList";
-import {useDispatch} from "react-redux";
-import {useEffect, useState} from "react";
-import {wsConnectionClosed, wsConnectionOpen} from "../../services/actions/wsActions";
-import {getOrder} from "../../services/actions";
-import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {
+    WS_CONNECTION_START, WS_CONNECTION_STOP,
+
+} from "../../services/actions/wsActions";
+
+
 export const FeedPage = () => {
-    const params = useParams()
 
-    const [orderOne , setOrder] = useState()
+    const dispatch = useDispatch()
+
+    const { data } = useSelector(state => state.wsOrders)
+
+
     useEffect(() => {
-        setOrder(dispatch(getOrder(params.id)))
-
-    }, [])
-
-    console.log(orderOne)
-
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(wsConnectionOpen());
+        dispatch({
+            type: WS_CONNECTION_START,
+            payload: {
+                url: 'wss://norma.nomoreparties.space/orders/all',
+                isAuth: true
+            }
+        })
         return () => {
-            dispatch(wsConnectionClosed())
+            dispatch({
+                type: WS_CONNECTION_STOP
+            })
         }
+
     }, [dispatch])
+
+    console.log(data.orders)
+
 
     return (
         <>
             <h1 className={stylesFeedPage.title}>Лента заказов</h1>
         <div className={stylesFeedPage.container}>
-            <OrdersList/>
+            <OrdersList orders={data.orders}/>
             <OrderStates/>
         </div>
         </>

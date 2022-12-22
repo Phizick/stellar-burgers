@@ -12,11 +12,15 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { modalContainer } from "../../utils/constants";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {MODAL_CLOSED} from "../../services/actions";
 
 const Modal = (props) => {
 
-    const { isOpened } = useSelector(state => state.modalState.isOpened)
+    const { isOpened } = useSelector(state => state.modalState);
+    console.log(isOpened)
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         const handleEscClose = (e) => {
@@ -30,12 +34,22 @@ const Modal = (props) => {
         };
     }, [isOpened]);
 
+    const handleCloseModal = () => {
+        dispatch({
+            type: MODAL_CLOSED,
+            payload: {
+                isOpened: false,
+                modalType: ''
+            }
+        })
+    }
+
     return ReactDOM.createPortal(
-        <ModalOverlay closeModal={props.closeModal} isActive={props.isOpened}>
+        <ModalOverlay closeModal={handleCloseModal} isActive={isOpened}>
             <div className={`${stylesModal.modal} pt-10 pb-10 pl-10 pr-10`}>
                 <div className={`${stylesModal.header}`}>
                     {props.title && <h3 className={`text text_type_main-large`}>{props.title}</h3>}
-                    <div className={stylesModal.closeIcon} onClick={props.closeModal}>
+                    <div className={stylesModal.closeIcon} onClick={handleCloseModal}>
                         <CloseIcon type={"primary"} />
                     </div>
                 </div>

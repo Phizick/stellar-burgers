@@ -3,16 +3,19 @@ import Modal from "../../components/Modal/Modal";
 
 export const ModalSwitcher = (props) => {
 
-    const { isOpened, modalType } = useSelector(state => state.modalState);
+    const { ModalComponent, PageComponent, modalTitle, nameOfModal } = props
 
-    return isOpened && modalType === props.nameOfModal
+    const { isOpened, modalType } = useSelector(state => state.modalState);
+    console.log(123)
+
+    return isOpened && modalType === nameOfModal
     ? (
-        <Modal title={ props.modalTitle ? props.modalTitle : ''} >
-            <props.ModalComponent/>
+        <Modal title={ modalTitle ? modalTitle : ''} >
+            <ModalComponent/>
         </Modal>
         )
         :
         (
-            <props.PageComponent/>
+            <PageComponent/>
         )
 }

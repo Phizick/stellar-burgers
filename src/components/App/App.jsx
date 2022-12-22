@@ -66,9 +66,9 @@ const App = () => {
     return (
         <>
             <AppHeader />
-            <Switch location={ background || location}>
+            <Switch>
                 <Route path='/' exact>
-                    <MainPage openModal={openIngredientModal}/>
+                    <MainPage/>
                 </Route>
                 <ProtectedRoute path='/login' onlyForAuth={false} exact>
                     <LoginPage />
@@ -85,20 +85,20 @@ const App = () => {
                 <Route path='/feed'  exact>
                     <FeedPage/>
                 </Route>
-                <ProtectedRoute path='/profile' onlyForAuth={true} exact>
+                <ProtectedRoute path='/profile' onlyForAuth={true} >
                     <ProfilePage />
                 </ProtectedRoute>
-                <Route path='/ingredients/:id' exact>
-                    <ModalSwitcher modalComponent={IngredientDetails} pageComponent={OrderInfo} nameOfModal={'ingredientModal'} modalTitle={''}/>
+                <Route path='/ingredients/:id' >
+                    <ModalSwitcher modalComponent={IngredientDetails} pageComponent={MainPage} nameOfModal={'ingredientModal'} modalTitle={'Детали ингридиента'}/>
                 </Route>
                 <ProtectedRoute path='/profile/orders' exact onlyForAuth={true}>
                     <ProfileOrdersHistoryPage/>
                 </ProtectedRoute>
                 <ProtectedRoute path='/profile/orders/:id' exact onlyForAuth={true}>
-                    <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'profileOrderModal'} modalTitle={''}/>
+                    <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'profileOrderModal'} modalTitle={false}/>
                     </ProtectedRoute>
                 <Route path='/feed/:id' exact >
-                    <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'orderModal'} modalTitle={''}/>
+                    <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'orderModal'} modalTitle={false}/>
                 </Route>
                 <Route path='*'>
                     <ErrorPage/>

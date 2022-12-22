@@ -4,20 +4,18 @@ import {Link, useLocation} from "react-router-dom";
 import { useSelector} from "react-redux";
 
 
-export const OrdersList = () => {
+export const OrdersList = (props) => {
+
+
     const location = useLocation()
-    const orders = useSelector(state => state.wsOrders.orders);
-
-
 
 
 
     return (
         <div className={stylesOrderList.list}>
-            { orders &&
-                orders
+            { props.orders &&
+                props.orders
                     .map((item, index) => {
-
                         return(
                             <Link className={stylesOrderList.link} to={{pathname: `/feed/${item.number}`, state: {background: location}}} key={item._id}>
                                 <OrderCard order={item} key={index}/>
