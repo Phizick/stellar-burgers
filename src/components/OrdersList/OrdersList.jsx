@@ -1,13 +1,24 @@
 import stylesOrderList from './OrdersList.module.css'
 import {OrderCard} from "../OrderCard/OrderCard";
 import {Link, useLocation} from "react-router-dom";
-import { useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {MODAL_OPENED} from "../../services/actions";
 
 
 export const OrdersList = (props) => {
-
+    const dispatch = useDispatch()
 
     const location = useLocation()
+
+    const handleModalOpen = () => {
+        dispatch({
+            type: MODAL_OPENED,
+            payload: {
+                isOpened: true,
+                modalType: 'orderModal'
+            }
+        })
+    }
 
 
 
@@ -17,7 +28,7 @@ export const OrdersList = (props) => {
                 props.orders
                     .map((item, index) => {
                         return(
-                            <Link className={stylesOrderList.link} to={{pathname: `/feed/${item.number}`, state: {background: location}}} key={item._id}>
+                            <Link className={stylesOrderList.link} to={{pathname: `/feed/${item.number}`, state: {background: location}}} key={item._id} onClick={handleModalOpen}>
                                 <OrderCard order={item} key={index}/>
                             </Link>
                         )

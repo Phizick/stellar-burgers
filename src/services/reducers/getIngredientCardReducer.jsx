@@ -1,4 +1,4 @@
-import { CHOICE_INGREDIENT, DELETE_INGREDIENT } from "../actions";
+import {CHOICE_INGREDIENT, DELETE_INGREDIENT} from "../actions/ingredients";
 
 const initialState = {
     selectedIngredient: {}

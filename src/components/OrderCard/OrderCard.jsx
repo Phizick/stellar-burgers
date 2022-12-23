@@ -3,9 +3,11 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
 import {OrderIngredientsImage} from "../OrderIngredientsImage/OrderIngredientsImage";
 import { useMemo } from "react";
+import {useDispatch} from "react-redux";
 
 
 export const OrderCard = (props) => {
+    const dispatch = useDispatch()
     const ingredients = useSelector(state => state.ingredients.data);
     const { createdAt, number, name, status } = props.order
 

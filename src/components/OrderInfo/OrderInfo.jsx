@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useMemo, useEffect} from "react";
 
-import { useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {
     wsAuthConnectionClosed,
     wsAuthConnectionOpen,
@@ -11,7 +11,7 @@ import {
     wsConnectionOpen
 } from "../../services/actions/wsActions";
 import {OrderIngredientsInfo} from "../OrderIngredientsInfo/OrderIngredientsInfo";
-import {getOrder} from "../../services/actions";
+import {getAllOrders, getUserOrders} from "../../services/actions/order";
 import {useState} from "react";
 
 
@@ -19,18 +19,21 @@ export const OrderInfo = () => {
     const dispatch = useDispatch();
     const {id}= useParams();
     const ingredients = useSelector(state => state.ingredients.data)
-    const [negativeId, setNegativeId] = useState(false)
+    const orderList  = useSelector(state => state.orderState.orderList)
+    const location = useLocation();
 
-    let order = 0
-    let orderPrice = 0
-    const ingredientList = []
 
     useEffect( () => {
-        location.pathname.indexOf('/profile/orders') !== -1 ?
-            dispatch(getOrder())
+        location.pathname.indexOf('/profile/orders') !== -1
+            ?
+            dispatch(getUserOrders())
             :
-            dispatch(getAuthOrder())
+            dispatch(getAllOrders())
     }, [dispatch])
+
+    let order = orderList?.find((order) => order._id === id)
+
+
 
 
 
@@ -43,18 +46,18 @@ export const OrderInfo = () => {
 
 
 
-    console.log(orderOne)
+    console.log(order)
 
 
 
 
     const selectedOrderData = useMemo(() => {
-        return orderOne?.ingredients.map((id) => {
+        return order?.ingredients.map((id) => {
             return ingredients?.find((item) => {
                 return id === item._id
             })
         })
-    }, [orderOne?.ingredients, ingredients])
+    }, [order?.ingredients, ingredients])
 
 
     const orderTotalPrice = useMemo(() => {
@@ -68,44 +71,44 @@ export const OrderInfo = () => {
 
     const currentDay = new Date().getDate()
 
-    const { createdAt } = orderOne
+    const { createdAt } = order
     const orderDay = createdAt.includes(`${currentDay}`)
 
-    useEffect(() => {
-        if (!orderOne) {
-            if (match.path === isProfile) {
-                dispatch(wsAuthConnectionOpen())
-            }
-            if (match.path === isFeed) {
-                dispatch(wsConnectionOpen())
-            }
-        }
-        return () => {
-            if (match.path === isProfile) {
-                dispatch(wsAuthConnectionClosed())
-            }
-            if (match.path === isFeed) {
-                dispatch(wsConnectionClosed())
-            }
-        }
-    }, [ dispatch, orderOne, match.path, match.url])
+    // useEffect(() => {
+    //     if (!order) {
+    //         if (match.path === isProfile) {
+    //             dispatch(wsAuthConnectionOpen())
+    //         }
+    //         if (match.path === isFeed) {
+    //             dispatch(wsConnectionOpen())
+    //         }
+    //     }
+    //     return () => {
+    //         if (match.path === isProfile) {
+    //             dispatch(wsAuthConnectionClosed())
+    //         }
+    //         if (match.path === isFeed) {
+    //             dispatch(wsConnectionClosed())
+    //         }
+    //     }
+    // }, [ dispatch, orderOne, match.path, match.url])
 
 
 
     return (
         <>
-        { orderOne && (
+        { order && (
         <div className={stylesOrderInfo.container}>
-            <p className={`text text_type_digits-default ${stylesOrderInfo.orderNumber}`}>#{orderOne.number}</p>
+            <p className={`text text_type_digits-default ${stylesOrderInfo.orderNumber}`}>#{order.number}</p>
             <div className={stylesOrderInfo.info}>
-                <h1 className={`text text_type_main-medium ${stylesOrderInfo.title}`}>{orderOne.name}</h1>
-                {!!orderOne.status &&
-                    <p className={stylesOrderInfo.status}>{orderOne.status === 'done' ? 'Выполнен' : orderOne.status === 'pending' ? 'Готовится' : orderOne.status === 'created' ? 'Создан' : 'Выполнен'}</p>
+                <h1 className={`text text_type_main-medium ${stylesOrderInfo.title}`}>{order.name}</h1>
+                {!!order.status &&
+                    <p className={stylesOrderInfo.status}>{order.status === 'done' ? 'Выполнен' : order.status === 'pending' ? 'Готовится' : order.status === 'created' ? 'Создан' : 'Выполнен'}</p>
                 }
             </div>
             <p className={`text text_type_main-medium ${stylesOrderInfo.about}`}>Состав:</p>
             <ul className={stylesOrderInfo.ingredients}>
-                <OrderIngredientsInfo data={selectedOrderData} key={params.id}/>
+                <OrderIngredientsInfo data={selectedOrderData} key={id}/>
             </ul>
             <div className={stylesOrderInfo.footer}>
                 <p className={`text text_type_main-default text_color_inactive`}>{orderDay ? 'Сегодня' : 'Вчера'}, {createdAt.slice(11, 16)} {`i-GMT+3`}</p>

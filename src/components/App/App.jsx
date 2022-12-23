@@ -27,7 +27,7 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/ProfileOrdersHistoryPage";
 import {FeedPage} from "../../pages/FeedPage/FeedPage";
 import {OrderInfo} from "../OrderInfo/OrderInfo";
-import {ModalSwitcher} from "../../services/hocs/ModalSwitcher";
+import ModalSwitcher from "../../services/hocs/ModalSwitcher";
 
 const App = () => {
     const history = useHistory();
@@ -52,16 +52,16 @@ const App = () => {
 
 
 
-    const closeIngredientModal = () => {
-        dispatch(clearIngredientDetails());
-        setModalIngredientsState(false);
-        history.goBack()
-    };
-
-    const openIngredientModal = (data) => {
-        setModalIngredientsState(true)
-        dispatch(getIngredientDetails(data))
-    }
+    // const closeIngredientModal = () => {
+    //     dispatch(clearIngredientDetails());
+    //     setModalIngredientsState(false);
+    //     history.goBack()
+    // };
+    //
+    // const openIngredientModal = (data) => {
+    //     setModalIngredientsState(true)
+    //     dispatch(getIngredientDetails(data))
+    // }
 
     return (
         <>
@@ -88,8 +88,8 @@ const App = () => {
                 <ProtectedRoute path='/profile' onlyForAuth={true} >
                     <ProfilePage />
                 </ProtectedRoute>
-                <Route path='/ingredients/:id' >
-                    <ModalSwitcher modalComponent={IngredientDetails} pageComponent={MainPage} nameOfModal={'ingredientModal'} modalTitle={'Детали ингридиента'}/>
+                <Route path='/ingredients/:id' exact>
+                    <ModalSwitcher ModalComponent={IngredientDetails} PageComponent={''} nameOfModal={'ingredientModal'} modalTitle={'Детали ингридиента'}/>
                 </Route>
                 <ProtectedRoute path='/profile/orders' exact onlyForAuth={true}>
                     <ProfileOrdersHistoryPage/>

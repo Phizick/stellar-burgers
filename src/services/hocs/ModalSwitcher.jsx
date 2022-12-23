@@ -1,21 +1,22 @@
 import {useSelector} from "react-redux";
 import Modal from "../../components/Modal/Modal";
+import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 
-export const ModalSwitcher = (props) => {
 
-    const { ModalComponent, PageComponent, modalTitle, nameOfModal } = props
+const ModalSwitcher = ({ModalComponent, PageComponent, modalTitle, nameOfModal}) => {
 
     const { isOpened, modalType } = useSelector(state => state.modalState);
-    console.log(123)
 
     return isOpened && modalType === nameOfModal
-    ? (
+    ? (ModalComponent &&
         <Modal title={ modalTitle ? modalTitle : ''} >
             <ModalComponent/>
         </Modal>
         )
         :
-        (
-            <PageComponent/>
+        (PageComponent &&
+            <PageComponent />
         )
 }
+
+export default ModalSwitcher

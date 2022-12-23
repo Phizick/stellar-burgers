@@ -42,22 +42,55 @@ export const setOrder = (ingredients) => {
     };
 };
 
-export const getOrder = (data) => {
+export const getUserOrders = (data) => {
     return (dispatch) => {
         dispatch({
             type: GET_ORDER,
         });
         const requestOptions = {
             method: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: 'Bearer ' + getCookie('accessToken')
+            },
         };
-        request(`orders/${data}`, requestOptions)
+        request(`orders/`, requestOptions)
             .then((res) => {
                 if (res.success) {
                     console.log(res.orders)
                     dispatch({
                         type: GET_ORDER_SUCCESS,
-                        user: res.orders,
+                        orderList: res.orders,
+                    });
+                }
+            })
+            .catch((err) => {
+                dispatch({
+                    type: GET_ORDER_FAILED,
+                    error: err.message,
+                });
+            });
+    };
+}
+export const getAllOrders = (data) => {
+    return (dispatch) => {
+        dispatch({
+            type: GET_ORDER,
+        });
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: 'Bearer ' + getCookie('accessToken')
+            },
+        };
+        request(`orders/all`, requestOptions)
+            .then((res) => {
+                if (res.success) {
+                    console.log(res.orders)
+                    dispatch({
+                        type: GET_ORDER_SUCCESS,
+                        orderList: res.orders,
                     });
                 }
             })
