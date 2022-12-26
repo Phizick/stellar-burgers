@@ -2,13 +2,15 @@ import stylesOrderPage from './OrderPage.module.css'
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation, useParams} from "react-router-dom";
-import {useEffect, useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 import {getAuthOrders, getOrders} from "../../services/actions/order";
 import stylesOrderInfo from "../../components/OrderInfo/OrderInfo.module.css";
 import {OrderIngredientsInfo} from "../../components/OrderIngredientsInfo/OrderIngredientsInfo";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {OrderInfo} from "../../components/OrderInfo/OrderInfo";
 import {OrderRender} from "../../components/OrderInfo/OrderRender";
+import stylesIngredientDetails from "../../components/IngredientDetails/IngredientDetails.module.css";
+import {InfinitySpin} from "react-loader-spinner";
 
 export const OrderPage = () => {
 
@@ -42,7 +44,9 @@ export const OrderPage = () => {
             <OrderRender order={order} ingredients={ingredients}/>
 
         ) : (
-            <div>Loading</div>
+            <div className={stylesIngredientDetails.loader}>
+                <InfinitySpin width="200" color="#4c4cff" />
+            </div>
         )
         }
         </>

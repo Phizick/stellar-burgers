@@ -30,6 +30,7 @@ import {OrderInfo} from "../OrderInfo/OrderInfo";
 import ModalSwitcher from "../../services/hocs/ModalSwitcher";
 import {IngredientPage} from "../../pages/IngredientPage/IngredientPage";
 import {OrderPage} from "../../pages/OrderPage/OrderPage";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 const App = () => {
     const history = useHistory();
@@ -58,24 +59,12 @@ const App = () => {
 
 
 
-
-    // const closeIngredientModal = () => {
-    //     dispatch(clearIngredientDetails());
-    //     setModalIngredientsState(false);
-    //     history.goBack()
-    // };
-    //
-    // const openIngredientModal = (data) => {
-    //     setModalIngredientsState(true)
-    //     dispatch(getIngredientDetails(data))
-    // }
-
     return (
         <>
             <AppHeader />
             <Switch>
                 <Route path='/' exact>
-                    <MainPage/>
+                    <ModalSwitcher ModalComponent={OrderDetails} PageComponent={MainPage} nameOfModal={'setOrder'} modalTitle={''}/>
                 </Route>
                 <ProtectedRoute path='/login' onlyForAuth={false} exact>
                     <LoginPage />
