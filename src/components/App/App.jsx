@@ -28,6 +28,8 @@ import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/Pro
 import {FeedPage} from "../../pages/FeedPage/FeedPage";
 import {OrderInfo} from "../OrderInfo/OrderInfo";
 import ModalSwitcher from "../../services/hocs/ModalSwitcher";
+import {IngredientPage} from "../../pages/IngredientPage/IngredientPage";
+import {OrderPage} from "../../pages/OrderPage/OrderPage";
 
 const App = () => {
     const history = useHistory();
@@ -38,6 +40,9 @@ const App = () => {
 
     const cookie = getCookie('accessToken')
     const userToken = localStorage.getItem('refreshToken')
+
+
+
     useEffect(() => {
         dispatch(getIngredients());
     }, [dispatch]);
@@ -45,10 +50,12 @@ const App = () => {
     useEffect(() => {
         if (!cookie && userToken) {
             dispatch(updateUserToken())
-        } else if (cookie && userToken) {
+        } else {
             dispatch(getUser())
         }
     }, [dispatch, cookie, userToken])
+
+
 
 
 
@@ -85,20 +92,20 @@ const App = () => {
                 <Route path='/feed'  exact>
                     <FeedPage/>
                 </Route>
-                <ProtectedRoute path='/profile' onlyForAuth={true} >
+                <ProtectedRoute path='/profile' onlyForAuth={true}>
                     <ProfilePage />
                 </ProtectedRoute>
                 <Route path='/ingredients/:id' exact>
-                    <ModalSwitcher ModalComponent={IngredientDetails} PageComponent={''} nameOfModal={'ingredientModal'} modalTitle={'Детали ингридиента'}/>
+                    <ModalSwitcher ModalComponent={IngredientDetails} PageComponent={IngredientPage} nameOfModal={'ingredientModal'} modalTitle={'Детали ингридиента'}/>
                 </Route>
                 <ProtectedRoute path='/profile/orders' exact onlyForAuth={true}>
                     <ProfileOrdersHistoryPage/>
                 </ProtectedRoute>
                 <ProtectedRoute path='/profile/orders/:id' exact onlyForAuth={true}>
-                    <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'profileOrderModal'} modalTitle={false}/>
+                    <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderInfo} nameOfModal={'profileOrderModal'} modalTitle={false}/>
                     </ProtectedRoute>
-                <Route path='/feed/:id' exact >
-                    <ModalSwitcher modalComponent={OrderInfo} pageComponent={OrderInfo} nameOfModal={'orderModal'} modalTitle={false}/>
+                <Route path='/feed/:id' exact>
+                    <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderPage} nameOfModal={'orderModal'} modalTitle={false}/>
                 </Route>
                 <Route path='*'>
                     <ErrorPage/>

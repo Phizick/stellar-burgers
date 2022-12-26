@@ -32,7 +32,9 @@ export const FeedPage = () => {
 
     }, [dispatch])
 
-    console.log(data.orders)
+
+
+
 
 
     return (

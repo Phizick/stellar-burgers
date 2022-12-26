@@ -14,25 +14,16 @@ import ReactDOM from "react-dom";
 import { modalContainer } from "../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {MODAL_CLOSED} from "../../services/actions";
+import {useHistory, useLocation} from "react-router-dom";
+
 
 const Modal = (props) => {
 
     const { isOpened } = useSelector(state => state.modalState);
     console.log(isOpened)
     const dispatch = useDispatch();
-
-
-    useEffect(() => {
-        const handleEscClose = (e) => {
-            e.key === "Escape" && props.closeModal();
-        };
-        if (isOpened) {
-            document.addEventListener("keydown", handleEscClose);
-        }
-        return () => {
-            document.removeEventListener("keydown", handleEscClose);
-        };
-    }, [isOpened]);
+    const history = useHistory();
+    const location = useLocation()
 
     const handleCloseModal = () => {
         dispatch({
@@ -42,7 +33,29 @@ const Modal = (props) => {
                 modalType: ''
             }
         })
+        if (location.pathname.indexOf('/feed') !== -1) {
+            history.push('/feed')
+        } else {
+            history.push('/')
+        }
     }
+
+
+
+    useEffect(() => {
+        const handleEscClose = (e) => {
+            e.key === "Escape" && handleCloseModal();
+
+        };
+        if (isOpened) {
+            document.addEventListener("keydown", handleEscClose);
+        }
+        return () => {
+            document.removeEventListener("keydown", handleEscClose);
+        };
+    }, [isOpened]);
+
+
 
     return ReactDOM.createPortal(
         <ModalOverlay closeModal={handleCloseModal} isActive={isOpened}>

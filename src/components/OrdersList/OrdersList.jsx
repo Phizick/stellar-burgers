@@ -20,15 +20,13 @@ export const OrdersList = (props) => {
         })
     }
 
-
-
     return (
         <div className={stylesOrderList.list}>
             { props.orders &&
                 props.orders
                     .map((item, index) => {
                         return(
-                            <Link className={stylesOrderList.link} to={{pathname: `/feed/${item.number}`, state: {background: location}}} key={item._id} onClick={handleModalOpen}>
+                            <Link className={stylesOrderList.link} to={`/feed/${item._id}`} key={item._id} onClick={handleModalOpen}>
                                 <OrderCard order={item} key={index}/>
                             </Link>
                         )

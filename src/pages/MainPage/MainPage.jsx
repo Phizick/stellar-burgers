@@ -7,10 +7,11 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 import Modal from "../../components/Modal/Modal";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
-import {clearOrderNum, MODAL_OPENED, setOrder} from "../../services/actions";
+import {clearOrderNum, MODAL_OPENED} from "../../services/actions";
 import { getCookie } from "../../utils/cookieFunc";
 import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
+import {setOrder} from "../../services/actions/order";
 
 export const MainPage = (props) => {
     const dispatch = useDispatch();
@@ -21,9 +22,11 @@ export const MainPage = (props) => {
 
 
 
+
     const openOrderModal = () => {
         const refreshToken = localStorage.getItem("refreshToken");
         const accessToken = getCookie("accessToken");
+
         if (refreshToken && accessToken) {
             dispatch({
                 type: MODAL_OPENED,

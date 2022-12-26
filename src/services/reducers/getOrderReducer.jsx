@@ -7,11 +7,9 @@ const initialState = {
     orderRequestFailed: false,
     orderRequestSuccess: false,
     user: {},
-    orderData: {
-        orderID: null,
-        orderStatus: null,
-    },
-    orderList: []
+    order: {},
+    orderList: [],
+    isLoad: false
 };
 
 export const getOrderData = (state = initialState, action) => {
@@ -27,6 +25,7 @@ export const getOrderData = (state = initialState, action) => {
                 ...state,
                 orderRequestProcessing: false,
                 order: action.order,
+                isLoad: true
             };
         }
         case SEND_ORDER_FAILED: {
@@ -54,13 +53,13 @@ export const getOrderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload
-
             };
         }
         case GET_ORDER_SUCCESS: {
             return {
                 ...state,
                 orderRequestProcessing: false,
+                orderList: action.orderList
             };
         }
         case GET_ORDER_FAILED: {
@@ -76,30 +75,4 @@ export const getOrderReducer = (state = initialState, action) => {
     }
 }
 
-// export const getOrderAny = (state = initialState, action) => {
-//     switch (action.type) {
-//         case GET_ORDER: {
-//             return {
-//                 ...state,
-//                 orderRequestProcessing: true,
-//             };
-//         }
-//         case GET_ORDER_SUCCESS: {
-//             return {
-//                 ...state,
-//                 orderRequestProcessing: false,
-//                 order: action.order,
-//             };
-//         }
-//         case GET_ORDER_FAILED: {
-//             return {
-//                 ...state,
-//                 orderRequestProcessing: false,
-//                 orderRequestFailed: true,
-//             };
-//         }
-//         default: {
-//             return state;
-//         }
-//     }
-// }
+

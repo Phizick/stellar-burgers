@@ -4,11 +4,14 @@ import stylesProfile from "./ProfileNavigation.module.css";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../services/actions/user";
 import PropTypes from "prop-types";
+import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/ProfileOrdersHistoryPage";
+import {Route} from "react-router-dom";
 
 export const ProfileNavigation = (props) => {
     const dispatch = useDispatch();
 
     return (
+        <>
             <ul className={stylesProfile.navList}>
                 <li>
                     <NavLink to={"/profile"} className={stylesProfile.navLink}>
@@ -29,6 +32,7 @@ export const ProfileNavigation = (props) => {
                     В этом разделе вы можете изменить свои персональные данные
                 </p>
             </ul>
+    </>
     );
 };
 

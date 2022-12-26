@@ -42,37 +42,7 @@ export const setOrder = (ingredients) => {
     };
 };
 
-export const getUserOrders = (data) => {
-    return (dispatch) => {
-        dispatch({
-            type: GET_ORDER,
-        });
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: 'Bearer ' + getCookie('accessToken')
-            },
-        };
-        request(`orders/`, requestOptions)
-            .then((res) => {
-                if (res.success) {
-                    console.log(res.orders)
-                    dispatch({
-                        type: GET_ORDER_SUCCESS,
-                        orderList: res.orders,
-                    });
-                }
-            })
-            .catch((err) => {
-                dispatch({
-                    type: GET_ORDER_FAILED,
-                    error: err.message,
-                });
-            });
-    };
-}
-export const getAllOrders = (data) => {
+export const getOrders = () => {
     return (dispatch) => {
         dispatch({
             type: GET_ORDER,
@@ -87,7 +57,35 @@ export const getAllOrders = (data) => {
         request(`orders/all`, requestOptions)
             .then((res) => {
                 if (res.success) {
-                    console.log(res.orders)
+                    dispatch({
+                        type: GET_ORDER_SUCCESS,
+                        orderList: res.orders
+                    });
+                }
+            })
+            .catch((err) => {
+                dispatch({
+                    type: GET_ORDER_FAILED,
+                    error: err.message,
+                });
+            });
+    };
+}
+export const getAuthOrders = () => {
+    return (dispatch) => {
+        dispatch({
+            type: GET_ORDER,
+        });
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: 'Bearer ' + getCookie('accessToken')
+            },
+        };
+        request(`orders/`, requestOptions)
+            .then((res) => {
+                if (res.success) {
                     dispatch({
                         type: GET_ORDER_SUCCESS,
                         orderList: res.orders,

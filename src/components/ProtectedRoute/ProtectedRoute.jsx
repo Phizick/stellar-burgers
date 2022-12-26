@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 export const ProtectedRoute = ({ onlyForAuth, children, ...rest }) => {
     const isAuthorized = getCookie("accessToken");
+
     const location = useLocation();
 
     if (!onlyForAuth && isAuthorized) {
