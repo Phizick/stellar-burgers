@@ -4,17 +4,15 @@ import { useSelector} from "react-redux";
 
 
 export const OrderStates = () => {
-    const ordersData = useSelector(state => state.wsOrders.data)
-
+    const ordersData = useSelector(state => state.wsOrders.data);
 
 
     const completedOrders = ordersData.orders
         .filter(order => order.status === 'done')
-        .filter((order, index) => index <= 17);
+        .filter((order, index) => index <= 15);
     const upcomingOrders = ordersData.orders
-        .filter(order => order.status === 'pending')
-        .filter((order, index) => index >= 17);
-
+        .filter(order => order.status !== 'done')
+        .filter((order, index) => index <= 10);
 
 
     return (

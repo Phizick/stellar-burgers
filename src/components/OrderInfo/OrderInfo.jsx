@@ -26,8 +26,8 @@ export const OrderInfo = () => {
             dispatch(getOrders())
     }, [dispatch])
 
-    const orderList = useSelector(state => state.orderState.orderList)
-    console.log(orderList)
+    // const orderList = useSelector(state => state.orderState.orderList)
+
 
     const { data } = useSelector(state => state.wsOrders)
     let order = data.orders?.find((order) => order._id === id)

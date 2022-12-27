@@ -28,14 +28,16 @@ export const OrderIngredientsInfo = (props) => {
             {orderIngredient && orderIngredient
                 .map((item) => {
                     return (
-                        <>
-                        <OrderIngredientsImage item={item.image} alt={item.name}/>
+                        <div key={item._id} className={stylesOrderIngredientsInfo.info}>
+                            <div className={stylesOrderIngredientsInfo.about}>
+                        <OrderIngredientsImage item={item.image} alt={item.name} />
                     <p className={`text text_type_main-default`}>{item.name}</p>
+                            </div>
                     <div className={stylesOrderIngredientsInfo.price}>
-                        <p className={`text text_type_digits-default`}>{count(item)} x {item.type === 'bun' ? item.price * 2 : item.price}</p>
+                        <p className={`text text_type_digits-default`}>{item.type === 'bun' ? count(item) * 2 : count(item)} х {item.price}</p>
                         <CurrencyIcon type="primary" />
                     </div>
-                        </>
+                        </div>
                     )
                 })}
 

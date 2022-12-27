@@ -26,7 +26,7 @@ export const OrdersList = (props) => {
                     .map((item, index) => {
                         return(
                             <Link className={stylesOrderList.link} to={`/feed/${item._id}`} key={item._id} onClick={handleModalOpen}>
-                                <OrderCard order={item} key={index}/>
+                                <OrderCard order={item} key={item._id}/>
                             </Link>
                         )
                     })

@@ -18,7 +18,7 @@ export const getOrderData = (state = initialState, action) => {
         case SEND_ORDER: {
             return {
                 ...state,
-                orderRequestProcessing: true,
+                ...action.payload
             };
         }
         case SEND_ORDER_SUCCESS: {

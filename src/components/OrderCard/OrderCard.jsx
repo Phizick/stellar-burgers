@@ -3,19 +3,18 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
 import {OrderIngredientsImage} from "../OrderIngredientsImage/OrderIngredientsImage";
 import { useMemo } from "react";
-import {useDispatch} from "react-redux";
+import uuid from 'react-uuid';
 
 
 export const OrderCard = (props) => {
-    const dispatch = useDispatch()
+
     const ingredients = useSelector(state => state.ingredients.data);
     const { createdAt, number, name, status } = props.order
 
     const orderMaxLength = props.order.ingredients.length;
     const ingredientsLength = orderMaxLength - 6;
-    const currentDay = new Date().getDate()
-    const orderDay = createdAt.includes(`${currentDay}`)
-
+    const currentDay = new Date().getDate();
+    const orderDay = createdAt.includes(`${currentDay}`);
 
 
     const orderIngredients = useMemo(() => props.order?.ingredients.map((id) => ingredients?.find((item) => id === item._id)), [props.order?.ingredients, ingredients]);
@@ -33,11 +32,11 @@ export const OrderCard = (props) => {
             <div className={stylesOrderCard.about}>
                 <ul className={stylesOrderCard.ingredientsList}>
                     {orderIngredients && orderMaxLength <= 5 && orderIngredients
-                        .map((item, index) => {
+                        .map((item) => {
                             return (
-                                <li className={stylesOrderCard.listItem} key={index}>
+                                <li className={stylesOrderCard.listItem} key={uuid()}>
                                     {item &&
-                                        <OrderIngredientsImage item={item.image} alt={item.name} key={index}/>
+                                        <OrderIngredientsImage item={item.image} alt={item.name}/>
                                     }
                                 </li>
                             )
@@ -47,7 +46,7 @@ export const OrderCard = (props) => {
                         .slice(0, 5)
                         .map((item) => {
                         return (
-                            <li className={stylesOrderCard.listItem}>
+                            <li className={stylesOrderCard.listItem} key={uuid()}>
                                 {item &&
                                 <OrderIngredientsImage item={item.image} alt={item.name}/>
                                 }
@@ -59,7 +58,7 @@ export const OrderCard = (props) => {
                         .slice(5, 6)
                         .map((item) => {
                             return (
-                                <li className={stylesOrderCard.listItem}>
+                                <li className={stylesOrderCard.listItem} key={uuid()}>
                                     {item &&
                                         <>
                                             <p className={`text text_type_main-default ${stylesOrderCard.disabledCount}`}>{`+${ingredientsLength}`}</p>

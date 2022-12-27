@@ -15,7 +15,7 @@ import { modalContainer } from "../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {MODAL_CLOSED} from "../../services/actions";
 import {useHistory, useLocation} from "react-router-dom";
-import {CLEAR_ORDER} from "../../services/actions/order";
+import {CLEAR_ORDER, SEND_ORDER} from "../../services/actions/order";
 
 
 const Modal = (props) => {
@@ -33,8 +33,16 @@ const Modal = (props) => {
                 modalType: ''
             }
         })
+        dispatch({
+            type: SEND_ORDER,
+            payload: {
+                isLoad: false
+            }
+        })
         if (location.pathname.indexOf('/feed') !== -1) {
             history.push('/feed')
+        } else if (location.pathname.indexOf('/profile') !== -1) {
+            history.push('/profile/orders')
         } else {
             history.push('/')
         }

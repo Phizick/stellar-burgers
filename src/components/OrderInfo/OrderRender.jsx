@@ -3,6 +3,7 @@ import stylesOrderInfo from "./OrderInfo.module.css";
 import {OrderIngredientsInfo} from "../OrderIngredientsInfo/OrderIngredientsInfo";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useParams} from "react-router-dom";
+import uuid from "react-uuid";
 
 export const OrderRender = (props) => {
 
@@ -44,9 +45,9 @@ export const OrderRender = (props) => {
                         }
                     </div>
                     <p className={`text text_type_main-medium ${stylesOrderInfo.about}`}>Состав:</p>
-                    <ul className={stylesOrderInfo.ingredients}>
+                    <div className={stylesOrderInfo.ingredients}>
                         <OrderIngredientsInfo data={selectedOrderData} key={id}/>
-                    </ul>
+                    </div>
                     <div className={stylesOrderInfo.footer}>
                         <p className={`text text_type_main-default text_color_inactive`}>{orderDay ? 'Сегодня' : 'Вчера'}, {createdAt.slice(11, 16)} {`i-GMT+3`}</p>
                         <div className={stylesOrderInfo.priceContainer}>

@@ -43,7 +43,9 @@ export const OrderPage = () => {
         <>
         {order !== undefined ? (
 
+
             <OrderRender order={order} ingredients={ingredients}/>
+
 
         ) : (
             <div className={stylesIngredientDetails.loader}>
