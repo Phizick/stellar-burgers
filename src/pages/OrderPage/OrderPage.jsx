@@ -6,10 +6,11 @@ import { getAuthOrders, getOrders } from "../../services/actions/order";
 import { OrderRender } from "../../components/OrderInfo/OrderRender";
 import stylesIngredientDetails from "../../components/IngredientDetails/IngredientDetails.module.css";
 import { InfinitySpin } from "react-loader-spinner";
+import {getIngredients} from "../../utils/constants";
 
 export const OrderPage = () => {
     const { id } = useParams();
-    const ingredients = useSelector((state) => state.ingredients.data);
+    const ingredients = useSelector(getIngredients);
     const location = useLocation();
     const dispatch = useDispatch();
 

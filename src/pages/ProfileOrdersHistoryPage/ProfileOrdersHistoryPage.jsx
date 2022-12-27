@@ -7,11 +7,12 @@ import React, {useEffect} from "react";
 import { OrderCard } from "../../components/OrderCard/OrderCard";
 import { MODAL_OPENED } from "../../services/actions";
 import {WS_CONNECTION_START, WS_CONNECTION_STOP} from "../../services/actions/wsActions";
+import {getWsData} from "../../utils/constants";
 
 export const ProfileOrdersHistoryPage = () => {
 
     const dispatch = useDispatch();
-    const { data } = useSelector((state) => state?.wsOrders);
+    const { data } = useSelector(getWsData);
 
     const handleModalOpen = () => {
         dispatch({

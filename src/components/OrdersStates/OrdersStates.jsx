@@ -1,11 +1,12 @@
 import stylesOrdersStates from "./OrdersStates.module.css";
 import { useSelector } from "react-redux";
+import {getWsData} from "../../utils/constants";
 
 export const OrderStates = () => {
-    const ordersData = useSelector((state) => state.wsOrders.data);
+    const { data } = useSelector(getWsData);
 
-    const completedOrders = ordersData.orders.filter((order) => order.status === "done").filter((order, index) => index <= 15);
-    const upcomingOrders = ordersData.orders.filter((order) => order.status !== "done").filter((order, index) => index <= 10);
+    const completedOrders = data.orders.filter((order) => order.status === "done").filter((order, index) => index <= 15);
+    const upcomingOrders = data.orders.filter((order) => order.status !== "done").filter((order, index) => index <= 10);
 
     return (
         <div className={stylesOrdersStates.container}>
@@ -37,11 +38,11 @@ export const OrderStates = () => {
             </div>
             <div className={stylesOrdersStates.content}>
                 <h2 className={stylesOrdersStates.title}>Выполнено за все время:</h2>
-                <p className={`text text_type_digits-large ${stylesOrdersStates.text}`}>{ordersData.total}</p>
+                <p className={`text text_type_digits-large ${stylesOrdersStates.text}`}>{data.total}</p>
             </div>
             <div className={stylesOrdersStates.content}>
                 <h2 className={stylesOrdersStates.title}>Выполнено за сегодня:</h2>
-                <p className={`text text_type_digits-large ${stylesOrdersStates.text}`}>{ordersData.totalToday}</p>
+                <p className={`text text_type_digits-large ${stylesOrdersStates.text}`}>{data.totalToday}</p>
             </div>
         </div>
     );

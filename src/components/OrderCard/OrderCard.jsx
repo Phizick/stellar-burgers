@@ -4,10 +4,11 @@ import { useSelector } from "react-redux";
 import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredientsImage";
 import { useMemo } from "react";
 import uuid from "react-uuid";
+import {getIngredients} from "../../utils/constants";
 
 
 export const OrderCard = (props) => {
-    const ingredients = useSelector((state) => state.ingredients.data);
+    const ingredients = useSelector(getIngredients)
     const { createdAt, number, name, status } = props.order;
     const orderMaxLength = props.order.ingredients.length;
     const ingredientsLength = orderMaxLength - 6;

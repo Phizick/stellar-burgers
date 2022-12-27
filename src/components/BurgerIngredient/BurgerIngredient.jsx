@@ -10,10 +10,11 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import { useDrag} from "react-dnd";
 import { useSelector} from "react-redux";
 import { ingredientType } from "../../utils/type";
+import {getBunData, getBurgerIngredients} from "../../utils/constants";
 
 const BurgerIngredient = (props) => {
-    const ingredients = useSelector(store => store.burgerIngredients.ingredients)
-    const bun = useSelector(store => store.burgerIngredients.bun)
+    const ingredients = useSelector(getBurgerIngredients);
+    const bun = useSelector(getBunData);
     const setCounter = () => {
         if (props.data.type !== 'bun') {
             return ingredients.filter(item => item._id === props.data._id).length

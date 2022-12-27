@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredientsImage";
 import PropTypes from "prop-types";
+import {getIngredients} from "../../utils/constants";
 
 export const OrderIngredientsInfo = (props) => {
-    const ingredients = useSelector((state) => state.ingredients.data);
-
+    const ingredients = useSelector(getIngredients);
 
     const count = (elem) => {
         let count = props.data.filter((item) => {

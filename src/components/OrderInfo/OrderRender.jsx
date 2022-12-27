@@ -8,7 +8,13 @@ import PropTypes from "prop-types";
 export const OrderRender = (props) => {
     const { id } = useParams();
 
-    const selectedOrderData = useMemo(() => props.order?.ingredients.map((id) => props.ingredients?.find((item) => id === item._id)), [props.order?.ingredients, props.ingredients]);
+    const selectedOrderData = useMemo(() => {
+        return props.order?.ingredients.map((id) => {
+            return props.ingredients?.find((item) => {
+                return id === item._id
+            })
+        })
+    }, [props.order?.ingredients, props.ingredients]);
 
     const orderTotalPrice = useMemo(() => {
         return selectedOrderData?.reduce((sum, item) => {

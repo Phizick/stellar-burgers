@@ -4,10 +4,11 @@ import { OrdersList } from "../../components/OrdersList/OrdersList";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_STOP } from "../../services/actions/wsActions";
+import {getWsData} from "../../utils/constants";
 
 export const FeedPage = () => {
     const dispatch = useDispatch();
-    const { data } = useSelector((state) => state.wsOrders);
+    const { data } = useSelector(getWsData);
 
     useEffect(() => {
         dispatch({
