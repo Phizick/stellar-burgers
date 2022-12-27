@@ -91,7 +91,7 @@ export const registerUser = (values, history) => {
                         refreshToken: res.refreshToken,
                     });
                 }
-                history.replace({ pathname: "/" });
+                // history.replace({ pathname: "/" });
             })
             .catch((err) => {
                 dispatch({

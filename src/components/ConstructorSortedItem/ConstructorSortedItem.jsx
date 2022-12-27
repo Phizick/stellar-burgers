@@ -11,7 +11,6 @@ import {ingredientType} from "../../utils/type";
 const ConstructorSortedItem = (props) => {
     const dispatch = useDispatch();
     const ref = useRef(null);
-
     const removeIngredient = (removedIngredient) => {
         dispatch(deleteConstructorElement(removedIngredient));
     };

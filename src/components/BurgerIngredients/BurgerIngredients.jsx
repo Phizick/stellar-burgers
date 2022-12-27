@@ -9,10 +9,14 @@ import React, {useEffect, useRef, useState} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
-import PropTypes from "prop-types";
+import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {MODAL_OPENED} from "../../services/actions";
+import {DELETE_INGREDIENTS_MODAL} from "../../services/actions/ingredients";
+import {getIngredientDetails} from "../../services/actions/ingredients";
 
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
     const [current, setCurrent] = useState("bun");
     const [bunActive, setBunActive] = useState(false);
     const [sauceActive, setSauceActive] = useState(false);
@@ -20,6 +24,8 @@ const BurgerIngredients = (props) => {
     const bunsRef = useRef(null);
     const saucesRef = useRef(null);
     const ingredientsRef = useRef(null);
+    const history = useHistory();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -55,6 +61,24 @@ const BurgerIngredients = (props) => {
         }
     };
 
+    const handleModal = (item) => {
+        dispatch({
+            type: MODAL_OPENED,
+            payload: {
+                modalType: 'ingredientModal',
+                isOpened: true
+            }
+        })
+        dispatch(getIngredientDetails(item));
+        dispatch({
+            type: DELETE_INGREDIENTS_MODAL,
+            payload: {
+                modalData: item
+            }
+        })
+        history.push('/ingredients/' + item._id)
+    }
+
     return (
         <section className={`${stylesBurgerIngredients.section} mt-10`} id={"section_ingredients"}>
             <h2 className={"text text_type_main-large p-4"}>Соберите бургер</h2>
@@ -70,17 +94,15 @@ const BurgerIngredients = (props) => {
                 </Tab>
             </div>
             <ul className={`${stylesBurgerIngredients.list} mt-10 pl-1 pr-2`} id={"ingredients_list"}>
-                <BurgerIngredientTypeGroup ref={bunsRef} listType={"bun"} title={"Булки"} activeModal={props.activeModal} id={"bun"} />
-                <BurgerIngredientTypeGroup ref={saucesRef} listType={"sauce"} title={"Соусы"} activeModal={props.activeModal} id={"sauce"} />
-                <BurgerIngredientTypeGroup ref={ingredientsRef} listType={"main"} title={"Начинки"} activeModal={props.activeModal} id={"ingredients"} />
+                <BurgerIngredientTypeGroup ref={bunsRef} listType={"bun"} title={"Булки"} activeModal={handleModal} id={"bun"} />
+                <BurgerIngredientTypeGroup ref={saucesRef} listType={"sauce"} title={"Соусы"} activeModal={handleModal} id={"sauce"} />
+                <BurgerIngredientTypeGroup ref={ingredientsRef} listType={"main"} title={"Начинки"} activeModal={handleModal} id={"ingredients"} />
             </ul>
         </section>
     );
 };
 
 
-BurgerIngredients.propTypes = {
-    activeModal: PropTypes.func.isRequired
-};
+
 
 export default BurgerIngredients;

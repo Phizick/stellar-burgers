@@ -1,0 +1,105 @@
+.container {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    max-width: 640px;
+    padding-top: 25px;
+}
+
+.orderNumber {
+    display: flex;
+    margin: 0;
+    padding-bottom: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.title {
+    margin: 0;
+}
+
+.status {
+    color: #00CCCC;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: "Jet Brains Mono",sans-serif;
+    margin: 0;
+}
+
+.about {
+    padding-top: 60px;
+    margin: 0;
+}
+
+.ingredients {
+    overflow-y: scroll;
+    height: 300px;
+    outline: none;
+    list-style-type: none;
+    padding: 0;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredients::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+    background: rgba(133, 133, 173, 1);
+    border-radius: 0;
+}
+
+.ingredients::-webkit-scrollbar-track {
+    background: rgba(47, 47, 55, .7);
+}
+
+.ingredients::-webkit-scrollbar-thumb:hover {
+    background: rgba(51, 51, 255, .25);
+}
+
+.listItem {
+    max-width: 580px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.priceContainer {
+    display: flex;
+    gap: 9px;
+    justify-content: space-between;
+}
+
+.containerText {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 16px;
+    width: 100%;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    max-width: 180px;
+    gap: 9px;
+}
+

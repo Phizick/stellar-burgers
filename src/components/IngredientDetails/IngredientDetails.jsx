@@ -8,12 +8,11 @@
 import React, { useEffect } from "react";
 import stylesIngredientDetails from "../IngredientDetails/IngredientDetails.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import { getIngredientDetails } from "../../services/actions";
+import {getIngredientDetails} from "../../services/actions/ingredients";
 import { useParams } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
 
-const IngredientDetails = ({ active }) => {
+const IngredientDetails = () => {
     const ingredient = useSelector((state) => state.ingredientDetail.selectedIngredient);
     const ingredients = useSelector((state) => state.ingredients.data);
     const { isLoad } = useSelector((state) => state.ingredients);
@@ -29,7 +28,6 @@ const IngredientDetails = ({ active }) => {
         <>
             {isLoad ? (
                 <section className={stylesIngredientDetails.container}>
-                    {active && <h1 className={stylesIngredientDetails.head}>Детали ингредиента</h1>}
                     <img src={ingredient?.image_large} alt={ingredient?.name} className={stylesIngredientDetails.img} />
                     <p className={`${stylesIngredientDetails.title} text text_type_main-medium pt-4 pb-8`}>{ingredient?.name}</p>
                     <ul className={`${stylesIngredientDetails.ingredientDetails}`}>
@@ -60,8 +58,6 @@ const IngredientDetails = ({ active }) => {
     );
 };
 
-IngredientDetails.propTypes = {
-    active: PropTypes.bool.isRequired,
-};
+
 
 export default IngredientDetails;

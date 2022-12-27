@@ -5,116 +5,86 @@
  * разметку страницы, содержащую компоненты BurgerIngredients / AppHeader / BurgerConstructor / Modal
  */
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect } from "react";
 import { AppHeader } from "../AppHeader/AppHeader";
-import {MainPage} from "../../pages/MainPage/MainPage";
-import {LoginPage} from "../../pages/LoginPage/LoginPage";
-import {RegisterPage} from "../../pages/RegisterPage/RegisterPage";
-import {ForgotPasswordPage} from "../../pages/ForgotPasswordPage/ForgotPasswordPage";
-import {ResetPasswordPage} from "../../pages/ResetPasswordPage/ResetPasswordPage";
-import {ProfilePage} from "../../pages/ProfilePage/ProfilePage";
-import {ProtectedRoute} from "../ProtectedRoute/ProtectedRoute";
-import {useDispatch} from "react-redux";
-import {
-    clearIngredientDetails, getIngredientDetails,
-    getIngredients
-} from "../../services/actions/index";
-import {
-    BrowserRouter,
-    Switch,
-    Route, useLocation, useHistory
-} from "react-router-dom";
-import {ErrorPage} from "../../pages/ErrorPage/ErrorPage";
-import {getCookie} from "../../utils/cookieFunc";
-import {getUser, updateUserToken} from "../../services/actions/user";
+import { MainPage } from "../../pages/MainPage/MainPage";
+import { LoginPage } from "../../pages/LoginPage/LoginPage";
+import { RegisterPage } from "../../pages/RegisterPage/RegisterPage";
+import { ForgotPasswordPage } from "../../pages/ForgotPasswordPage/ForgotPasswordPage";
+import { ResetPasswordPage } from "../../pages/ResetPasswordPage/ResetPasswordPage";
+import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
+import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
+import { useDispatch } from "react-redux";
+import { getIngredients } from "../../services/actions/ingredients";
+import { Switch, Route } from "react-router-dom";
+import { ErrorPage } from "../../pages/ErrorPage/ErrorPage";
+import { getCookie } from "../../utils/cookieFunc";
+import { getUser, updateUserToken } from "../../services/actions/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import Modal from "../Modal/Modal";
-import {ProfileOrdersHistoryPage} from "../../pages/ProfileOrdersHistoryPage/ProfileOrdersHistoryPage";
-
-const RoutesSwitchHandler = () => {
-    const history = useHistory();
-    const location = useLocation();
-    const background = location.state && location.state.background;
-    const dispatch = useDispatch()
-    const [isOpenedIngredientsModal, setModalIngredientsState] = useState(false);
-
-    const closeIngredientModal = () => {
-        dispatch(clearIngredientDetails());
-        setModalIngredientsState(false);
-        history.goBack()
-    };
-
-    const openIngredientModal = (data) => {
-        setModalIngredientsState(true)
-        dispatch(getIngredientDetails(data))
-    }
-
-    return (
-        <>
-            <AppHeader />
-            <Switch location={ background || location}>
-                <Route path='/' exact>
-                    <MainPage openModal={openIngredientModal}/>
-                </Route>
-                <ProtectedRoute path='/login' onlyForAuth={false} exact>
-                    <LoginPage />
-                </ProtectedRoute>
-                <ProtectedRoute path='/register' onlyForAuth={false} exact>
-                    <RegisterPage />
-                </ProtectedRoute>
-                <ProtectedRoute path='/forgot-password' onlyForAuth={false} exact>
-                    <ForgotPasswordPage />
-                </ProtectedRoute>
-                <ProtectedRoute path='/reset-password' onlyForAuth={false} exact>
-                    <ResetPasswordPage />
-                </ProtectedRoute>
-                <ProtectedRoute path='/profile' onlyForAuth={true} exact>
-                    <ProfilePage />
-                </ProtectedRoute>
-                <Route path='/ingredients/:id' exact>
-                    <IngredientDetails active={true}/>
-                </Route>
-                <Route path='/profile/orders' exact>
-                    <ProfileOrdersHistoryPage/>
-                </Route>
-                <Route path='*'>
-                    <ErrorPage/>
-                </Route>
-            </Switch>
-            {background && (
-                <Route path='/ingredients/:id' exact>
-                    <Modal title={"Детали ингредиента"} closeModal={closeIngredientModal}
-                               isOpened={isOpenedIngredientsModal}>
-                            <IngredientDetails active={false}/>
-                        </Modal>
-                </Route>
-                )}
-        </>
-    )
-};
+import { FeedPage } from "../../pages/FeedPage/FeedPage";
+import { OrderInfo } from "../OrderInfo/OrderInfo";
+import ModalSwitcher from "../../services/hocs/ModalSwitcher";
+import { IngredientPage } from "../../pages/IngredientPage/IngredientPage";
+import { OrderPage } from "../../pages/OrderPage/OrderPage";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 const App = () => {
     const dispatch = useDispatch();
-    const cookie = getCookie('accessToken')
-    const userToken = localStorage.getItem('refreshToken')
+    const cookie = getCookie("accessToken");
+    const userToken = localStorage.getItem("refreshToken");
+
     useEffect(() => {
         dispatch(getIngredients());
     }, [dispatch]);
 
     useEffect(() => {
         if (!cookie && userToken) {
-            dispatch(updateUserToken())
-        } else if (cookie && userToken) {
-            dispatch(getUser())
+            dispatch(updateUserToken());
+        } else {
+            dispatch(getUser());
         }
-    }, [cookie, userToken])
+    }, [dispatch, cookie, userToken]);
 
     return (
-        <BrowserRouter>
-            <RoutesSwitchHandler />
-        </BrowserRouter>
-    )
-}
-
+        <>
+            <AppHeader />
+            <Switch>
+                <Route path="/" exact>
+                    <ModalSwitcher ModalComponent={OrderDetails} PageComponent={MainPage} nameOfModal={"setOrder"} modalTitle={""} />
+                </Route>
+                <ProtectedRoute path="/profile/orders/:id" exact onlyForAuth={true}>
+                    <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderPage} nameOfModal={"profileOrderModal"} modalTitle={''} />
+                </ProtectedRoute>
+                <ProtectedRoute path="/login" onlyForAuth={false} exact>
+                    <LoginPage />
+                </ProtectedRoute>
+                <ProtectedRoute path="/register" onlyForAuth={false} exact>
+                    <RegisterPage />
+                </ProtectedRoute>
+                <ProtectedRoute path="/forgot-password" onlyForAuth={false} exact>
+                    <ForgotPasswordPage />
+                </ProtectedRoute>
+                <ProtectedRoute path="/reset-password" onlyForAuth={false} exact>
+                    <ResetPasswordPage />
+                </ProtectedRoute>
+                <Route path="/feed" exact>
+                    <FeedPage />
+                </Route>
+                <ProtectedRoute path="/profile" onlyForAuth={true}>
+                    <ProfilePage />
+                </ProtectedRoute>
+                <Route path="/ingredients/:id" exact>
+                    <ModalSwitcher ModalComponent={IngredientDetails} PageComponent={IngredientPage} nameOfModal={"ingredientModal"} modalTitle={"Детали ингридиента"} />
+                </Route>
+                <Route path="/feed/:id" exact>
+                    <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderPage} nameOfModal={"orderModal"} modalTitle={''} />
+                </Route>
+                <Route path="*">
+                    <ErrorPage />
+                </Route>
+            </Switch>
+        </>
+    );
+};
 
 export default App;

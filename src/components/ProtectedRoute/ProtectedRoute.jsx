@@ -15,7 +15,6 @@ export const ProtectedRoute = ({ onlyForAuth, children, ...rest }) => {
             </Route>
         );
     }
-
     if (onlyForAuth && !isAuthorized) {
         return (
             <Route {...rest}>
@@ -23,7 +22,6 @@ export const ProtectedRoute = ({ onlyForAuth, children, ...rest }) => {
             </Route>
         );
     }
-
     return <Route {...rest}>{children}</Route>;
 };
 

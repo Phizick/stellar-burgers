@@ -12,32 +12,62 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { modalContainer } from "../../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { MODAL_CLOSED } from "../../services/actions";
+import { useHistory, useLocation } from "react-router-dom";
+import { SEND_ORDER } from "../../services/actions/order";
 
 const Modal = (props) => {
-    const isModalOpen = props.isOpened;
+    const { isOpened, modalType} = useSelector((state) => state.modalState);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
+
+    const handleCloseModal = () => {
+        dispatch({
+            type: MODAL_CLOSED,
+            payload: {
+                isOpened: false,
+                modalType: "",
+            },
+        });
+        dispatch({
+            type: SEND_ORDER,
+            payload: {
+                isLoad: false,
+            },
+        });
+        if (location.pathname.indexOf("/feed") !== -1) {
+            history.push("/feed");
+        } else if (location.pathname.indexOf("/profile") !== -1) {
+            history.push("/profile/orders");
+        } else {
+            history.push("/");
+        }
+    };
 
     useEffect(() => {
         const handleEscClose = (e) => {
-            e.key === "Escape" && props.closeModal();
+            e.key === "Escape" && handleCloseModal();
         };
-        if (isModalOpen) {
+        if (isOpened) {
             document.addEventListener("keydown", handleEscClose);
         }
         return () => {
             document.removeEventListener("keydown", handleEscClose);
         };
-    }, [isModalOpen]);
+    }, [isOpened]);
 
     return ReactDOM.createPortal(
-        <ModalOverlay closeModal={props.closeModal} isActive={props.isOpened}>
+        <ModalOverlay closeModal={handleCloseModal} isActive={isOpened}>
             <div className={`${stylesModal.modal} pt-10 pb-10 pl-10 pr-10`}>
-                <div className={`${stylesModal.header}`}>
+                <div className={modalType === 'orderModal' ?  `${stylesModal.orderHeader}`: `${stylesModal.header}`}>
                     {props.title && <h3 className={`text text_type_main-large`}>{props.title}</h3>}
-                    <div className={stylesModal.closeIcon} onClick={props.closeModal}>
+                    <div className={stylesModal.closeIcon} onClick={handleCloseModal}>
                         <CloseIcon type={"primary"} />
                     </div>
                 </div>
-                <div className={`${stylesModal.container}`}>{props.children}</div>
+                <div className={modalType === 'orderModal' ?  `${stylesModal.orderContainer}`: `${stylesModal.container}`}>{props.children}</div>
             </div>
         </ModalOverlay>,
         modalContainer
@@ -51,7 +81,6 @@ Modal.defaultProps = {
 Modal.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
-    isOpened: PropTypes.bool.isRequired,
 };
 
 export default Modal;

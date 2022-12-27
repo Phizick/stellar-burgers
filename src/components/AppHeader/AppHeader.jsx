@@ -29,7 +29,7 @@ export const AppHeader = () => {
                             </div>
                         </Link>
                     </li>
-                    <Link to={"/orders"}
+                    <Link to={"/feed"}
                           onClick={() => setLinkState("orders")}
                           className={linkState === "orders" ? stylesAppHeader.linkActive : stylesAppHeader.link}
                     >

@@ -9,6 +9,7 @@ export const ProfileNavigation = (props) => {
     const dispatch = useDispatch();
 
     return (
+        <>
             <ul className={stylesProfile.navList}>
                 <li>
                     <NavLink to={"/profile"} className={stylesProfile.navLink}>
@@ -29,6 +30,7 @@ export const ProfileNavigation = (props) => {
                     В этом разделе вы можете изменить свои персональные данные
                 </p>
             </ul>
+    </>
     );
 };
 

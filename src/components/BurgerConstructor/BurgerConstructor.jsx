@@ -15,11 +15,12 @@ import {
     addConstructorBun, addConstructorIngredient, setDefaultConstructor
 } from "../../services/actions";
 import ConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem";
+import {getBunData, getBurgerIngredients} from "../../utils/constants";
 
 
 const BurgerConstructor = (props) => {
-    const ingredients = useSelector(store => store.burgerIngredients.ingredients);
-    const bunData = useSelector(store => store.burgerIngredients.bun);
+    const ingredients = useSelector(getBurgerIngredients);
+    const bunData = useSelector(getBunData);
     const dispatch = useDispatch();
 
     const price = useMemo(() => {
@@ -101,8 +102,8 @@ const BurgerConstructor = (props) => {
                                     {price}
                                     <CurrencyIcon type={"primary"}/>
                                 </p>
-                                <div onClick={props.openModal}>
-                                    <Button type="primary" size="large">
+                                <div >
+                                    <Button type="primary" size="large" onClick={props.openModal}>
                                         Оформить заказ
                                     </Button>
                                 </div>

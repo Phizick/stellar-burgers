@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+    margin: 0 auto;
+
+
+    max-width: 1240px;
+}
+
+.title {
+    max-width: 1240px;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 40px;
+    font-family: "Jet Brains Mono", sans-serif;
+    padding-top: 40px;
+    margin: 0 auto;
+}
