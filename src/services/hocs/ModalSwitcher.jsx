@@ -17,7 +17,6 @@ const ModalSwitcher = ({ ModalComponent, PageComponent, modalTitle, nameOfModal 
 ModalSwitcher.propTypes = {
     ModalComponent: PropTypes.func.isRequired,
     PageComponent: PropTypes.func.isRequired,
-    modalTitle: PropTypes.string.isRequired,
     nameOfModal: PropTypes.string.isRequired,
 };
 
