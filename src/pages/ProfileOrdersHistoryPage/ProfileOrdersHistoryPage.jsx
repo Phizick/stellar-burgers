@@ -2,15 +2,16 @@ import { ProfileNavigation } from "../../components/ProfileNavigation/ProfileNav
 import stylesProfileOrder from "./ProfileOrdersHistoryPage.module.css";
 import stylesProfileHistory from "./ProfileOrdersHistoryPage.module.css";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import React, {useEffect} from "react";
 import { OrderCard } from "../../components/OrderCard/OrderCard";
 import { MODAL_OPENED } from "../../services/actions";
-import PropTypes from "prop-types";
+import {WS_CONNECTION_START, WS_CONNECTION_STOP} from "../../services/actions/wsActions";
 
-export const ProfileOrdersHistoryPage = (props) => {
-    const data = props.orders.orders;
+export const ProfileOrdersHistoryPage = () => {
+
     const dispatch = useDispatch();
+    const { data } = useSelector((state) => state?.wsOrders);
 
     const handleModalOpen = () => {
         dispatch({
@@ -22,13 +23,29 @@ export const ProfileOrdersHistoryPage = (props) => {
         });
     };
 
+    useEffect(() => {
+        dispatch({
+            type: WS_CONNECTION_START,
+            payload: {
+                url: "wss://norma.nomoreparties.space/orders",
+                isAuth: true,
+            },
+        });
+        return () => {
+            dispatch({
+                type: WS_CONNECTION_STOP,
+            });
+        };
+    }, [dispatch]);
+
+
     return (
         <>
-            {data && (
+            {data.orders && (
                 <div className={stylesProfileOrder.container}>
                     <ProfileNavigation isActive={true} active={false} />
                     <div className={stylesProfileHistory.listContainer}>
-                        {data
+                        {data.orders
                             ?.map((item, index) => {
                                 return (
                                     <Link className={stylesProfileOrder.link} to={`/profile/orders/${item._id}`} key={item._id} onClick={handleModalOpen}>
@@ -44,6 +61,3 @@ export const ProfileOrdersHistoryPage = (props) => {
     );
 };
 
-ProfileOrdersHistoryPage.PropTypes = {
-    orders: PropTypes.object.isRequired
-};

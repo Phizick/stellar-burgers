@@ -14,8 +14,19 @@ export const OrderCard = (props) => {
     const currentDay = new Date().getDate();
     const orderDay = createdAt.includes(`${currentDay}`);
 
-    const orderIngredients = useMemo(() => props.order?.ingredients.map((id) => ingredients?.find((item) => id === item._id)), [props.order?.ingredients, ingredients]);
-    const orderTotalPrice = useMemo(() => orderIngredients?.reduce((sum, item) => (item?.type === "bun" ? sum + item.price * 2 : sum + (item ? item.price : 0)), 0), [orderIngredients]);
+    const orderIngredients = useMemo(() => {
+        return props.order?.ingredients.map((id) => {
+            return ingredients?.find((item) => {
+                return id === item._id
+            })
+        })
+    }, [props.order?.ingredients, ingredients]);
+
+    const orderTotalPrice = useMemo(() => {
+        return orderIngredients?.reduce((sum, item) => {
+            return (item?.type === "bun" ? sum + item.price * 2 : sum + (item ? item.price : 0))
+        }, 0)
+    }, [orderIngredients]);
 
     return (
         <div className={stylesOrderCard.container}>

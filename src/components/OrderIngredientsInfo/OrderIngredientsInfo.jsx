@@ -16,7 +16,13 @@ export const OrderIngredientsInfo = (props) => {
         return count;
     };
 
-    const orderIngredient = useMemo(() => props.data?.map((elem) => ingredients?.find((item) => elem._id === item._id)), [props.data, ingredients]);
+    const orderIngredient = useMemo(() => {
+        return props.data?.map((elem) => {
+            return ingredients?.find((item) => {
+                return elem._id === item._id
+            })
+        })
+    }, [props.data, ingredients]);
 
     return (
         <div className={stylesOrderIngredientsInfo.container}>
