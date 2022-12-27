@@ -1,58 +1,37 @@
 import { ProfileNavigation } from "../../components/ProfileNavigation/ProfileNavigation";
 import stylesProfileOrder from "./ProfileOrdersHistoryPage.module.css";
 
-import {useLocation, Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {
-    WS_CONNECTION_START,
-    WS_CONNECTION_STOP,
-    wsAuthConnectionClosed,
-    wsAuthConnectionOpen
-} from "../../services/actions/wsActions";
+import {Link} from "react-router-dom";
+import {useDispatch, } from "react-redux";
+import React from "react";
+
 import {OrderCard} from "../../components/OrderCard/OrderCard";
+import {MODAL_OPENED} from "../../services/actions";
 
-export const ProfileOrdersHistoryPage = () => {
-    const location = useLocation();
-    // const orders = useSelector(state => state.wsAuthOrders.orders);
 
+export const ProfileOrdersHistoryPage = (props) => {
+    const data = props.orders.orders
     const dispatch = useDispatch()
 
-    const { data } = useSelector(state => state.wsOrders)
-    console.log(data)
-
-
-
-    useEffect(() => {
+    const handleModalOpen = () => {
         dispatch({
-            type: WS_CONNECTION_START,
+            type: MODAL_OPENED,
             payload: {
-                url: 'wss://norma.nomoreparties.space/orders',
-                isAuth: true
+                isOpened: true,
+                modalType: 'profileOrderModal'
             }
         })
-        return () => {
-            dispatch({
-                type: WS_CONNECTION_STOP
-            })
-        }
-
-    }, [dispatch])
-
-    // useEffect(() => {
-    //     dispatch(wsAuthConnectionOpen());
-    //     return () => {
-    //         dispatch(wsAuthConnectionClosed())
-    //     }
-    // }, [dispatch])
+    }
 
     return (
+        <>
+            { data && (
         <div className={stylesProfileOrder.container}>
             <ProfileNavigation isActive={true} active={false} />
             <div className={stylesProfileOrder.listContainer}>
             {data?.map((item, index) => {
                     return (
-                        <Link className={stylesProfileOrder.link} to={{pathname: `/profile/orders/${item._id}`, state: {background: location}}} key={item._id}>
+                        <Link className={stylesProfileOrder.link} to={`/profile/orders/${item._id}`} key={item._id} onClick={handleModalOpen}>
                             <OrderCard order={item} key={index}/>
                         </Link>
                     )
@@ -60,5 +39,7 @@ export const ProfileOrdersHistoryPage = () => {
             }
             </div>
         </div>
+            )}
+        </>
     );
 };

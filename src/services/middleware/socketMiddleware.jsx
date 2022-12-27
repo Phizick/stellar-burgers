@@ -8,11 +8,12 @@ export const socketMiddleware = (wsActions) => {
             const { dispatch } = store;
             const { type, payload } = action;
             const { wsInit, wsClosed, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
-            const accessToken = getCookie('accessToken');
+
 
             if (type === wsInit) {
                 const isAuth = payload.isAuth
-                const wsUrl = isAuth? payload.url + `?token=${accessToken}` : payload.url
+                const accessToken = getCookie('accessToken');
+                const wsUrl = isAuth ? payload.url + `?token=${accessToken}` : payload.url
                 socket = new WebSocket(wsUrl);
             }
 

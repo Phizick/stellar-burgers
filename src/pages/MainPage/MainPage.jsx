@@ -11,16 +11,13 @@ import {clearOrderNum, MODAL_OPENED} from "../../services/actions";
 import { getCookie } from "../../utils/cookieFunc";
 import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
-import {setOrder} from "../../services/actions/order";
+import {CLEAR_ORDER, setOrder} from "../../services/actions/order";
 
 export const MainPage = (props) => {
     const dispatch = useDispatch();
     const [isOpenedOrderModal, setModalOrderState] = useState(false);
     const history = useHistory();
-    const { ingredientsAdded } = useSelector(state => state.burgerIngredients)
-
-
-
+    const { ingredientsAdded } = useSelector(state => state.burgerIngredients);
 
 
     const openOrderModal = () => {

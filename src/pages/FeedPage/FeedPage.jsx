@@ -17,6 +17,7 @@ export const FeedPage = () => {
 
 
     useEffect(() => {
+        console.log(321)
         dispatch({
             type: WS_CONNECTION_START,
             payload: {
@@ -31,10 +32,6 @@ export const FeedPage = () => {
         }
 
     }, [dispatch])
-
-
-
-
 
 
     return (

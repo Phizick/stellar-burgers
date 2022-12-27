@@ -7,7 +7,6 @@ import {MODAL_OPENED} from "../../services/actions";
 
 export const OrdersList = (props) => {
     const dispatch = useDispatch()
-
     const location = useLocation()
 
     const handleModalOpen = () => {

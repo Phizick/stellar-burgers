@@ -15,12 +15,12 @@ import { modalContainer } from "../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {MODAL_CLOSED} from "../../services/actions";
 import {useHistory, useLocation} from "react-router-dom";
+import {CLEAR_ORDER} from "../../services/actions/order";
 
 
 const Modal = (props) => {
 
     const { isOpened } = useSelector(state => state.modalState);
-    console.log(isOpened)
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation()
