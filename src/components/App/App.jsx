@@ -53,7 +53,7 @@ const App = () => {
                     <ModalSwitcher ModalComponent={OrderDetails} PageComponent={MainPage} nameOfModal={"setOrder"} modalTitle={""} />
                 </Route>
                 <ProtectedRoute path="/profile/orders/:id" exact onlyForAuth={true}>
-                    <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderPage} nameOfModal={"profileOrderModal"} modalTitle={false} />
+                    <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderPage} nameOfModal={"profileOrderModal"} modalTitle={''} />
                 </ProtectedRoute>
                 <ProtectedRoute path="/login" onlyForAuth={false} exact>
                     <LoginPage />
@@ -77,7 +77,7 @@ const App = () => {
                     <ModalSwitcher ModalComponent={IngredientDetails} PageComponent={IngredientPage} nameOfModal={"ingredientModal"} modalTitle={"Детали ингридиента"} />
                 </Route>
                 <Route path="/feed/:id" exact>
-                    <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderPage} nameOfModal={"orderModal"} modalTitle={false} />
+                    <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderPage} nameOfModal={"orderModal"} modalTitle={''} />
                 </Route>
                 <Route path="*">
                     <ErrorPage />

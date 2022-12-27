@@ -33,5 +33,5 @@ export const OrdersList = (props) => {
 };
 
 OrdersList.propTypes = {
-    orders: PropTypes.object.isRequired
+    orders: PropTypes.array.isRequired
 };
