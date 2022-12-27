@@ -1,19 +1,11 @@
-import stylesOrdersStates from './OrdersStates.module.css'
-import { useSelector} from "react-redux";
-
-
+import stylesOrdersStates from "./OrdersStates.module.css";
+import { useSelector } from "react-redux";
 
 export const OrderStates = () => {
-    const ordersData = useSelector(state => state.wsOrders.data);
+    const ordersData = useSelector((state) => state.wsOrders.data);
 
-
-    const completedOrders = ordersData.orders
-        .filter(order => order.status === 'done')
-        .filter((order, index) => index <= 15);
-    const upcomingOrders = ordersData.orders
-        .filter(order => order.status !== 'done')
-        .filter((order, index) => index <= 10);
-
+    const completedOrders = ordersData.orders.filter((order) => order.status === "done").filter((order, index) => index <= 15);
+    const upcomingOrders = ordersData.orders.filter((order) => order.status !== "done").filter((order, index) => index <= 10);
 
     return (
         <div className={stylesOrdersStates.container}>
@@ -21,27 +13,25 @@ export const OrderStates = () => {
                 <div className={stylesOrdersStates.listContainer}>
                     <h2 className={stylesOrdersStates.title}>Готовы:</h2>
                     <ul className={stylesOrdersStates.list}>
-                        {
-                            completedOrders
-                                .map((order, index) => {
-                                    return (
-                                        <li className={`text text_type_digits-default ${stylesOrdersStates.li}`} key={index}>{order.number}</li>
-                                    )
-                                })
-                        }
+                        {completedOrders.map((order, index) => {
+                            return (
+                                <li className={`text text_type_digits-default ${stylesOrdersStates.li}`} key={index}>
+                                    {order.number}
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
                 <div className={stylesOrdersStates.listContainer}>
                     <h2 className={stylesOrdersStates.title}>В работе:</h2>
                     <ul className={stylesOrdersStates.list}>
-                        {
-                            upcomingOrders
-                                .map((order, index) => {
-                                    return (
-                                        <li className={`text text_type_digits-default ${stylesOrdersStates.li_upcoming}`} key={index}>{order.number}</li>
-                                    )
-                                })
-                        }
+                        {upcomingOrders.map((order, index) => {
+                            return (
+                                <li className={`text text_type_digits-default ${stylesOrdersStates.li_upcoming}`} key={index}>
+                                    {order.number}
+                                </li>
+                            );
+                        })}
                     </ul>
                 </div>
             </div>
@@ -54,5 +44,5 @@ export const OrderStates = () => {
                 <p className={`text text_type_digits-large ${stylesOrdersStates.text}`}>{ordersData.totalToday}</p>
             </div>
         </div>
-    )
-}
+    );
+};

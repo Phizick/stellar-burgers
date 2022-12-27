@@ -1,10 +1,10 @@
 import {getUser, patchUser} from "../../services/actions/user";
-import stylesProfile from "./ProfilePage.module.css";
+import stylesProfile from "../../pages/ProfilePage/ProfilePage.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "../../services/hooks/useForm";
-import {ProfileNavigation} from "../../components/ProfileNavigation/ProfileNavigation";
+import {ProfileNavigation} from "../ProfileNavigation/ProfileNavigation";
 
 export const ProfileEditForm = () => {
     const name = useSelector((state) => state.user.user.name);

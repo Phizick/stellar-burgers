@@ -1,5 +1,5 @@
 import {SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS} from "../actions/order";
-import { GET_ORDER, GET_ORDER_FAILED, GET_ORDER_SUCCESS, CLEAR_ORDER} from "../actions/order";
+import { GET_ORDER, GET_ORDER_FAILED, GET_ORDER_SUCCESS} from "../actions/order";
 
 const initialState = {
     price: 0,
@@ -36,12 +36,6 @@ export const getOrderData = (state = initialState, action) => {
                 orderRequestFailed: true,
             };
         }
-        // case CLEAR_ORDER: {
-        //     return {
-        //         ...state,
-        //         ...action.payload
-        //     }
-        // }
         default: {
             return state;
         }

@@ -23,10 +23,18 @@
     height: 64px;
 }
 
+.orderHeader {
+    height: 0;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     padding: 20px;
+}
+
+.orderContainer {
+    padding: 0;
 }
 
 .closeIcon {

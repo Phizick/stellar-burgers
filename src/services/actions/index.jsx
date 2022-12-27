@@ -1,18 +1,13 @@
 import { v4 as uuid4 } from "uuid";
 
 export const MODAL_OPENED = 'MODAL_OPENED';
-export const MODAL_CLOSED = 'MODAL_CLOSED'
-
-
-
+export const MODAL_CLOSED = 'MODAL_CLOSED';
 export const ADD_CONSTRUCTOR_INGREDIENT = "ADD_CONSTRUCTOR_INGREDIENT";
 export const DELETE_CONSTRUCTOR_INGREDIENT = "DELETE_CONSTRUCTOR_INGREDIENT";
 export const SORTED_CONSTRUCTOR = "SORTED_CONSTRUCTOR";
 export const ADD_CONSTRUCTOR_BUN = "ADD_CONSTRUCTOR_BUN";
 export const CLEAR_ORDER = "CLEAR_ORDER";
 export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
-
-
 
 const baseUrl = "https://norma.nomoreparties.space/api/";
 
@@ -26,11 +21,6 @@ export function checkResponse(res) {
 export function request(url, options) {
     return fetch(`${baseUrl}${url}`, options).then(checkResponse);
 }
-
-
-
-
-
 
 export const addConstructorBun = (item) => {
     return {

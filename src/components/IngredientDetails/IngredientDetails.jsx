@@ -8,7 +8,6 @@
 import React, { useEffect } from "react";
 import stylesIngredientDetails from "../IngredientDetails/IngredientDetails.module.css";
 import { useDispatch, useSelector } from "react-redux";
-
 import {getIngredientDetails} from "../../services/actions/ingredients";
 import { useParams } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
@@ -19,7 +18,6 @@ const IngredientDetails = () => {
     const { isLoad } = useSelector((state) => state.ingredients);
     const dispatch = useDispatch();
     const { id } = useParams();
-
 
     useEffect(() => {
         const findItem = ingredients.find((i) => i._id === id);

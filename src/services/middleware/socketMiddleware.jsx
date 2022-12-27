@@ -9,7 +9,6 @@ export const socketMiddleware = (wsActions) => {
             const { type, payload } = action;
             const { wsInit, wsClosed, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 
-
             if (type === wsInit) {
                 const isAuth = payload.isAuth
                 const accessToken = getCookie('accessToken');
@@ -20,6 +19,7 @@ export const socketMiddleware = (wsActions) => {
             if (type === wsClosed) {
                 socket.close('1000', 'сокет закрыт')
             }
+
             if (socket) {
                 socket.onopen = event => {
                     dispatch({

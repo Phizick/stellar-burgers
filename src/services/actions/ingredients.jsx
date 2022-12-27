@@ -35,9 +35,3 @@ export const getIngredientDetails = (ingredient) => {
         data: ingredient,
     };
 };
-
-export const clearIngredientDetails = () => {
-    return {
-        type: DELETE_INGREDIENT,
-    };
-};

@@ -1,76 +1,68 @@
-import stylesOrderCard from './OrderCard.module.css'
-import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
-import {OrderIngredientsImage} from "../OrderIngredientsImage/OrderIngredientsImage";
+import stylesOrderCard from "./OrderCard.module.css";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
+import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredientsImage";
 import { useMemo } from "react";
-import uuid from 'react-uuid';
+import uuid from "react-uuid";
 
 
 export const OrderCard = (props) => {
-
-    const ingredients = useSelector(state => state.ingredients.data);
-    const { createdAt, number, name, status } = props.order
-
+    const ingredients = useSelector((state) => state.ingredients.data);
+    const { createdAt, number, name, status } = props.order;
     const orderMaxLength = props.order.ingredients.length;
     const ingredientsLength = orderMaxLength - 6;
     const currentDay = new Date().getDate();
     const orderDay = createdAt.includes(`${currentDay}`);
 
-
     const orderIngredients = useMemo(() => props.order?.ingredients.map((id) => ingredients?.find((item) => id === item._id)), [props.order?.ingredients, ingredients]);
-    const orderTotalPrice = useMemo(() => orderIngredients?.reduce((sum, item) => item?.type === 'bun' ? sum + item.price * 2 : sum + (item ? item.price : 0),0),[orderIngredients]);
-
+    const orderTotalPrice = useMemo(() => orderIngredients?.reduce((sum, item) => (item?.type === "bun" ? sum + item.price * 2 : sum + (item ? item.price : 0)), 0), [orderIngredients]);
 
     return (
         <div className={stylesOrderCard.container}>
             <div className={stylesOrderCard.head}>
                 <p className={`text text_type_digits-default`}>#{number}</p>
-                <p className={`text text_type_main-default text_color_inactive`}>{orderDay ? 'Сегодня' : 'Вчера'}, {createdAt.slice(11, 16)} {`i-GMT+3`}</p>
+                <p className={`text text_type_main-default text_color_inactive`}>
+                    {orderDay ? "Сегодня" : "Вчера"}, {createdAt.slice(11, 16)} {`i-GMT+3`}
+                </p>
             </div>
             <p className={`text text_type_main-medium ${stylesOrderCard.title}`}>{name}</p>
-            <p className={`text text_type_main-default ${stylesOrderCard.status}`}>{status === 'done' ? 'Выполнен' : status === 'pending' ? 'Готовится' : status === 'created' ? 'Создан' : 'Выполнен'}</p>
+            <p className={`text text_type_main-default ${stylesOrderCard.status}`}>{status === "done" ? "Выполнен" : status === "pending" ? "Готовится" : status === "created" ? "Создан" : "Выполнен"}</p>
             <div className={stylesOrderCard.about}>
                 <ul className={stylesOrderCard.ingredientsList}>
-                    {orderIngredients && orderMaxLength <= 5 && orderIngredients
-                        .map((item) => {
+                    {orderIngredients &&
+                        orderMaxLength <= 5 &&
+                        orderIngredients.map((item) => {
                             return (
                                 <li className={stylesOrderCard.listItem} key={uuid()}>
-                                    {item &&
-                                        <OrderIngredientsImage item={item.image} alt={item.name}/>
-                                    }
+                                    {item && <OrderIngredientsImage item={item.image} alt={item.name} />}
                                 </li>
-                            )
-                        })
-                    }
-                    {orderIngredients && orderMaxLength >= 6 && orderIngredients
-                        .slice(0, 5)
-                        .map((item) => {
-                        return (
-                            <li className={stylesOrderCard.listItem} key={uuid()}>
-                                {item &&
-                                <OrderIngredientsImage item={item.image} alt={item.name}/>
-                                }
-                            </li>
-                        )
-                    })
-                    }
-                    {orderIngredients && orderMaxLength > 6 && orderIngredients
-                        .slice(5, 6)
-                        .map((item) => {
+                            );
+                        })}
+                    {orderIngredients &&
+                        orderMaxLength >= 6 &&
+                        orderIngredients.slice(0, 5).map((item) => {
                             return (
                                 <li className={stylesOrderCard.listItem} key={uuid()}>
-                                    {item &&
+                                    {item && <OrderIngredientsImage item={item.image} alt={item.name} />}
+                                </li>
+                            );
+                        })}
+                    {orderIngredients &&
+                        orderMaxLength > 6 &&
+                        orderIngredients.slice(5, 6).map((item) => {
+                            return (
+                                <li className={stylesOrderCard.listItem} key={uuid()}>
+                                    {item && (
                                         <>
                                             <p className={`text text_type_main-default ${stylesOrderCard.disabledCount}`}>{`+${ingredientsLength}`}</p>
                                             <div className={stylesOrderCard.disabledImage}>
-                                        <OrderIngredientsImage item={item.image} alt={item.name}/>
+                                                <OrderIngredientsImage item={item.image} alt={item.name} />
                                             </div>
                                         </>
-                                    }
+                                    )}
                                 </li>
-                            )
-                        })
-                    }
+                            );
+                        })}
                 </ul>
                 <div className={stylesOrderCard.price}>
                     <p className={`text text_type_digits-default ${stylesOrderCard.priceScore}`}>{orderTotalPrice}</p>
@@ -78,6 +70,6 @@ export const OrderCard = (props) => {
                 </div>
             </div>
         </div>
+    );
+};
 
-    )
-}

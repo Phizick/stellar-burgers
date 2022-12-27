@@ -22,7 +22,6 @@ const BurgerConstructor = (props) => {
     const bunData = useSelector(store => store.burgerIngredients.bun);
     const dispatch = useDispatch();
 
-
     const price = useMemo(() => {
         return (ingredients.length > 0 && bunData) && bunData.price * 2 + ingredients.reduce((a, b) => a + b.price, 0);
     }, [ingredients, bunData])

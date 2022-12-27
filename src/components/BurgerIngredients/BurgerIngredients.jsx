@@ -9,11 +9,10 @@ import React, {useEffect, useRef, useState} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
-import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {MODAL_OPENED} from "../../services/actions";
-import {DELETE_INGREDIENTS_MODAL, getIngredients} from "../../services/actions/ingredients";
+import {DELETE_INGREDIENTS_MODAL} from "../../services/actions/ingredients";
 import {getIngredientDetails} from "../../services/actions/ingredients";
 
 
@@ -63,7 +62,6 @@ const BurgerIngredients = () => {
     };
 
     const handleModal = (item) => {
-        console.log('check')
         dispatch({
             type: MODAL_OPENED,
             payload: {
