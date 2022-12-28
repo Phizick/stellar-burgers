@@ -1,4 +1,4 @@
-import {useSelector} from "react-redux";
+
 
 export const modalContainer = document.getElementById('modal-root');
 
