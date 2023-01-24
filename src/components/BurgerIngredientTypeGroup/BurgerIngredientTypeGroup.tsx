@@ -11,8 +11,22 @@ import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import { useSelector } from "react-redux";
 import {Link, useLocation} from "react-router-dom";
 import {getIngredients} from "../../utils/constants";
+import {TIngredient} from "../../services/types";
 
-const BurgerIngredientTypeGroup = forwardRef((props: any, ref: any) => {
+
+type TRef = HTMLElement
+
+type TIngredientTypeGroup = {
+    ingredients: TIngredient[];
+    type: string;
+    props: any;
+    id: string;
+    title: string;
+    listType: string;
+    activeModal: any
+}
+
+const BurgerIngredientTypeGroup = forwardRef<TRef, TIngredientTypeGroup>((props, ref) => {
     const burgerIngredients = useSelector(getIngredients);
     const location = useLocation()
     return (

@@ -5,7 +5,7 @@
  * разметку информации об ингредиенте
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import stylesIngredientDetails from "../IngredientDetails/IngredientDetails.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {getIngredientDetails} from "../../services/actions/ingredients";
@@ -13,12 +13,12 @@ import { useParams } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
 import {getIngredient, getIngredients} from "../../utils/constants";
 
-const IngredientDetails = () => {
+const IngredientDetails: FC = () => {
     const ingredient = useSelector(getIngredient);
     const ingredients = useSelector(getIngredients);
     const { isLoad } = useSelector((state: any) => state.ingredients);
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
         const findItem = ingredients.find((i: any) => i._id === id);

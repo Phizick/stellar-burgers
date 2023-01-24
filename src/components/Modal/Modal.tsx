@@ -5,11 +5,11 @@
  * общую разметку для всех модальных окон
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, FC} from "react";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import stylesModal from "../Modal/Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import {TModal} from "../../services/types";
 import ReactDOM from "react-dom";
 import {getModalState, modalContainer} from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ import { MODAL_CLOSED } from "../../services/actions";
 import { useHistory, useLocation } from "react-router-dom";
 import { SEND_ORDER } from "../../services/actions/order";
 
-const Modal = (props: any) => {
+const Modal: FC<TModal>  = (props) => {
     const { isOpened, modalType} = useSelector(getModalState);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -80,13 +80,6 @@ const Modal = (props: any) => {
     );
 };
 
-Modal.defaultProps = {
-    title: "",
-};
 
-Modal.propTypes = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-};
 
 export default Modal;

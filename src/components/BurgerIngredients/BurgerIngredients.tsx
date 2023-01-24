@@ -61,7 +61,7 @@ const BurgerIngredients = () => {
         }
     };
 
-    const handleModal = (item) => {
+    const handleModal = (item: any) => {
         dispatch({
             type: MODAL_OPENED,
             payload: {
@@ -79,6 +79,7 @@ const BurgerIngredients = () => {
         history.push('/ingredients/' + item._id)
     }
 
+    // @ts-ignore
     return (
         <section className={`${stylesBurgerIngredients.section} mt-10`} id={"section_ingredients"}>
             <h2 className={"text text_type_main-large p-4"}>Соберите бургер</h2>
