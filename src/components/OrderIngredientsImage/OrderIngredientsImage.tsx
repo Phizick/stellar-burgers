@@ -1,8 +1,12 @@
 import stylesOrderIngredientsImage from "./OrderIngredientsImage.module.css";
-import PropTypes from "prop-types";
+import  {  FC} from "react";
 
+type TOrderIngredientsImage = {
+    item: string;
+    alt: string;
+}
 
-export const OrderIngredientsImage = (props) => {
+export const OrderIngredientsImage: FC<TOrderIngredientsImage> = (props) => {
 
 return (
     <div className={stylesOrderIngredientsImage.itemBorder}>
@@ -13,7 +17,3 @@ return (
 )
 };
 
-OrderIngredientsImage.propTypes = {
-    item: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired
-};

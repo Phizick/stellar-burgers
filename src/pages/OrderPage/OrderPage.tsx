@@ -9,7 +9,7 @@ import { InfinitySpin } from "react-loader-spinner";
 import {getIngredients} from "../../utils/constants";
 
 export const OrderPage = () => {
-    const { id } = useParams();
+    const { id } = useParams<{id:string}>();
     const ingredients = useSelector(getIngredients);
     const location = useLocation();
     const dispatch = useDispatch();

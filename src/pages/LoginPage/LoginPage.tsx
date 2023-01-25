@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FormEvent, FC} from "react";
 import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
@@ -6,7 +6,9 @@ import { useHistory } from "react-router-dom";
 import { loginUser } from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
 
-export const LoginPage = () => {
+
+
+export const LoginPage: FC = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -22,7 +24,7 @@ export const LoginPage = () => {
                 secondQuestion={"Забыли пароль?"}
                 secondQuestionLinkText={"Восстановить пароль"}
                 ForwardLinkSecond={"/forgot-password"}
-                FormSubmitFunc={(e) => {
+                FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     dispatch(loginUser(values, history));
                 }}

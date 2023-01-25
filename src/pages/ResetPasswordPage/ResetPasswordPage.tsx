@@ -1,5 +1,5 @@
-import React from "react";
-import { useEffect } from "react";
+import React, {FormEvent} from "react";
+import { useEffect, FC } from "react";
 import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword } from "../../services/actions/user";
@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import {useForm} from "../../services/hooks/useForm";
 import {getUserData} from "../../utils/constants";
 
-export const ResetPasswordPage = () => {
+export const ResetPasswordPage: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {validUser} = useSelector(getUserData);
@@ -21,6 +21,7 @@ export const ResetPasswordPage = () => {
         }
     });
 
+    // @ts-ignore
     return (
         <Form
             formTitle={"Восстановление пароля"}
@@ -28,7 +29,7 @@ export const ResetPasswordPage = () => {
             firstQuestion={"Вспомнили пароль?"}
             fistQuestionLinkText={"Войти"}
             ForwardLinkFirst={"/login"}
-            FormSubmitFunc={(e) => {
+            FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                 e.preventDefault();
                 dispatch(resetPassword(values));
                 history.replace("/login");

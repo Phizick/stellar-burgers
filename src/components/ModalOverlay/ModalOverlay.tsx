@@ -5,13 +5,13 @@
  * разметку оверлея с затемнением и реагированием на клик
  */
 
-import React from "react";
+import React, { FC } from "react";
 import stylesModalOverlay from "../ModalOverlay/ModalOverlay.module.css";
-import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
+import {TModalOverlay} from "../../services/types";
 
-const ModalOverlay = (props: any) => {
-    const { id } = useParams();
+const ModalOverlay: FC<TModalOverlay> = (props) => {
+    const { id } = useParams<{id:string}>();
     const handleOverlay = (e: any) => {
         if (e.target === e.currentTarget) {
             props.closeModal();
@@ -25,9 +25,5 @@ const ModalOverlay = (props: any) => {
     );
 };
 
-ModalOverlay.propTypes = {
-    isActive: PropTypes.bool.isRequired,
-    children: PropTypes.node.isRequired,
-};
 
 export default ModalOverlay;

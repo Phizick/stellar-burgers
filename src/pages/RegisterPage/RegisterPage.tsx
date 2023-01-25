@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
+import {FormEvent, FC} from "react";
 
-export const RegisterPage = () => {
+export const RegisterPage: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const {values, handleChange} = useForm({ email: '', name: '', password: ''});
@@ -17,7 +18,7 @@ export const RegisterPage = () => {
                 firstQuestion={"Уже зарегистрированы?"}
                 fistQuestionLinkText={"Войти"}
                 ForwardLinkFirst={"/login"}
-                FormSubmitFunc={(e) => {
+                FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     dispatch(registerUser(values, history));
                 }}

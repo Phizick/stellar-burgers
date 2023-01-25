@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import stylesErrorPage from "./ErrorPage.module.css";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {MagnifyingGlass} from "react-loader-spinner";
+import { FC } from 'react'
 
-export const ErrorPage = () => {
+export const ErrorPage: FC = () => {
     return (
         <div className={stylesErrorPage.div}>
             <MagnifyingGlass

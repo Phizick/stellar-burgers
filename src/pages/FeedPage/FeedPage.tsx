@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_STOP } from "../../services/actions/wsActions";
 import {getWsData} from "../../utils/constants";
+import { FC } from 'react'
 
-export const FeedPage = () => {
+export const FeedPage: FC = () => {
     const dispatch = useDispatch();
     const { data } = useSelector(getWsData);
 

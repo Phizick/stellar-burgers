@@ -6,6 +6,7 @@ import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredients
 import PropTypes from "prop-types";
 import {getIngredients} from "../../utils/constants";
 
+
 export const OrderIngredientsInfo = (props) => {
     const ingredients = useSelector(getIngredients);
 

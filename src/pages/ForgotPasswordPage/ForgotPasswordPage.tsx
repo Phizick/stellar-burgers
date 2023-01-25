@@ -5,8 +5,9 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import forgotPassword from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
+import { FC, FormEvent } from 'react'
 
-export const ForgotPasswordPage = () => {
+export const ForgotPasswordPage: FC = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const {values, handleChange } = useForm({ email: ''});
@@ -18,7 +19,7 @@ export const ForgotPasswordPage = () => {
                 firstQuestion={"Вспомнили пароль?"}
                 fistQuestionLinkText={"Войти"}
                 ForwardLinkFirst={"/reset-password"}
-                FormSubmitFunc={(e) => {
+                FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     dispatch(forgotPassword(values.email, history));
                     history.push("/reset-password");

@@ -3,13 +3,13 @@ import stylesProfileOrder from "./ProfileOrdersHistoryPage.module.css";
 import stylesProfileHistory from "./ProfileOrdersHistoryPage.module.css";
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect} from "react";
+import React, {useEffect, FC} from "react";
 import { OrderCard } from "../../components/OrderCard/OrderCard";
 import { MODAL_OPENED } from "../../services/actions";
 import {WS_CONNECTION_START, WS_CONNECTION_STOP} from "../../services/actions/wsActions";
 import {getWsData} from "../../utils/constants";
 
-export const ProfileOrdersHistoryPage = () => {
+export const ProfileOrdersHistoryPage: FC = () => {
 
     const dispatch = useDispatch();
     const { data } = useSelector(getWsData);

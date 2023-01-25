@@ -9,8 +9,9 @@ import { getCookie } from "../../utils/cookieFunc";
 import {useHistory} from "react-router-dom";
 import { setOrder} from "../../services/actions/order";
 import {getSelectedIngredient} from "../../utils/constants";
+import { FC } from 'react'
 
-export const MainPage = () => {
+export const MainPage: FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { ingredientsAdded } = useSelector(getSelectedIngredient);
