@@ -1,10 +1,10 @@
 import {v4 as uuid4} from "uuid";
-import {
-    ADD_CONSTRUCTOR_BUN,
-    ADD_CONSTRUCTOR_INGREDIENT,
-    DELETE_CONSTRUCTOR_INGREDIENT,
-    SORTED_CONSTRUCTOR
-} from "./index";
+import { ADD_CONSTRUCTOR_BUN,
+ADD_CONSTRUCTOR_INGREDIENT,
+SORTED_CONSTRUCTOR,
+DELETE_CONSTRUCTOR_INGREDIENT} from "./actionsTypes/constructorTypes";
+import {TIngredient} from "../types";
+
 
 export const addConstructorBun = (item: object) => {
     return {
@@ -13,7 +13,7 @@ export const addConstructorBun = (item: object) => {
     };
 };
 
-export const addConstructorIngredient = (item: object) => {
+export const addConstructorIngredient = (item: TIngredient) => {
     return {
         type: ADD_CONSTRUCTOR_INGREDIENT,
         data: item,

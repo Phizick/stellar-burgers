@@ -1,4 +1,11 @@
-
+import {
+    WS_CONNECTION_START,
+    WS_SEND_ORDERS,
+    WS_GET_ORDERS,
+    WS_CONNECTION_CLOSED,
+    WS_CONNECTION_FAILED,
+    WS_CONNECTION_STOP,
+    WS_CONNECTION_SUCCESS} from "./actionsTypes/wsActionsTypes";
 
 interface IWsConnectionStart {
     readonly type: typeof WS_CONNECTION_START
@@ -29,7 +36,17 @@ interface IWsSendOrders {
 }
 
 
-export const wsActions = {
+export type TWsActions = {
+    wsInit: typeof WS_CONNECTION_START,
+    onError: typeof WS_CONNECTION_FAILED,
+    wsClosed: typeof WS_CONNECTION_STOP,
+    onOpen: typeof WS_CONNECTION_SUCCESS,
+    onClose: typeof WS_CONNECTION_CLOSED,
+    onMessage: typeof WS_GET_ORDERS,
+    wsSendMessage: typeof WS_SEND_ORDERS
+}
+
+export const wsActions: TWsActions = {
     wsInit: WS_CONNECTION_START,
     onError: WS_CONNECTION_FAILED,
     wsClosed: WS_CONNECTION_STOP,
@@ -38,4 +55,3 @@ export const wsActions = {
     onMessage: WS_GET_ORDERS,
     wsSendMessage: WS_SEND_ORDERS
 }
-

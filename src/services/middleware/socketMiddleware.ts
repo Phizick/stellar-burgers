@@ -1,10 +1,11 @@
 import {getCookie} from "../../utils/cookieFunc";
+import {TWsActions} from "../actions/wsActions";
 
 
-export const socketMiddleware = (wsActions: any) => {
-    return store => {
+export const socketMiddleware = (wsActions: TWsActions) => {
+    return (store: any) => {
         let socket: WebSocket | null = null;
-        return next => action => {
+        return (next: any) => (action: any) => {
             const { dispatch } = store;
             const { type, payload } = action;
             const { wsInit, wsClosed, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;

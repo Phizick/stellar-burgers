@@ -62,3 +62,10 @@ export type TWsSocketActions = {
     onError: string;
     onMessage: string;
 }
+export type TUserResponse = {
+    success: boolean;
+    user: TUser;
+    accessToken: string;
+    refreshToken: string;
+    message: string;
+}

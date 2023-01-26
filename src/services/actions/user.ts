@@ -1,11 +1,54 @@
 import { request } from "./index";
 import { getCookie, setCookie } from "../../utils/cookieFunc";
-import {Dispatch} from "react";
+import {AppDispatch, AppThunk, TUser} from "../types";
+import { LOGIN_USER,
+LOGIN_USER_FAILED,
+LOGIN_USER_SUCCESS,
+LOGOUT_USER,
+LOGOUT_USER_FAILED,
+LOGOUT_USER_SUCCESS,
+FORGOT_PASSWORD,
+FORGOT_PASSWORD_FAILED,
+FORGOT_PASSWORD_SUCCESS,
+GET_USER,
+GET_USER_FAILED,
+GET_USER_SUCCESS,
+REGISTER_USER,
+REGISTER_USER_FAILED,
+REGISTER_USER_SUCCESS,
+RESET_PASSWORD,
+RESET_PASSWORD_FAILED,
+RESET_PASSWORD_SUCCESS,
+PATCH_USER,
+PATCH_USER_FAILED,
+PATCH_USER_SUCCESS,
+UPDATE_USER_TOKEN,
+UPDATE_USER_TOKEN_FAILED,
+UPDATE_USER_TOKEN_SUCCESS
+} from "./actionsTypes/userTypes";
 
 
 
-export const loginUser = (values: any, history: any) => {
-    return (dispatch: Dispatch<any>) => {
+interface ILoginUser {
+    readonly type: typeof LOGIN_USER;
+}
+
+interface ILoginUserSuccess {
+    readonly type: typeof LOGIN_USER_SUCCESS;
+}
+
+interface ILoginUserFailed {
+    readonly type: typeof LOGIN_USER_FAILED;
+}
+
+interface IUserValues {
+    email: string;
+    password: string;
+    name: string;
+}
+
+export const loginUser: AppThunk = (values: IUserValues, history: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: LOGIN_USER,
             authorizedUser: true,
@@ -19,7 +62,7 @@ export const loginUser = (values: any, history: any) => {
             }),
         };
         request("auth/login", requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (res.success) {
                     if (!localStorage.length) {
                         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
@@ -43,8 +86,25 @@ export const loginUser = (values: any, history: any) => {
     };
 };
 
-export const registerUser = (values: any, history: any) => {
-    return (dispatch: Dispatch<any>) => {
+
+
+interface IRegisterUser {
+    readonly type: typeof REGISTER_USER;
+}
+
+interface IRegisterUserSuccess {
+    readonly type: typeof REGISTER_USER_SUCCESS;
+    user: TUser;
+    accessToken: string;
+    refreshToken: string;
+}
+
+interface IRegisterUserFailed {
+    readonly type: typeof REGISTER_USER_FAILED;
+}
+
+export const registerUser: AppThunk = (values: IUserValues) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: REGISTER_USER,
         });
@@ -58,7 +118,7 @@ export const registerUser = (values: any, history: any) => {
             }),
         };
         request("auth/register", requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (res && res.success) {
                     setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
                     localStorage.setItem("refreshToken", res.refreshToken);
@@ -80,8 +140,25 @@ export const registerUser = (values: any, history: any) => {
     };
 };
 
-const forgotPassword = (data: any) => {
-    return (dispatch: Dispatch<any>) => {
+interface IForgotPasswordData {
+    email: string;
+    history: any;
+}
+
+interface IForgotPassword {
+    readonly type: typeof FORGOT_PASSWORD
+}
+
+interface IForgotPasswordSuccess {
+    readonly type: typeof FORGOT_PASSWORD_SUCCESS
+}
+
+interface IForgotPAsswordFailed {
+    readonly type: typeof FORGOT_PASSWORD_FAILED
+}
+
+const forgotPassword: AppThunk = (data: IForgotPasswordData) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: FORGOT_PASSWORD,
         });
@@ -94,7 +171,7 @@ const forgotPassword = (data: any) => {
             type: FORGOT_PASSWORD_SUCCESS,
         });
         request("password-reset", requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (res.success) {
                     return data.history.replace({ pathname: "/reset-password" });
                 }
@@ -109,8 +186,25 @@ const forgotPassword = (data: any) => {
     };
 };
 
-export const resetPassword = (data: any) => {
-    return (dispatch: Dispatch<any>) => {
+interface IResetPasswordData {
+    password: string;
+    token: string;
+}
+
+interface IResetPassword {
+    readonly type: typeof RESET_PASSWORD
+}
+
+interface IResetPasswordSuccess {
+    readonly type: typeof RESET_PASSWORD_SUCCESS
+}
+
+interface IResetPasswordFailed {
+    readonly type: typeof RESET_PASSWORD_FAILED
+}
+
+export const resetPassword: AppThunk = (data: IResetPasswordData) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: RESET_PASSWORD,
         });
@@ -123,7 +217,7 @@ export const resetPassword = (data: any) => {
             type: RESET_PASSWORD_SUCCESS,
         });
         request("password-reset/reset", requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (!res.success) {
                     return null;
                 }
@@ -137,8 +231,21 @@ export const resetPassword = (data: any) => {
     };
 };
 
-export const getUser = () => {
-    return (dispatch: Dispatch<any>) => {
+interface IGetUser {
+    readonly type: typeof GET_USER
+}
+
+interface IGetUserSuccess {
+    readonly type: typeof GET_USER_SUCCESS
+}
+
+interface IGetUserFailed {
+    readonly type: typeof GET_USER_FAILED
+}
+
+
+export const getUser: AppThunk = () => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: GET_USER,
         });
@@ -147,7 +254,7 @@ export const getUser = () => {
             headers: { "Content-Type": "application/json", Authorization: "Bearer " + getCookie("accessToken") },
         };
         request("auth/user", requestOptions)
-            .then((res:any) => {
+            .then((res) => {
                 if (res.success) {
                     dispatch({
                         type: GET_USER_SUCCESS,
@@ -164,8 +271,22 @@ export const getUser = () => {
     };
 };
 
-export const patchUser = (values: any) => {
-    return (dispatch: Dispatch<any>) => {
+interface IPatchUser {
+    readonly type: typeof PATCH_USER
+}
+
+interface IPatchUserSuccess {
+    readonly type: typeof PATCH_USER_SUCCESS
+}
+
+interface IPatchUserFailed {
+    readonly type: typeof PATCH_USER_FAILED
+}
+
+
+
+export const patchUser: AppThunk = (values: IUserValues) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: PATCH_USER,
         });
@@ -179,7 +300,7 @@ export const patchUser = (values: any) => {
             }),
         };
         request("auth/user", requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (res.success) {
                     dispatch({
                         type: PATCH_USER_SUCCESS,
@@ -196,8 +317,21 @@ export const patchUser = (values: any) => {
     };
 };
 
-export const logoutUser = () => {
-    return (dispatch: Dispatch<any>) => {
+interface ILogoutUser {
+    readonly type: typeof LOGOUT_USER
+}
+
+interface ILogoutUserSuccess {
+    readonly type: typeof LOGOUT_USER_SUCCESS
+}
+
+interface ILogoutUserFailed {
+    readonly type: typeof LOGOUT_USER_FAILED
+}
+
+
+export const logoutUser: AppThunk = () => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: LOGOUT_USER,
         });
@@ -209,7 +343,7 @@ export const logoutUser = () => {
             }),
         };
         request("auth/logout", requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (res.success) {
                     setCookie("accessToken", "");
                     localStorage.removeItem("refreshToken");
@@ -230,8 +364,8 @@ export const logoutUser = () => {
     };
 };
 
-export const updateUserToken = () => {
-    return (dispatch: Dispatch<any>) => {
+export const updateUserToken: AppThunk = () => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: UPDATE_USER_TOKEN,
         });
@@ -243,7 +377,7 @@ export const updateUserToken = () => {
             }),
         };
         request("auth/token", requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (res.success) {
                     setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
                     localStorage.setItem("refreshToken", res.refreshToken);

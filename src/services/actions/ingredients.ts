@@ -1,10 +1,35 @@
 import {request} from "./index";
-import {Dispatch} from 'react'
+import { TIngredient } from "../types";
+import { GET_INGREDIENTS,
+GET_INGREDIENTS_SUCCESS,
+GET_INGREDIENTS_FAILED,
+CHOICE_INGREDIENT} from "./actionsTypes/ingredientsTypes";
+import { AppDispatch, AppThunk} from "../types";
+
+interface IGetIngredients {
+    readonly type: typeof GET_INGREDIENTS
+}
+interface IGetIngredientsSuccess {
+    readonly type: typeof GET_INGREDIENTS_SUCCESS
+}
+
+interface IGetIngredientsFailed {
+    readonly type: typeof GET_INGREDIENTS_FAILED
+}
+
+interface IChoiceIngredients {
+    readonly type: typeof CHOICE_INGREDIENT
+}
+
+export type TIngredientsActions =
+    | IGetIngredients
+    | IGetIngredientsSuccess
+    | IGetIngredientsFailed
+    | IChoiceIngredients;
 
 
-
-export const getIngredients = () => {
-    return (dispatch: Dispatch<any>) => {
+export const getIngredients: AppThunk = () => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: GET_INGREDIENTS,
         });
@@ -24,7 +49,7 @@ export const getIngredients = () => {
     };
 };
 
-export const getIngredientDetails = (ingredient: any) => {
+export const getIngredientDetails = (ingredient: TIngredient) => {
     return {
         type: CHOICE_INGREDIENT,
         data: ingredient,

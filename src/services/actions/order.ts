@@ -1,11 +1,36 @@
 import {getCookie} from "../../utils/cookieFunc";
-import {CLEAR_CONSTRUCTOR, request} from "./index";
-import {Dispatch} from "react";
+import { request} from "./index";
+import { AppDispatch, AppThunk} from "../types";
+import { TIngredient} from "../types";
+import { SEND_ORDER,
+SEND_ORDER_FAILED,
+SEND_ORDER_SUCCESS,
+GET_ORDER_SUCCESS,
+GET_ORDER,
+GET_ORDER_FAILED,
+CLEAR_CONSTRUCTOR} from "./actionsTypes/orderTypes";
+
+
+interface ISendOrder {
+    readonly type: typeof SEND_ORDER
+}
+
+interface ISendOrderSuccess {
+    readonly type: typeof SEND_ORDER_SUCCESS
+}
+
+interface ISendOrderFailed {
+    readonly type: typeof SEND_ORDER_FAILED
+}
+
+interface IClearConstructor {
+    readonly type: typeof CLEAR_CONSTRUCTOR
+}
 
 
 
-export const setOrder = (ingredients: any) => {
-    return (dispatch: Dispatch<any>) => {
+export const setOrder: AppThunk = (ingredients: Array<TIngredient>) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: SEND_ORDER,
         });
@@ -38,8 +63,21 @@ export const setOrder = (ingredients: any) => {
     };
 };
 
-export const getOrders = () => {
-    return (dispatch: Dispatch<any>) => {
+interface IGetOrder {
+    readonly type: typeof GET_ORDER
+}
+
+interface IGetOrderSuccess {
+    readonly type: typeof GET_ORDER_SUCCESS
+}
+
+interface IGetOrderFailed {
+    readonly type: typeof GET_ORDER_FAILED
+}
+
+
+export const getOrders: AppThunk = () => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: GET_ORDER,
         });
@@ -67,8 +105,8 @@ export const getOrders = () => {
             });
     };
 }
-export const getAuthOrders = () => {
-    return (dispatch: Dispatch<any>) => {
+export const getAuthOrders: AppThunk = () => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: GET_ORDER,
         });
@@ -96,3 +134,12 @@ export const getAuthOrders = () => {
             });
     };
 }
+
+export type TOrderActions =
+    | ISendOrder
+    | ISendOrderSuccess
+    | ISendOrderFailed
+    | IClearConstructor
+    | IGetOrder
+    | IGetOrderSuccess
+    | IGetOrderFailed;
