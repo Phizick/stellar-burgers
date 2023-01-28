@@ -1,16 +1,19 @@
 import stylesOrderIngredientsInfo from "./OrderIngredientsInfo.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
-import { useMemo } from "react";
+import {useSelector} from "../../services/hooks/hooks";
+import { useMemo, FC} from "react";
 import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredientsImage";
-import PropTypes from "prop-types";
+
 import {getIngredients} from "../../utils/constants";
+import {TIngredient} from "../../services/types";
 
-
-export const OrderIngredientsInfo = (props) => {
+interface IOrderIngredientsInfo {
+    data: TIngredient[];
+}
+export const OrderIngredientsInfo: FC<IOrderIngredientsInfo> = (props) => {
     const ingredients = useSelector(getIngredients);
 
-    const count = (elem) => {
+    const count = (elem: TIngredient) => {
         let count = props.data.filter((item) => {
             return item === elem;
         }).length;
@@ -19,7 +22,7 @@ export const OrderIngredientsInfo = (props) => {
 
     const orderIngredient = useMemo(() => {
         return props.data?.map((elem) => {
-            return ingredients?.find((item) => {
+            return ingredients?.find((item: TIngredient) => {
                 return elem._id === item._id
             })
         })
@@ -48,6 +51,3 @@ export const OrderIngredientsInfo = (props) => {
     );
 };
 
-OrderIngredientsInfo.propTypes = {
-    data: PropTypes.array.isRequired
-};

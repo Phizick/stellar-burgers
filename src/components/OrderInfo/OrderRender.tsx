@@ -1,15 +1,20 @@
-import { useMemo } from "react";
+import { useMemo, FC } from "react";
 import stylesOrderInfo from "./OrderInfo.module.css";
 import { OrderIngredientsInfo } from "../OrderIngredientsInfo/OrderIngredientsInfo";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
+import {TIngredient} from "../../services/types";
 
-export const OrderRender = (props) => {
-    const { id } = useParams();
+interface IOrderRender {
+    order: any;
+    ingredients: TIngredient[];
+}
+
+export const OrderRender: FC<IOrderRender> = (props) => {
+    const { id } = useParams<{ id: string }>();
 
     const selectedOrderData = useMemo(() => {
-        return props.order?.ingredients.map((id) => {
+        return props.order?.ingredients.map((id: string) => {
             return props.ingredients?.find((item) => {
                 return id === item._id
             })
@@ -17,7 +22,7 @@ export const OrderRender = (props) => {
     }, [props.order?.ingredients, props.ingredients]);
 
     const orderTotalPrice = useMemo(() => {
-        return selectedOrderData?.reduce((sum, item) => {
+        return selectedOrderData?.reduce((sum: number, item: TIngredient) => {
             if (item?.type === "bun") {
                 return (sum += item.price * 2);
             }
@@ -59,7 +64,4 @@ export const OrderRender = (props) => {
     );
 };
 
-OrderRender.propTypes = {
-    order: PropTypes.object.isRequired,
-    ingredients: PropTypes.array.isRequired
-};
+

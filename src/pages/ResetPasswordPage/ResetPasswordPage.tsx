@@ -3,9 +3,8 @@ import { useEffect, FC } from "react";
 import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword } from "../../services/actions/user";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {useForm} from "../../services/hooks/useForm";
 import {getUserData} from "../../utils/constants";
 
@@ -21,7 +20,6 @@ export const ResetPasswordPage: FC = () => {
         }
     });
 
-    // @ts-ignore
     return (
         <Form
             formTitle={"Восстановление пароля"}

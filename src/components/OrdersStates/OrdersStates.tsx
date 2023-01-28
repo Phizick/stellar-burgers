@@ -1,12 +1,18 @@
 import stylesOrdersStates from "./OrdersStates.module.css";
-import { useSelector } from "react-redux";
+import {useSelector} from "../../services/hooks/hooks";
 import {getWsData} from "../../utils/constants";
+import { FC } from 'react'
+import {TOrder} from "../../services/types";
 
-export const OrderStates = () => {
+interface IOrderStates {
+    data?: TOrder[];
+}
+
+export const OrderStates: FC<IOrderStates> = () => {
     const { data } = useSelector(getWsData);
 
-    const completedOrders = data.orders.filter((order) => order.status === "done").filter((order, index) => index <= 15);
-    const upcomingOrders = data.orders.filter((order) => order.status !== "done").filter((order, index) => index <= 10);
+    const completedOrders = data.orders.filter((order: TOrder) => order.status === "done").filter((order: TOrder, index: number) => index <= 15);
+    const upcomingOrders = data.orders.filter((order: TOrder) => order.status !== "done").filter((order: TOrder, index: number) => index <= 10);
 
     return (
         <div className={stylesOrdersStates.container}>
@@ -14,7 +20,7 @@ export const OrderStates = () => {
                 <div >
                     <h2 className={stylesOrdersStates.title}>Готовы:</h2>
                     <ul className={stylesOrdersStates.list}>
-                        {completedOrders.map((order, index) => {
+                        {completedOrders.map((order: TOrder, index: number) => {
                             return (
                                 <li className={`text text_type_digits-default ${stylesOrdersStates.li}`} key={index}>
                                     {order.number}
@@ -26,7 +32,7 @@ export const OrderStates = () => {
                 <div >
                     <h2 className={stylesOrdersStates.title}>В работе:</h2>
                     <ul className={stylesOrdersStates.list}>
-                        {upcomingOrders.map((order, index) => {
+                        {upcomingOrders.map((order: TOrder, index: number) => {
                             return (
                                 <li className={`text text_type_digits-default ${stylesOrdersStates.li_upcoming}`} key={index}>
                                     {order.number}

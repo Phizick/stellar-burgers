@@ -1,11 +1,16 @@
 import stylesOrderList from "./OrdersList.module.css";
 import { OrderCard } from "../OrderCard/OrderCard";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { MODAL_OPENED } from "../../services/actions";
-import PropTypes from "prop-types";
+import {useDispatch} from "../../services/hooks/hooks";
+import {MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
+import { FC } from 'react'
+import { TOrder} from "../../services/types";
 
-export const OrdersList = (props) => {
+interface IOrderList {
+    orders: TOrder[];
+}
+
+export const OrdersList: FC<IOrderList> = (props) => {
     const dispatch = useDispatch();
 
     const handleModalOpen = () => {
@@ -21,7 +26,7 @@ export const OrdersList = (props) => {
     return (
         <div className={stylesOrderList.list}>
             {props.orders &&
-                props.orders.map((item) => {
+                props.orders.map((item: TOrder) => {
                     return (
                         <Link className={stylesOrderList.link} to={`/feed/${item._id}`} key={item._id} onClick={handleModalOpen}>
                             <OrderCard order={item} key={item._id} />
@@ -32,6 +37,3 @@ export const OrdersList = (props) => {
     );
 };
 
-OrdersList.propTypes = {
-    orders: PropTypes.array.isRequired
-};

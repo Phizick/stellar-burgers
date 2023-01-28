@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getAuthOrders, getOrders } from "../../services/actions/order";
@@ -19,7 +19,7 @@ export const OrderInfo = () => {
     }, [dispatch]);
 
     const { data } = useSelector(getWsData);
-    let order = data.orders?.find((order) => order._id === id);
+    let order = data.orders?.find((order: any) => order._id === id);
 
     return (
         <>

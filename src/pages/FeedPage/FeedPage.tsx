@@ -3,9 +3,10 @@ import { OrderStates } from "../../components/OrdersStates/OrdersStates";
 import { OrdersList } from "../../components/OrdersList/OrdersList";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { WS_CONNECTION_START, WS_CONNECTION_STOP } from "../../services/actions/wsActions";
+import { WS_CONNECTION_START, WS_CONNECTION_STOP} from "../../services/actions/actionsTypes/wsActionsTypes";
 import {getWsData} from "../../utils/constants";
 import { FC } from 'react'
+
 
 export const FeedPage: FC = () => {
     const dispatch = useDispatch();

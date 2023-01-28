@@ -12,10 +12,10 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {TModal} from "../../services/types";
 import ReactDOM from "react-dom";
 import {getModalState, modalContainer} from "../../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
-import { MODAL_CLOSED } from "../../services/actions";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {MODAL_CLOSED} from "../../services/actions/actionsTypes/modalTypes";
 import { useHistory, useLocation } from "react-router-dom";
-import { SEND_ORDER } from "../../services/actions/order";
+import { SEND_ORDER } from "../../services/actions/actionsTypes/orderTypes";
 
 const Modal: FC<TModal>  = (props) => {
     const { isOpened, modalType} = useSelector(getModalState);
@@ -53,7 +53,7 @@ const Modal: FC<TModal>  = (props) => {
 
 
     useEffect(() => {
-        const handleEscClose = (e) => {
+        const handleEscClose = (e: any) => {
             e.key === "Escape" && handleCloseModal();
         };
         if (isOpened) {

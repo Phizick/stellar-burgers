@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
-import React from "react";
+import React, { FC } from "react";
 import stylesProfile from "./ProfileNavigation.module.css";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import { logoutUser } from "../../services/actions/user";
-import PropTypes from "prop-types";
 
-export const ProfileNavigation = (props) => {
+interface IProfileNavigation {
+    isActive: boolean;
+    active: boolean
+}
+
+export const ProfileNavigation: FC<IProfileNavigation> = (props) => {
     const dispatch = useDispatch();
 
     return (
@@ -34,7 +38,3 @@ export const ProfileNavigation = (props) => {
     );
 };
 
-ProfileNavigation.propTypes = {
-    active: PropTypes.bool.isRequired,
-    isActive: PropTypes.bool.isRequired,
-};

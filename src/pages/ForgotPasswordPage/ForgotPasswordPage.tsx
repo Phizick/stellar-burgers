@@ -2,7 +2,7 @@ import React from "react";
 import { Form } from "../../components/Form/Form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import forgotPassword from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
 import { FC, FormEvent } from 'react'

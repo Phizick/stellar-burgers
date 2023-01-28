@@ -2,12 +2,13 @@ import { ProfileNavigation } from "../../components/ProfileNavigation/ProfileNav
 import stylesProfileOrder from "./ProfileOrdersHistoryPage.module.css";
 import stylesProfileHistory from "./ProfileOrdersHistoryPage.module.css";
 import { Link } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import React, {useEffect, FC} from "react";
 import { OrderCard } from "../../components/OrderCard/OrderCard";
-import { MODAL_OPENED } from "../../services/actions";
-import {WS_CONNECTION_START, WS_CONNECTION_STOP} from "../../services/actions/wsActions";
+import {MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
+import {WS_CONNECTION_STOP, WS_CONNECTION_START} from "../../services/actions/actionsTypes/wsActionsTypes";
 import {getWsData} from "../../utils/constants";
+import {TOrder} from "../../services/types";
 
 export const ProfileOrdersHistoryPage: FC = () => {
 
@@ -47,7 +48,7 @@ export const ProfileOrdersHistoryPage: FC = () => {
                     <ProfileNavigation isActive={true} active={false} />
                     <div className={stylesProfileHistory.listContainer}>
                         {data.orders
-                            ?.map((item, index) => {
+                            ?.map((item: TOrder, index: number) => {
                                 return (
                                     <Link className={stylesProfileOrder.link} to={`/profile/orders/${item._id}`} key={item._id} onClick={handleModalOpen}>
                                         <OrderCard order={item} key={index} />

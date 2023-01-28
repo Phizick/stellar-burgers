@@ -2,7 +2,7 @@ import {getUser, patchUser} from "../../services/actions/user";
 import stylesProfile from "../../pages/ProfilePage/ProfilePage.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {useForm} from "../../services/hooks/useForm";
 import {ProfileNavigation} from "../ProfileNavigation/ProfileNavigation";
 import {getUserInfo} from "../../utils/constants";
@@ -42,7 +42,6 @@ export const ProfileEditForm = () => {
                             type={"text"}
                             placeholder={"Имя"}
                             name={"name"}
-                            extraClass="ml-1"
                             icon={"EditIcon"}
                             error={false}
                         />
@@ -61,7 +60,6 @@ export const ProfileEditForm = () => {
                             value={values.password}
                             name={"password"}
                             onChange={handleChange}
-                            extraClass="ml-1"
                             icon={"EditIcon"}
                         />
                     </li>

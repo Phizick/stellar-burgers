@@ -8,7 +8,7 @@
 import React from "react";
 import doneIndicationImg from "../../images/done.png";
 import stylesOrderDetails from "../OrderDetails/OrderDetails.module.css";
-import { useSelector } from "react-redux";
+import {useSelector} from "../../services/hooks/hooks";
 import { InfinitySpin } from "react-loader-spinner";
 import { getOrderState} from "../../utils/constants";
 
