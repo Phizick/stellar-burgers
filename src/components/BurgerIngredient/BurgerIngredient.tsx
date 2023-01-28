@@ -8,16 +8,22 @@
 import stylesBurgerIngredient from "../BurgerIngredient/BurgerIngredient.module.css";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag} from "react-dnd";
-import { useSelector} from "react-redux";
-import { ingredientType } from "../../utils/type";
+import {useSelector} from "../../services/hooks/hooks";
 import {getBunData, getBurgerIngredients} from "../../utils/constants";
+import { FC } from 'react'
+import {TIngredient} from "../../services/types";
 
-const BurgerIngredient = (props: any) => {
+interface IBurgerIngredient {
+    data: TIngredient;
+    activeModal: (data: TIngredient) => void;
+}
+
+const BurgerIngredient: FC<IBurgerIngredient> = (props) => {
     const ingredients = useSelector(getBurgerIngredients);
     const bun = useSelector(getBunData);
     const setCounter = () => {
         if (props.data.type !== 'bun') {
-            return ingredients.filter((item: any) => item._id === props.data._id).length
+            return ingredients.filter((item: TIngredient) => item._id === props.data._id).length
         } else if (bun?._id === props.data._id) {
             return 2
         } else return 0
@@ -41,10 +47,6 @@ const BurgerIngredient = (props: any) => {
             <p className={"text text_type_main-default"}>{props.data.name}</p>
         </li>
     );
-};
-
-BurgerIngredient.propTypes = {
-    data: ingredientType.isRequired
 };
 
 export default BurgerIngredient;

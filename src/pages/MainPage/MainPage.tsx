@@ -1,10 +1,10 @@
 import MainPageStyles from "./MainPage.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
-import {MODAL_OPENED} from "../../services/actions";
+import {MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
 import { getCookie } from "../../utils/cookieFunc";
 import {useHistory} from "react-router-dom";
 import { setOrder} from "../../services/actions/order";

@@ -1,9 +1,10 @@
 import React, { useRef, FC } from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
-import { useDrop, useDrag } from "react-dnd";
+import {useDispatch} from "../../services/hooks/hooks";
+import {useDrop, useDrag, XYCoord} from "react-dnd";
 import { deleteConstructorElement } from "../../services/actions/ConstructorActions";
 import stylesConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem.module.css";
+import { TIngredient } from "../../services/types";
 
 
 type TDragItem = {
@@ -12,31 +13,17 @@ type TDragItem = {
     id?: string;
 }
 
-interface Ingredient {
-    calories: number;
-    carbohydrates: number;
-    fat: number;
-    image: string;
-    image_large: string;
-    image_mobile: string;
-    name: string;
-    price: number;
-    proteins: number;
-    type: "bun" | "main" | "sauce";
-    __v: number;
-    _id: string;
-    id?: string;
-    count?: number;
-}
-
 type TSortedItems = {
     index: number;
-    items: Ingredient;
+    items?: TIngredient;
+    moveIngredientCard: any;
+    data: TIngredient;
+    id?: string | undefined;
 }
-const ConstructorSortedItem: FC<TSortedItems> = (props: any) => {
+const ConstructorSortedItem: FC<TSortedItems> = (props) => {
     const dispatch = useDispatch();
-    const ref = useRef(null);
-    const removeIngredient = (removedIngredient: string) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const removeIngredient = (removedIngredient: string | undefined) => {
         dispatch(deleteConstructorElement(removedIngredient));
     };
 
@@ -54,7 +41,7 @@ const ConstructorSortedItem: FC<TSortedItems> = (props: any) => {
             const hoverBoundingRect = ref.current?.getBoundingClientRect();
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }

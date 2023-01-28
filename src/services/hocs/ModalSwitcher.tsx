@@ -1,6 +1,5 @@
-import { useSelector} from "react-redux";
+import {useSelector} from "../hooks/hooks";
 import Modal from "../../components/Modal/Modal";
-import PropTypes from "prop-types";
 import { ComponentType, FC } from "react";
 
 interface IModalSwitcher {
@@ -20,13 +19,6 @@ const ModalSwitcher: FC<IModalSwitcher> = ({ ModalComponent, PageComponent, moda
         </Modal>
     )
         : PageComponent && <PageComponent />;
-};
-
-ModalSwitcher.propTypes = {
-    ModalComponent: PropTypes.func.isRequired,
-    PageComponent: PropTypes.func.isRequired,
-    modalTitle: PropTypes.string.isRequired,
-    nameOfModal: PropTypes.string.isRequired,
 };
 
 export default ModalSwitcher;

@@ -1,16 +1,13 @@
 import {useState} from "react";
-import PropTypes from "prop-types";
 
-export const useForm = (inputValues) => {
+
+export const useForm = (inputValues: object) => {
     const [values, setValues] = useState(inputValues);
 
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         const {value, name} = event.target;
         setValues({...values, [name]: value});
     };
     return {values, handleChange, setValues};
 }
 
-useForm.propTypes = {
-    inputValues: PropTypes.object.isRequired
-}

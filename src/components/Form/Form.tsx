@@ -1,10 +1,23 @@
-import React from "react";
+import React, {FC, ReactNode} from "react";
 import stylesForm from "./Form.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 
 
-export const Form = (props: any) => {
+interface IForm {
+    FormSubmitFunc: () => void;
+    formTitle: string;
+    children: ReactNode;
+    buttonText: string;
+    firstQuestion: string;
+    ForwardLinkFirst: string;
+    fistQuestionLinkText: string;
+    secondQuestion: string;
+    ForwardLinkSecond: string;
+    secondQuestionLinkText: string;
+}
+
+export const Form: FC<IForm> = (props) => {
     return (
         <form className={stylesForm.form} onSubmit={props.FormSubmitFunc}>
             <h1 className={stylesForm.formTitle}>{props.formTitle}</h1>

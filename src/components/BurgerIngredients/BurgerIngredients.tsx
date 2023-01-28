@@ -5,18 +5,19 @@
  * разметку-список ингредиентов для бургера, разбитых по категориям
  */
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState, FC} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
 import {useHistory} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {MODAL_OPENED} from "../../services/actions";
-import {DELETE_INGREDIENTS_MODAL} from "../../services/actions/ingredients";
+import {useDispatch} from "../../services/hooks/hooks";
 import {getIngredientDetails} from "../../services/actions/ingredients";
+import { MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
+import { DELETE_INGREDIENTS_MODAL} from "../../services/actions/actionsTypes/ingredientsTypes";
+import {TIngredient} from "../../services/types";
 
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
     const [current, setCurrent] = useState<string>("bun");
     const [bunActive, setBunActive] = useState<boolean>(false);
     const [sauceActive, setSauceActive] = useState<boolean>(false);
@@ -61,7 +62,7 @@ const BurgerIngredients = () => {
         }
     };
 
-    const handleModal = (item: any) => {
+    const handleModal = (item: TIngredient) => {
         dispatch({
             type: MODAL_OPENED,
             payload: {
@@ -79,7 +80,7 @@ const BurgerIngredients = () => {
         history.push('/ingredients/' + item._id)
     }
 
-    // @ts-ignore
+
     return (
         <section className={`${stylesBurgerIngredients.section} mt-10`} id={"section_ingredients"}>
             <h2 className={"text text_type_main-large p-4"}>Соберите бургер</h2>

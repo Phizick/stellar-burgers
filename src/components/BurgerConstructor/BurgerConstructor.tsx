@@ -8,33 +8,20 @@
 import React, {useCallback, useMemo, FC} from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
-import { useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch} from '../../services/hooks/hooks'
 import {useDrop} from "react-dnd";
 import {
     addConstructorBun, addConstructorIngredient, setDefaultConstructor
 } from "../../services/actions/ConstructorActions";
 import ConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem";
 import {getBunData, getBurgerIngredients} from "../../utils/constants";
+import { TIngredient } from "../../services/types";
 
-interface Ingredient {
-    calories: number;
-    carbohydrates: number;
-    fat: number;
-    image: string;
-    image_large: string;
-    image_mobile: string;
-    name: string;
-    price: number;
-    proteins: number;
-    type: "bun" | "main" | "sauce";
-    __v: number;
-    _id: string;
-    id?: string;
-    count?: number;
+interface IBurgerConstructor {
+    openModal: () => void
 }
 
-const BurgerConstructor: FC = (props: any) => {
+const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
     const ingredients = useSelector(getBurgerIngredients);
     const bunData = useSelector(getBunData);
     const dispatch = useDispatch();
@@ -45,7 +32,7 @@ const BurgerConstructor: FC = (props: any) => {
 
     const [ { isOver }, dropRef] = useDrop({
         accept: 'ingredient',
-        drop: ((item: Ingredient) => {
+        drop: ((item: TIngredient) => {
             if (item.type === 'bun') {
                 dispatch(addConstructorBun(item))
             }
@@ -58,16 +45,15 @@ const BurgerConstructor: FC = (props: any) => {
         })
     });
 
-    const moveIngredientCard = useCallback((dragIndex: any, hoverIndex: any) => {
+    const moveIngredientCard = useCallback((dragIndex: number, hoverIndex: number) => {
         const sortedIngredients = [...ingredients];
         sortedIngredients[dragIndex] = ingredients[hoverIndex];
         sortedIngredients[hoverIndex] = ingredients[dragIndex];
         dispatch(setDefaultConstructor(sortedIngredients));
     }, [ingredients])
 
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
+
+
     return (
         <>
             <section className={`${stylesBurgerConstructor.section}  mt-25 pb-30`} ref={dropRef}>
@@ -141,10 +127,6 @@ const BurgerConstructor: FC = (props: any) => {
             </section>
         </>
     );
-};
-
-BurgerConstructor.propTypes = {
-    openModal: PropTypes.func.isRequired
 };
 
 export default BurgerConstructor;

@@ -1,22 +1,30 @@
-import {
-    WS_CONNECTION_CLOSED,
-    WS_CONNECTION_FAILED,
-    WS_CONNECTION_SUCCESS,
-    WS_GET_ORDERS
-} from "../actions/wsActions";
+import { WS_CONNECTION_SUCCESS,
+WS_GET_ORDERS,
+WS_CONNECTION_FAILED,
+WS_CONNECTION_CLOSED} from "../actions/actionsTypes/wsActionsTypes";
+import { TWsActions } from "../actions/wsActions";
 
+type TWsInitialState = {
+    wsConnected: boolean;
+    data: {
+        orders: [],
+        total: number,
+        totalToday: number,
+        length?: number,
+} | any;
+    error?: Event;
+}
 
-const initialState = {
+const initialState: TWsInitialState = {
     wsConnected: false,
     data: {
         orders: [],
         total: 0,
         totalToday: 0,
-    },
-    error: ''
+    }
 }
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action: TWsActions): TWsInitialState => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS:
             return {

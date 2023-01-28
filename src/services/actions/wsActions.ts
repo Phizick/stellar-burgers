@@ -16,7 +16,8 @@ interface IWsConnectionClosed {
 }
 
 interface IWsConnectionFailed {
-    readonly type: typeof WS_CONNECTION_FAILED
+    readonly type: typeof WS_CONNECTION_FAILED;
+    error: Event;
 }
 
 interface IWsConnectionSuccess {
@@ -28,15 +29,26 @@ interface IWsConnectionStop {
 }
 
 interface IWsGetOrders {
-    readonly type: typeof WS_GET_ORDERS
+    readonly type: typeof WS_GET_ORDERS;
+    payload: any;
 }
 
 interface IWsSendOrders {
     readonly type: typeof WS_SEND_ORDERS
 }
 
+export type TWsActions =
+    | IWsConnectionStart
+    | IWsConnectionClosed
+    | IWsConnectionFailed
+    | IWsConnectionSuccess
+    | IWsConnectionStop
+    | IWsGetOrders
+    | IWsSendOrders
 
-export type TWsActions = {
+
+
+export type TWsActionsOLD = {
     wsInit: typeof WS_CONNECTION_START,
     onError: typeof WS_CONNECTION_FAILED,
     wsClosed: typeof WS_CONNECTION_STOP,
@@ -46,12 +58,12 @@ export type TWsActions = {
     wsSendMessage: typeof WS_SEND_ORDERS
 }
 
-export const wsActions: TWsActions = {
-    wsInit: WS_CONNECTION_START,
-    onError: WS_CONNECTION_FAILED,
-    wsClosed: WS_CONNECTION_STOP,
-    onOpen: WS_CONNECTION_SUCCESS,
-    onClose: WS_CONNECTION_CLOSED,
-    onMessage: WS_GET_ORDERS,
-    wsSendMessage: WS_SEND_ORDERS
-}
+// export const wsActions: TWsActions2 = {
+//     wsInit: WS_CONNECTION_START,
+//     onError: WS_CONNECTION_FAILED,
+//     wsClosed: WS_CONNECTION_STOP,
+//     onOpen: WS_CONNECTION_SUCCESS,
+//     onClose: WS_CONNECTION_CLOSED,
+//     onMessage: WS_GET_ORDERS,
+//     wsSendMessage: WS_SEND_ORDERS
+// }

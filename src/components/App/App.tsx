@@ -5,7 +5,7 @@
  * разметку страницы, содержащую компоненты BurgerIngredients / AppHeader / BurgerConstructor / Modal
  */
 
-import React, { useEffect, FC } from "react";
+import React, {useEffect, FC} from "react";
 import { AppHeader } from "../AppHeader/AppHeader";
 import { MainPage } from "../../pages/MainPage/MainPage";
 import { LoginPage } from "../../pages/LoginPage/LoginPage";
@@ -14,7 +14,7 @@ import { ForgotPasswordPage } from "../../pages/ForgotPasswordPage/ForgotPasswor
 import { ResetPasswordPage } from "../../pages/ResetPasswordPage/ResetPasswordPage";
 import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import { getIngredients } from "../../services/actions/ingredients";
 import { Switch, Route } from "react-router-dom";
 import { ErrorPage } from "../../pages/ErrorPage/ErrorPage";
@@ -27,6 +27,7 @@ import ModalSwitcher from "../../services/hocs/ModalSwitcher";
 import { IngredientPage } from "../../pages/IngredientPage/IngredientPage";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import OrderDetails from "../OrderDetails/OrderDetails";
+
 
 const App: FC = () => {
     const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const App: FC = () => {
         <>
             <AppHeader />
             <Switch>
-                <Route path="/" exact>
+                <Route path="/" exact={true}>
                     <ModalSwitcher ModalComponent={OrderDetails} PageComponent={MainPage} nameOfModal={"setOrder"} modalTitle={""} />
                 </Route>
                 <ProtectedRoute path="/profile/orders/:id" exact onlyForAuth={true}>

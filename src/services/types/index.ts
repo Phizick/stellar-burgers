@@ -22,7 +22,7 @@ export type TIngredient = {
     type: "bun" | "main" | "sauce";
     __v: number;
     _id: string;
-    id?: string;
+    keyId?: string;
     count?: number;
 }
 
@@ -62,6 +62,7 @@ export type TWsSocketActions = {
     onError: string;
     onMessage: string;
 }
+
 export type TUserResponse = {
     success: boolean;
     user: TUser;

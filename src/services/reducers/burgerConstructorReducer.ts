@@ -1,8 +1,35 @@
-import { ADD_CONSTRUCTOR_INGREDIENT, ADD_CONSTRUCTOR_BUN, DELETE_CONSTRUCTOR_INGREDIENT, SORTED_CONSTRUCTOR, CLEAR_CONSTRUCTOR } from "../actions";
+import { ADD_CONSTRUCTOR_BUN,
+ADD_CONSTRUCTOR_INGREDIENT,
+SORTED_CONSTRUCTOR,
+DELETE_CONSTRUCTOR_INGREDIENT,
+} from "../actions/actionsTypes/constructorTypes";
+import { CLEAR_CONSTRUCTOR} from "../actions/actionsTypes/orderTypes";
+import {TIngredient} from "../types";
 
-const initialState = {
+type TInitialState = {
+    ingredients: TIngredient[];
+    bun: TIngredient;
+    ingredientsAdded: string[];
+}
+
+const initialState: TInitialState = {
     ingredients: [],
-    bun: null,
+    bun: {
+        calories: 0,
+        carbohydrates: 0,
+        fat: 0,
+        image: '',
+        image_large: '',
+        image_mobile: '',
+        name: '',
+        price: 0,
+        proteins: 0,
+        type: "bun",
+        __v: 0,
+        _id: '',
+        id: '',
+        count: 0,
+    },
     ingredientsAdded: []
 };
 

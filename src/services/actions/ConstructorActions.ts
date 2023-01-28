@@ -28,7 +28,7 @@ export const setDefaultConstructor = (ingredients: object) => {
     };
 };
 
-export const deleteConstructorElement = (id: string) => {
+export const deleteConstructorElement = (id: string | undefined) => {
     return {
         type: DELETE_CONSTRUCTOR_INGREDIENT,
         index: id,

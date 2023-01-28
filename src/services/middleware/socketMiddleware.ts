@@ -1,8 +1,8 @@
 import {getCookie} from "../../utils/cookieFunc";
-import {TWsActions} from "../actions/wsActions";
+import { TWsActionsOLD} from "../actions/wsActions";
 
 
-export const socketMiddleware = (wsActions: TWsActions) => {
+export const socketMiddleware = (wsActions: TWsActionsOLD) => {
     return (store: any) => {
         let socket: WebSocket | null = null;
         return (next: any) => (action: any) => {

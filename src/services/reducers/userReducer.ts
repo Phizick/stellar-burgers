@@ -22,7 +22,7 @@ import {
     LOGOUT_USER,
 } from "../actions/user";
 
-type UserInitialState = {
+type TUserInitialState = {
     user: {
         email: string;
         name: string;
@@ -38,7 +38,7 @@ type UserInitialState = {
 
 }
 
-const initialState = {
+const initialState: TUserInitialState = {
     user: {
         email: "",
         name: "",

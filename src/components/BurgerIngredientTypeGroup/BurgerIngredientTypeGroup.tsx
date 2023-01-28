@@ -17,9 +17,9 @@ import {TIngredient} from "../../services/types";
 type TRef = HTMLElement
 
 type TIngredientTypeGroup = {
-    ingredients: TIngredient[];
-    type: string;
-    props: any;
+    ingredients?: TIngredient[];
+    type?: string;
+    props?: any;
     id: string;
     title: string;
     listType: string;
