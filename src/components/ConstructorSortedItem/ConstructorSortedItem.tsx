@@ -4,7 +4,7 @@ import {useDispatch} from "../../services/hooks/hooks";
 import {useDrop, useDrag, XYCoord} from "react-dnd";
 import { deleteConstructorElement } from "../../services/actions/ConstructorActions";
 import stylesConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem.module.css";
-import { TIngredient } from "../../services/types";
+import { TIngredient } from "../../services/types/types";
 
 
 type TDragItem = {

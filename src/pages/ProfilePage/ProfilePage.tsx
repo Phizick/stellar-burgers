@@ -6,10 +6,10 @@ import { ProfileEditForm } from "../../components/ProfileEditForm/ProfileEditFor
 export const ProfilePage = () => {
     return (
         <>
-            <Route path={"/profile"} exact>
+            <Route path={"/profile"}>
                 <ProfileEditForm />
             </Route>
-            <Route path={"/profile/orders"} exact>
+            <Route path={"/profile/orders"}>
                 <ProfileOrdersHistoryPage />
             </Route>
         </>

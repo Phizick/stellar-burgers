@@ -3,7 +3,7 @@ import { ADD_CONSTRUCTOR_BUN,
 ADD_CONSTRUCTOR_INGREDIENT,
 SORTED_CONSTRUCTOR,
 DELETE_CONSTRUCTOR_INGREDIENT} from "./actionsTypes/constructorTypes";
-import {TIngredient} from "../types";
+import {TIngredient} from "../types/types";
 
 
 export const addConstructorBun = (item: object) => {

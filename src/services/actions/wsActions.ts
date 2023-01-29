@@ -58,12 +58,12 @@ export type TWsActionsOLD = {
     wsSendMessage: typeof WS_SEND_ORDERS
 }
 
-// export const wsActions: TWsActions2 = {
-//     wsInit: WS_CONNECTION_START,
-//     onError: WS_CONNECTION_FAILED,
-//     wsClosed: WS_CONNECTION_STOP,
-//     onOpen: WS_CONNECTION_SUCCESS,
-//     onClose: WS_CONNECTION_CLOSED,
-//     onMessage: WS_GET_ORDERS,
-//     wsSendMessage: WS_SEND_ORDERS
-// }
+export const wsActions: TWsActionsOLD = {
+    wsInit: WS_CONNECTION_START,
+    onError: WS_CONNECTION_FAILED,
+    wsClosed: WS_CONNECTION_STOP,
+    onOpen: WS_CONNECTION_SUCCESS,
+    onClose: WS_CONNECTION_CLOSED,
+    onMessage: WS_GET_ORDERS,
+    wsSendMessage: WS_SEND_ORDERS
+}

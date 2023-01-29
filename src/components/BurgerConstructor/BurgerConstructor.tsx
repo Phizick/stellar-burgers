@@ -15,7 +15,7 @@ import {
 } from "../../services/actions/ConstructorActions";
 import ConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem";
 import {getBunData, getBurgerIngredients} from "../../utils/constants";
-import { TIngredient } from "../../services/types";
+import { TIngredient } from "../../services/types/types";
 
 interface IBurgerConstructor {
     openModal: () => void
@@ -27,7 +27,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
     const dispatch = useDispatch();
 
     const price = useMemo(() => {
-        return (ingredients.length > 0 && bunData) && bunData.price * 2 + ingredients.reduce((a: object, b: any) => a + b.price, 0);
+        return (ingredients.length > 0 && bunData) && bunData.price * 2 + ingredients.reduce((a: number, b: TIngredient) => a + b.price, 0);
     }, [ingredients, bunData])
 
     const [ { isOver }, dropRef] = useDrop({
@@ -51,6 +51,8 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
         sortedIngredients[hoverIndex] = ingredients[dragIndex];
         dispatch(setDefaultConstructor(sortedIngredients));
     }, [ingredients])
+
+    console.log(ingredients)
 
 
 
@@ -108,13 +110,19 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
                                     <CurrencyIcon type={"primary"}/>
                                 </p>
                                 <div >
-                                    <Button type="primary" size="large" onClick={props.openModal}>
+                                    <Button type="primary" size="large" onClick={props.openModal} htmlType={'button'}>
                                         Оформить заказ
                                     </Button>
                                 </div>
                             </div>
                             :
-                            <></>
+                            <div className={`${stylesBurgerConstructor.totalScore} mt-10`}>
+                                <div >
+                                    <Button disabled={true} type="primary" size="large" onClick={props.openModal} htmlType={'button'}>
+                                        Оформить заказ
+                                    </Button>
+                                </div>
+                            </div>
                         }
                     </>
                     :

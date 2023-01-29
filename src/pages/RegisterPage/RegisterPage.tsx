@@ -16,14 +16,13 @@ export const RegisterPage: FC = () => {
                 formTitle={"Регистрация"}
                 buttonText={"Зарегистрироваться"}
                 firstQuestion={"Уже зарегистрированы?"}
-                fistQuestionLinkText={"Войти"}
+                firstQuestionLinkText={"Войти"}
                 ForwardLinkFirst={"/login"}
                 FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     dispatch(registerUser(values, history));
                 }}
                 ForwardLinkSecond={""}
-                firstQuestionLinkText={""}
                 secondQuestion={""}
                 secondQuestionLinkText={""}
             >

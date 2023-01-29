@@ -11,7 +11,7 @@ import { useDrag} from "react-dnd";
 import {useSelector} from "../../services/hooks/hooks";
 import {getBunData, getBurgerIngredients} from "../../utils/constants";
 import { FC } from 'react'
-import {TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types/types";
 
 interface IBurgerIngredient {
     data: TIngredient;

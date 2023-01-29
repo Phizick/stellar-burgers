@@ -1,7 +1,7 @@
 
 
 
-import { TUserResponse } from "../types";
+import { TUserResponse } from "../types/types";
 
 const baseUrl: string = "https://norma.nomoreparties.space/api/";
 

@@ -1,10 +1,10 @@
 import {request} from "./index";
-import { TIngredient } from "../types";
+import { TIngredient } from "../types/types";
 import { GET_INGREDIENTS,
 GET_INGREDIENTS_SUCCESS,
 GET_INGREDIENTS_FAILED,
 CHOICE_INGREDIENT} from "./actionsTypes/ingredientsTypes";
-import { AppDispatch, AppThunk} from "../types";
+import { AppDispatch, AppThunk} from "../types/types";
 
 interface IGetIngredients {
     readonly type: typeof GET_INGREDIENTS

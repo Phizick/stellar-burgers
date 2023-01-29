@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 
 interface IForm {
-    FormSubmitFunc: () => void;
+    FormSubmitFunc: any;
     formTitle: string;
     children: ReactNode;
     buttonText: string;
     firstQuestion: string;
     ForwardLinkFirst: string;
-    fistQuestionLinkText: string;
+    firstQuestionLinkText: string;
     secondQuestion: string;
     ForwardLinkSecond: string;
     secondQuestionLinkText: string;
@@ -23,7 +23,7 @@ export const Form: FC<IForm> = (props) => {
             <h1 className={stylesForm.formTitle}>{props.formTitle}</h1>
             <ul className={stylesForm.formList}>{props.children}</ul>
             <div className={stylesForm.formBtn}>
-                <Button type="primary" size="medium">
+                <Button type="primary" size="medium" htmlType={'button'}>
                     {props.buttonText}
                 </Button>
             </div>
@@ -31,7 +31,7 @@ export const Form: FC<IForm> = (props) => {
                 <p className={stylesForm.text}>
                     {props.firstQuestion}
                     <Link to={props.ForwardLinkFirst} className={stylesForm.link}>
-                        {props.fistQuestionLinkText}
+                        {props.firstQuestionLinkText}
                     </Link>
                 </p>
             )}

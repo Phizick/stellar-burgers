@@ -1,6 +1,6 @@
 import { request } from "./index";
 import { getCookie, setCookie } from "../../utils/cookieFunc";
-import {AppDispatch, AppThunk, TUser} from "../types";
+import {AppDispatch, AppThunk, TUser} from "../types/types";
 import { LOGIN_USER,
 LOGIN_USER_FAILED,
 LOGIN_USER_SUCCESS,

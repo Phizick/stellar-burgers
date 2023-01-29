@@ -25,7 +25,7 @@ export const ResetPasswordPage: FC = () => {
             formTitle={"Восстановление пароля"}
             buttonText={"Сохранить"}
             firstQuestion={"Вспомнили пароль?"}
-            fistQuestionLinkText={"Войти"}
+            firstQuestionLinkText={"Войти"}
             ForwardLinkFirst={"/login"}
             FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                 e.preventDefault();
@@ -33,7 +33,6 @@ export const ResetPasswordPage: FC = () => {
                 history.replace("/login");
             }}
             ForwardLinkSecond={""}
-            firstQuestionLinkText={""}
             secondQuestion={""}
             secondQuestionLinkText={""}
         >

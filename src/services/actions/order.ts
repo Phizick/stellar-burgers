@@ -1,7 +1,7 @@
 import {getCookie} from "../../utils/cookieFunc";
 import { request} from "./index";
-import { AppDispatch, AppThunk} from "../types";
-import { TIngredient} from "../types";
+import { AppDispatch, AppThunk} from "../types/types";
+import { TIngredient} from "../types/types";
 import { SEND_ORDER,
 SEND_ORDER_FAILED,
 SEND_ORDER_SUCCESS,

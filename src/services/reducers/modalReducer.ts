@@ -1,4 +1,4 @@
-import {MODAL_CLOSED, MODAL_OPENED} from "../actions";
+import {MODAL_CLOSED, MODAL_OPENED} from "../actions/actionsTypes/modalTypes";
 
 const initialState = {
     modalType: '',

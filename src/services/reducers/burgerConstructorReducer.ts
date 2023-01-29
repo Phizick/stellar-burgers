@@ -4,32 +4,17 @@ SORTED_CONSTRUCTOR,
 DELETE_CONSTRUCTOR_INGREDIENT,
 } from "../actions/actionsTypes/constructorTypes";
 import { CLEAR_CONSTRUCTOR} from "../actions/actionsTypes/orderTypes";
-import {TIngredient} from "../types";
+import {TIngredient} from "../types/types";
 
 type TInitialState = {
     ingredients: TIngredient[];
-    bun: TIngredient;
+    bun: {};
     ingredientsAdded: string[];
 }
 
 const initialState: TInitialState = {
     ingredients: [],
-    bun: {
-        calories: 0,
-        carbohydrates: 0,
-        fat: 0,
-        image: '',
-        image_large: '',
-        image_mobile: '',
-        name: '',
-        price: 0,
-        proteins: 0,
-        type: "bun",
-        __v: 0,
-        _id: '',
-        id: '',
-        count: 0,
-    },
+    bun: {},
     ingredientsAdded: []
 };
 

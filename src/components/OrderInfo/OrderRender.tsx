@@ -3,7 +3,7 @@ import stylesOrderInfo from "./OrderInfo.module.css";
 import { OrderIngredientsInfo } from "../OrderIngredientsInfo/OrderIngredientsInfo";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams } from "react-router-dom";
-import {TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types/types";
 
 interface IOrderRender {
     order: any;

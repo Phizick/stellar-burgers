@@ -7,7 +7,7 @@ import { OrderRender } from "../../components/OrderInfo/OrderRender";
 import stylesIngredientDetails from "../../components/IngredientDetails/IngredientDetails.module.css";
 import { InfinitySpin } from "react-loader-spinner";
 import {getIngredients} from "../../utils/constants";
-import {TOrder} from "../../services/types";
+import {TOrder} from "../../services/types/types";
 
 export const OrderPage: FC = () => {
     const { id } = useParams<{id:string}>();

@@ -9,7 +9,7 @@ import React, { useEffect, FC} from "react";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import stylesModal from "../Modal/Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import {TModal} from "../../services/types";
+import {TModal} from "../../services/types/types";
 import ReactDOM from "react-dom";
 import {getModalState, modalContainer} from "../../utils/constants";
 import {useDispatch, useSelector} from "../../services/hooks/hooks";

@@ -16,7 +16,7 @@ import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import {useDispatch} from "../../services/hooks/hooks";
 import { getIngredients } from "../../services/actions/ingredients";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router  } from "react-router-dom";
 import { ErrorPage } from "../../pages/ErrorPage/ErrorPage";
 import { getCookie } from "../../utils/cookieFunc";
 import { getUser, updateUserToken } from "../../services/actions/user";
@@ -27,6 +27,9 @@ import ModalSwitcher from "../../services/hocs/ModalSwitcher";
 import { IngredientPage } from "../../pages/IngredientPage/IngredientPage";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import OrderDetails from "../OrderDetails/OrderDetails";
+
+
+
 
 
 const App: FC = () => {
@@ -46,11 +49,13 @@ const App: FC = () => {
         }
     }, [dispatch, cookie, userToken]);
 
+
+
     return (
-        <>
+        <Router>
             <AppHeader />
             <Switch>
-                <Route path="/" exact={true}>
+                <Route exact path="/" >
                     <ModalSwitcher ModalComponent={OrderDetails} PageComponent={MainPage} nameOfModal={"setOrder"} modalTitle={""} />
                 </Route>
                 <ProtectedRoute path="/profile/orders/:id" exact onlyForAuth={true}>
@@ -80,11 +85,11 @@ const App: FC = () => {
                 <Route path="/feed/:id" exact>
                     <ModalSwitcher ModalComponent={OrderInfo} PageComponent={OrderPage} nameOfModal={"orderModal"} modalTitle={''} />
                 </Route>
-                <Route path="*">
+                <Route path="*" exact>
                     <ErrorPage />
                 </Route>
             </Switch>
-        </>
+        </Router>
     );
 };
 

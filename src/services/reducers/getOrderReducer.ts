@@ -1,5 +1,5 @@
-import {SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS} from "../actions/order";
-import { GET_ORDER, GET_ORDER_FAILED, GET_ORDER_SUCCESS} from "../actions/order";
+import {SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS} from '../actions/actionsTypes/orderTypes'
+import { GET_ORDER, GET_ORDER_FAILED, GET_ORDER_SUCCESS} from '../actions/actionsTypes/orderTypes';
 
 const initialState = {
     price: 0,

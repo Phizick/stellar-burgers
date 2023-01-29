@@ -8,7 +8,7 @@
 import React, { FC } from "react";
 import stylesModalOverlay from "../ModalOverlay/ModalOverlay.module.css";
 import { useParams } from "react-router-dom";
-import {TModalOverlay} from "../../services/types";
+import {TModalOverlay} from "../../services/types/types";
 
 const ModalOverlay: FC<TModalOverlay> = (props) => {
     const { id } = useParams<{id:string}>();

@@ -8,7 +8,7 @@ import { OrderCard } from "../../components/OrderCard/OrderCard";
 import {MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
 import {WS_CONNECTION_STOP, WS_CONNECTION_START} from "../../services/actions/actionsTypes/wsActionsTypes";
 import {getWsData} from "../../utils/constants";
-import {TOrder} from "../../services/types";
+import {TOrder} from "../../services/types/types";
 
 export const ProfileOrdersHistoryPage: FC = () => {
 

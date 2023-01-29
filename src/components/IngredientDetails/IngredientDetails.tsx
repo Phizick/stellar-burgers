@@ -12,7 +12,7 @@ import {getIngredientDetails} from "../../services/actions/ingredients";
 import { useParams } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
 import {getIngredient, getIngredients} from "../../utils/constants";
-import {TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types/types";
 
 const IngredientDetails: FC = () => {
     const ingredient = useSelector(getIngredient);

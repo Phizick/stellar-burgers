@@ -14,7 +14,7 @@ import {useDispatch} from "../../services/hooks/hooks";
 import {getIngredientDetails} from "../../services/actions/ingredients";
 import { MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
 import { DELETE_INGREDIENTS_MODAL} from "../../services/actions/actionsTypes/ingredientsTypes";
-import {TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types/types";
 
 
 const BurgerIngredients: FC = () => {

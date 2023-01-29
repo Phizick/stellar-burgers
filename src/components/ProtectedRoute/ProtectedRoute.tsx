@@ -6,6 +6,8 @@ import {FC, ReactNode} from 'react'
 interface IProtectedRoute {
     children: ReactNode;
     onlyForAuth: boolean;
+    path: string;
+    exact?: boolean;
 }
 
 export const ProtectedRoute: FC<IProtectedRoute> = ({ onlyForAuth, children, ...rest }) => {

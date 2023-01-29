@@ -11,7 +11,7 @@ import BurgerIngredient from "../BurgerIngredient/BurgerIngredient";
 import { useSelector } from "react-redux";
 import {Link, useLocation} from "react-router-dom";
 import {getIngredients} from "../../utils/constants";
-import {TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types/types";
 
 
 type TRef = HTMLElement

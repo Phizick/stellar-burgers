@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {useDispatch} from "../../services/hooks/hooks";
 import {MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
 import { FC } from 'react'
-import { TOrder} from "../../services/types";
+import { TOrder} from "../../services/types/types";
 
 interface IOrderList {
     orders: TOrder[];

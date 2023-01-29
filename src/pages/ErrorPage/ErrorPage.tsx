@@ -27,6 +27,7 @@ export const ErrorPage: FC = () => {
                 <Button
                     type={'primary'}
                     size={'small'}
+                    htmlType={'button'}
                 >
                     Перейти на главную страницу
                 </Button>

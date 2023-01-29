@@ -7,6 +7,8 @@ import forgotPassword from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
 import { FC, FormEvent } from 'react'
 
+
+
 export const ForgotPasswordPage: FC = () => {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -17,7 +19,7 @@ export const ForgotPasswordPage: FC = () => {
                 formTitle={"Восстановление пароля"}
                 buttonText={"Восстановить"}
                 firstQuestion={"Вспомнили пароль?"}
-                fistQuestionLinkText={"Войти"}
+                firstQuestionLinkText={"Войти"}
                 ForwardLinkFirst={"/reset-password"}
                 FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
@@ -25,7 +27,6 @@ export const ForgotPasswordPage: FC = () => {
                     history.push("/reset-password");
                 }}
                 ForwardLinkSecond={""}
-                firstQuestionLinkText={""}
                 secondQuestion={""}
                 secondQuestionLinkText={""}
             >

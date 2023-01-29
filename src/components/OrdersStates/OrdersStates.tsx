@@ -2,7 +2,7 @@ import stylesOrdersStates from "./OrdersStates.module.css";
 import {useSelector} from "../../services/hooks/hooks";
 import {getWsData} from "../../utils/constants";
 import { FC } from 'react'
-import {TOrder} from "../../services/types";
+import {TOrder} from "../../services/types/types";
 
 interface IOrderStates {
     data?: TOrder[];

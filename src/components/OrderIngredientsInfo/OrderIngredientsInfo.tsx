@@ -5,7 +5,7 @@ import { useMemo, FC} from "react";
 import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredientsImage";
 
 import {getIngredients} from "../../utils/constants";
-import {TIngredient} from "../../services/types";
+import {TIngredient} from "../../services/types/types";
 
 interface IOrderIngredientsInfo {
     data: TIngredient[];

@@ -20,7 +20,7 @@ import {
     LOGOUT_USER_FAILED,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER,
-} from "../actions/user";
+} from '../actions/actionsTypes/userTypes';
 
 type TUserInitialState = {
     user: {
@@ -53,7 +53,7 @@ const initialState: TUserInitialState = {
     validUser: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case LOGIN_USER: {
             return {
