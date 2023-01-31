@@ -1,12 +1,13 @@
 import {ReactNode} from "react";
 import { rootReducer } from "../reducers/rootReducer";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { ThunkDispatch } from "redux-thunk";
 import {TOrderActions} from "../reducers/getOrderReducer";
 import {TWsActions} from "../actions/wsActions";
 import {TUserActions} from "../reducers/userReducer";
 import {TIngredientsActions} from "../reducers/getIngredientsReducer";
 import {TModalStateTypes} from "../reducers/modalReducer";
 import {TConstructorActions} from "../reducers/burgerConstructorReducer";
+import {TIngredientCardActions} from "../reducers/getIngredientCardReducer";
 
 type TAppActions =
     | TWsActions
@@ -15,10 +16,10 @@ type TAppActions =
     | TIngredientsActions
     | TModalStateTypes
     | TConstructorActions
+    | TIngredientCardActions
 
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TAppActions>
 export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;
 
 

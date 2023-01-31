@@ -20,6 +20,9 @@ import {
     LOGOUT_USER_FAILED,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER,
+    UPDATE_USER_TOKEN_SUCCESS,
+    UPDATE_USER_TOKEN_FAILED,
+    UPDATE_USER_TOKEN
 } from '../actions/actionsTypes/userTypes';
 
 type TUserInitialState = {
@@ -36,7 +39,7 @@ type TUserInitialState = {
     authorizedUser?: string | boolean,
     validUser?: boolean,
     email?: string,
-    token: string,
+    token: string | undefined,
 
 }
 
@@ -99,36 +102,31 @@ interface IRegisterUserFailed {
 
 interface IForgotPassword {
     readonly type: typeof FORGOT_PASSWORD
-    email: string;
+    email?: string;
 }
 
 interface IForgotPasswordSuccess {
     readonly type: typeof FORGOT_PASSWORD_SUCCESS
-    success: boolean,
-    pending: boolean,
-    validUser: boolean,
 }
 
 interface IForgotPasswordFailed {
     readonly type: typeof FORGOT_PASSWORD_FAILED
-    success: boolean,
+    error: string,
 
 }
 
 interface IResetPassword {
     readonly type: typeof RESET_PASSWORD
-    token: string,
+    token?: string | undefined;
 }
 
 interface IResetPasswordSuccess {
     readonly type: typeof RESET_PASSWORD_SUCCESS
-    success: boolean,
-    pending: boolean,
 }
 
 interface IResetPasswordFailed {
     readonly type: typeof RESET_PASSWORD_FAILED
-    success: boolean,
+    error: string;
 }
 
 interface IGetUser {
@@ -151,8 +149,6 @@ interface IGetUserFailed {
 
 interface IPatchUser {
     readonly type: typeof PATCH_USER
-    success: boolean,
-    pending: boolean,
 }
 
 interface IPatchUserSuccess {
@@ -165,21 +161,18 @@ interface IPatchUserSuccess {
 
 interface IPatchUserFailed {
     readonly type: typeof PATCH_USER_FAILED
-    success: boolean,
-    error?: string,
+    error: string,
 }
 
 interface ILogoutUser {
     readonly type: typeof LOGOUT_USER
-    success: boolean,
-    authorizedUser?: boolean,
 }
 
 interface ILogoutUserSuccess {
     readonly type: typeof LOGOUT_USER_SUCCESS
     user: {
-        name: string,
         email: string,
+        name: string,
     },
     accessToken: string,
     refreshToken: string,
@@ -188,6 +181,18 @@ interface ILogoutUserSuccess {
 interface ILogoutUserFailed {
     readonly type: typeof LOGOUT_USER_FAILED
     error: string,
+}
+
+interface IUpdateUser {
+    readonly type: typeof UPDATE_USER_TOKEN
+}
+
+interface IUpdateUserSuccess {
+    readonly type: typeof UPDATE_USER_TOKEN_SUCCESS
+}
+
+interface IUpdateUserFailed {
+    readonly type: typeof UPDATE_USER_TOKEN_FAILED
 }
 
 export type TUserActions =
@@ -212,6 +217,9 @@ export type TUserActions =
     | ILoginUserFailed
     | ILoginUserSuccess
     | ILoginUser
+    | IUpdateUser
+    | IUpdateUserSuccess
+    | IUpdateUserFailed
 
 
 

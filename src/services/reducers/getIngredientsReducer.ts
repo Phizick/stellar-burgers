@@ -51,7 +51,6 @@ interface IDeleteIngredientsModal {
     }
 }
 
-
 export type TIngredientsActions =
     | IGetIngredients
     | IGetIngredientsSuccess

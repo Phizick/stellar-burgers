@@ -26,7 +26,7 @@ interface IAddConstructorIngredient {
 
 interface IAddConstructorBun {
     readonly type: typeof ADD_CONSTRUCTOR_BUN
-    data: object,
+    data: any,
 }
 
 interface ISortedConstructor {
@@ -37,6 +37,13 @@ interface ISortedConstructor {
 interface IDeleteConstructorIngredient {
     readonly type: typeof DELETE_CONSTRUCTOR_INGREDIENT
     id: string | undefined,
+    data?: any
+
+}
+
+interface IClearConstructor {
+    readonly type: typeof CLEAR_CONSTRUCTOR
+    data: TIngredient[]
 }
 
 export type TConstructorActions =
@@ -44,8 +51,9 @@ export type TConstructorActions =
     | IAddConstructorBun
     | ISortedConstructor
     | IDeleteConstructorIngredient
+    | IClearConstructor
 
-export const burgerConstructorReducer = (state: TInitialState = initialState, action: any): TInitialState => {
+export const burgerConstructorReducer = (state: TInitialState = initialState, action: TConstructorActions): TInitialState => {
     switch (action.type) {
         case ADD_CONSTRUCTOR_INGREDIENT:
             return {

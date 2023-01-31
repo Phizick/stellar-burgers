@@ -30,7 +30,11 @@ UPDATE_USER_TOKEN_SUCCESS
 interface IUserValues {
     name?: string;
     email?: string;
-    password?: string
+    password?: string;
+    history?: {
+        replace(pathname: { pathname: string }):void;
+    };
+    token?: string;
 }
 
 export const loginUser = (values: IUserValues, history: any) => {
@@ -128,7 +132,7 @@ const forgotPassword = (data: IUserValues) => {
         request("password-reset", requestOptions)
             .then((res) => {
                 if (res.success) {
-                    return data.history.replace({ pathname: "/reset-password" });
+                    return data.history?.replace({ pathname: "/reset-password" });
                 }
                 return null;
             })
@@ -143,7 +147,7 @@ const forgotPassword = (data: IUserValues) => {
 
 
 
-export const resetPassword = (data: any) => {
+export const resetPassword = (data: IUserValues) => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: RESET_PASSWORD,
@@ -205,8 +209,8 @@ export const getUser = () => {
 
 
 
-export const patchUser = (values: any) => {
-    return (dispatch: any) => {
+export const patchUser = (values: IUserValues) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: PATCH_USER,
         });
@@ -241,7 +245,7 @@ export const patchUser = (values: any) => {
 
 
 export const logoutUser = () => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: LOGOUT_USER,
         });
@@ -259,7 +263,10 @@ export const logoutUser = () => {
                     localStorage.removeItem("refreshToken");
                     dispatch({
                         type: LOGOUT_USER_SUCCESS,
-                        user: "",
+                        user: {
+                            email: '',
+                            name: '',
+                        },
                         accessToken: "",
                         refreshToken: "",
                     });
@@ -275,7 +282,7 @@ export const logoutUser = () => {
 };
 
 export const updateUserToken = () => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: UPDATE_USER_TOKEN,
         });
