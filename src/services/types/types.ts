@@ -1,12 +1,22 @@
 import {ReactNode} from "react";
 import { rootReducer } from "../reducers/rootReducer";
 import { store } from "../store";
-import { ThunkAction } from "redux-thunk";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { Action, ActionCreator } from "redux";
 
+
+import {TOrderActions} from "../actions/order";
+import {TWsActions} from "../actions/wsActions";
+import {TUserActions} from "../actions/user";
+
+type TAppActions =
+    | TWsActions
+    | TOrderActions
+    | TUserActions
+
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppThunk<ReturnType = void> = ActionCreator<ThunkAction<ReturnType, Action, RootState, any>>
-export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TAppActions>
+export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;
 
 
 export type TIngredient = {
@@ -53,15 +63,22 @@ export type TOrder = {
     _id: string;
 }
 
-export type TWsSocketActions = {
-    wsInit: string;
-    wsClosed: string;
-    wsSendMessage: string;
-    onOpen: string;
-    onClose: string;
-    onError: string;
-    onMessage: string;
+export type TOrdersData  = {
+    orders: {
+        ingredients: TIngredient[];
+        name: string;
+        number: number;
+        status: string;
+        owner: TUser;
+        price: number;
+        createdAt: string;
+        _id: string;
+    }
+    total: number;
+    totalToday: number;
+    length: number;
 }
+
 
 export type TUserResponse = {
     success: boolean;

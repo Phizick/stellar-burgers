@@ -28,10 +28,6 @@ import { IngredientPage } from "../../pages/IngredientPage/IngredientPage";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
-
-
-
-
 const App: FC = () => {
     const dispatch = useDispatch();
     const cookie = getCookie("accessToken");
@@ -48,7 +44,6 @@ const App: FC = () => {
             dispatch(getUser());
         }
     }, [dispatch, cookie, userToken]);
-
 
 
     return (

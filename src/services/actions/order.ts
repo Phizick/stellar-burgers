@@ -29,7 +29,7 @@ interface IClearConstructor {
 
 
 
-export const setOrder: AppThunk = (ingredients: Array<TIngredient>) => {
+export const setOrder: AppThunk = (ingredients: any) => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: SEND_ORDER,
@@ -142,4 +142,4 @@ export type TOrderActions =
     | IClearConstructor
     | IGetOrder
     | IGetOrderSuccess
-    | IGetOrderFailed;
+    | IGetOrderFailed

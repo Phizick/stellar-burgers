@@ -21,6 +21,7 @@ import {
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER,
 } from '../actions/actionsTypes/userTypes';
+import {TUser} from "../types/types";
 
 type TUserInitialState = {
     user: {
@@ -28,17 +29,19 @@ type TUserInitialState = {
         name: string;
     };
     accessToken: string;
-    refreshToken: "",
-    success: false,
-    pending: true,
-    password: "",
-    error: "",
-    authorizedUser: false,
-    validUser: false,
+    refreshToken: string,
+    success: boolean,
+    pending: boolean,
+    password: string,
+    error?: string | boolean,
+    authorizedUser?: string | boolean,
+    validUser?: boolean,
+    email?: string,
+    token?: string,
 
 }
 
-const initialState: TUserInitialState = {
+const initialState = {
     user: {
         email: "",
         name: "",
@@ -53,7 +56,173 @@ const initialState: TUserInitialState = {
     validUser: false,
 };
 
-export const userReducer = (state = initialState, action: any) => {
+
+interface ILoginUser {
+    readonly type: typeof LOGIN_USER;
+    success: boolean,
+    pending: boolean,
+    authorizedUser?: boolean,
+}
+
+interface ILoginUserSuccess {
+    readonly type: typeof LOGIN_USER_SUCCESS;
+    user: {
+        email: string,
+        name: string,
+    },
+    accessToken: string,
+    refreshToken: string,
+}
+
+interface ILoginUserFailed {
+    readonly type: typeof LOGIN_USER_FAILED;
+    success: boolean,
+    error?: string,
+}
+
+interface IRegisterUser {
+    readonly type: typeof REGISTER_USER;
+    success: boolean,
+    pending?: boolean,
+}
+
+interface IRegisterUserSuccess {
+    readonly type: typeof REGISTER_USER_SUCCESS;
+    user: {
+        email: string;
+        name: string;
+    };
+    accessToken: string;
+    refreshToken: string;
+}
+
+interface IRegisterUserFailed {
+    readonly type: typeof REGISTER_USER_FAILED;
+    success?: boolean,
+    error?: string,
+}
+
+interface IForgotPassword {
+    readonly type: typeof FORGOT_PASSWORD
+    email: string;
+}
+
+interface IForgotPasswordSuccess {
+    readonly type: typeof FORGOT_PASSWORD_SUCCESS
+    success: boolean,
+    pending: boolean,
+    validUser: boolean,
+}
+
+interface IForgotPasswordFailed {
+    readonly type: typeof FORGOT_PASSWORD_FAILED
+    success: boolean,
+
+}
+
+interface IResetPassword {
+    readonly type: typeof RESET_PASSWORD
+    token: string,
+}
+
+interface IResetPasswordSuccess {
+    readonly type: typeof RESET_PASSWORD_SUCCESS
+    success: boolean,
+    pending: boolean,
+}
+
+interface IResetPasswordFailed {
+    readonly type: typeof RESET_PASSWORD_FAILED
+    success: boolean,
+}
+
+interface IGetUser {
+    readonly type: typeof GET_USER
+    success: boolean,
+}
+
+interface IGetUserSuccess {
+    readonly type: typeof GET_USER_SUCCESS
+    user: {
+        name: string,
+        email: string,
+    },
+    authorizedUser?: boolean,
+}
+
+interface IGetUserFailed {
+    readonly type: typeof GET_USER_FAILED
+    error: string,
+
+}
+
+interface IPatchUser {
+    readonly type: typeof PATCH_USER
+    success: boolean,
+    pending: boolean,
+}
+
+interface IPatchUserSuccess {
+    readonly type: typeof PATCH_USER_SUCCESS
+    user: {
+        email: string,
+        name: string,
+    }
+}
+
+interface IPatchUserFailed {
+    readonly type: typeof PATCH_USER_FAILED
+    success: boolean,
+    error?: string,
+}
+
+interface ILogoutUser {
+    readonly type: typeof LOGOUT_USER
+    success: boolean,
+    authorizedUser?: boolean,
+}
+
+interface ILogoutUserSuccess {
+    readonly type: typeof LOGOUT_USER_SUCCESS
+    user: {
+        name: string,
+        email: string,
+    },
+    accessToken: string,
+    refreshToken: string,
+}
+
+interface ILogoutUserFailed {
+    readonly type: typeof LOGOUT_USER_FAILED
+    error: string,
+}
+
+export type TUserActions =
+    | ILogoutUserFailed
+    | ILogoutUserSuccess
+    | ILogoutUser
+    | IPatchUserFailed
+    | IPatchUserSuccess
+    | IPatchUser
+    | IGetUserFailed
+    | IGetUserSuccess
+    | IGetUser
+    | IResetPasswordFailed
+    | IResetPasswordSuccess
+    | IResetPassword
+    | IForgotPasswordFailed
+    | IForgotPasswordSuccess
+    | IForgotPassword
+    | IRegisterUserFailed
+    | IRegisterUserSuccess
+    | IRegisterUser
+    | ILoginUserFailed
+    | ILoginUserSuccess
+    | ILoginUser
+
+
+
+export const userReducer = (state: TUserInitialState = initialState, action: TUserActions): TUserInitialState => {
     switch (action.type) {
         case LOGIN_USER: {
             return {

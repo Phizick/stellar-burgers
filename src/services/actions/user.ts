@@ -28,26 +28,7 @@ UPDATE_USER_TOKEN_SUCCESS
 } from "./actionsTypes/userTypes";
 
 
-
-interface ILoginUser {
-    readonly type: typeof LOGIN_USER;
-}
-
-interface ILoginUserSuccess {
-    readonly type: typeof LOGIN_USER_SUCCESS;
-}
-
-interface ILoginUserFailed {
-    readonly type: typeof LOGIN_USER_FAILED;
-}
-
-interface IUserValues {
-    email: string;
-    password: string;
-    name: string;
-}
-
-export const loginUser: AppThunk = (values: IUserValues, history: any) => {
+export const loginUser = (values: any, history: any) => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: LOGIN_USER,
@@ -88,22 +69,9 @@ export const loginUser: AppThunk = (values: IUserValues, history: any) => {
 
 
 
-interface IRegisterUser {
-    readonly type: typeof REGISTER_USER;
-}
 
-interface IRegisterUserSuccess {
-    readonly type: typeof REGISTER_USER_SUCCESS;
-    user: TUser;
-    accessToken: string;
-    refreshToken: string;
-}
 
-interface IRegisterUserFailed {
-    readonly type: typeof REGISTER_USER_FAILED;
-}
-
-export const registerUser: AppThunk = (values: IUserValues) => {
+export const registerUser: AppThunk = (values: any) => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: REGISTER_USER,
@@ -140,25 +108,10 @@ export const registerUser: AppThunk = (values: IUserValues) => {
     };
 };
 
-interface IForgotPasswordData {
-    email: string;
-    history: any;
-}
 
-interface IForgotPassword {
-    readonly type: typeof FORGOT_PASSWORD
-}
 
-interface IForgotPasswordSuccess {
-    readonly type: typeof FORGOT_PASSWORD_SUCCESS
-}
-
-interface IForgotPAsswordFailed {
-    readonly type: typeof FORGOT_PASSWORD_FAILED
-}
-
-const forgotPassword: AppThunk = (data: IForgotPasswordData) => {
-    return (dispatch: AppDispatch) => {
+const forgotPassword: AppThunk = (data: any) => {
+    return (dispatch: any) => {
         dispatch({
             type: FORGOT_PASSWORD,
         });
@@ -186,25 +139,10 @@ const forgotPassword: AppThunk = (data: IForgotPasswordData) => {
     };
 };
 
-interface IResetPasswordData {
-    password: string;
-    token: string;
-}
 
-interface IResetPassword {
-    readonly type: typeof RESET_PASSWORD
-}
 
-interface IResetPasswordSuccess {
-    readonly type: typeof RESET_PASSWORD_SUCCESS
-}
-
-interface IResetPasswordFailed {
-    readonly type: typeof RESET_PASSWORD_FAILED
-}
-
-export const resetPassword: AppThunk = (data: IResetPasswordData) => {
-    return (dispatch: AppDispatch) => {
+export const resetPassword: AppThunk = (data: any) => {
+    return (dispatch: any) => {
         dispatch({
             type: RESET_PASSWORD,
         });
@@ -231,21 +169,11 @@ export const resetPassword: AppThunk = (data: IResetPasswordData) => {
     };
 };
 
-interface IGetUser {
-    readonly type: typeof GET_USER
-}
 
-interface IGetUserSuccess {
-    readonly type: typeof GET_USER_SUCCESS
-}
-
-interface IGetUserFailed {
-    readonly type: typeof GET_USER_FAILED
-}
 
 
 export const getUser: AppThunk = () => {
-    return (dispatch: AppDispatch) => {
+    return (dispatch: any) => {
         dispatch({
             type: GET_USER,
         });
@@ -271,22 +199,12 @@ export const getUser: AppThunk = () => {
     };
 };
 
-interface IPatchUser {
-    readonly type: typeof PATCH_USER
-}
-
-interface IPatchUserSuccess {
-    readonly type: typeof PATCH_USER_SUCCESS
-}
-
-interface IPatchUserFailed {
-    readonly type: typeof PATCH_USER_FAILED
-}
 
 
 
-export const patchUser: AppThunk = (values: IUserValues) => {
-    return (dispatch: AppDispatch) => {
+
+export const patchUser: AppThunk = (values: any) => {
+    return (dispatch: any) => {
         dispatch({
             type: PATCH_USER,
         });
@@ -317,21 +235,11 @@ export const patchUser: AppThunk = (values: IUserValues) => {
     };
 };
 
-interface ILogoutUser {
-    readonly type: typeof LOGOUT_USER
-}
 
-interface ILogoutUserSuccess {
-    readonly type: typeof LOGOUT_USER_SUCCESS
-}
-
-interface ILogoutUserFailed {
-    readonly type: typeof LOGOUT_USER_FAILED
-}
 
 
 export const logoutUser: AppThunk = () => {
-    return (dispatch: AppDispatch) => {
+    return (dispatch: any) => {
         dispatch({
             type: LOGOUT_USER,
         });
@@ -365,7 +273,7 @@ export const logoutUser: AppThunk = () => {
 };
 
 export const updateUserToken: AppThunk = () => {
-    return (dispatch: AppDispatch) => {
+    return (dispatch: any) => {
         dispatch({
             type: UPDATE_USER_TOKEN,
         });
@@ -396,5 +304,6 @@ export const updateUserToken: AppThunk = () => {
             });
     };
 };
+
 
 export default forgotPassword;
