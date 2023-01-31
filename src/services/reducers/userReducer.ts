@@ -147,7 +147,6 @@ interface IGetUserSuccess {
 interface IGetUserFailed {
     readonly type: typeof GET_USER_FAILED
     error: string,
-
 }
 
 interface IPatchUser {

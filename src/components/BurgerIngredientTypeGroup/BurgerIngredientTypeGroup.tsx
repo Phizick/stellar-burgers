@@ -14,8 +14,6 @@ import {getIngredients} from "../../utils/constants";
 import {TIngredient} from "../../services/types/types";
 
 
-type TRef = HTMLElement
-
 type TIngredientTypeGroup = {
     ingredients?: TIngredient[];
     type?: string;
@@ -26,7 +24,7 @@ type TIngredientTypeGroup = {
     activeModal: any
 }
 
-const BurgerIngredientTypeGroup = forwardRef<TRef, TIngredientTypeGroup>((props, ref) => {
+const BurgerIngredientTypeGroup = forwardRef<HTMLElement, TIngredientTypeGroup>((props, ref) => {
     const burgerIngredients = useSelector(getIngredients);
     const location = useLocation()
     return (

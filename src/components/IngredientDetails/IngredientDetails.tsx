@@ -22,7 +22,7 @@ const IngredientDetails: FC = () => {
     const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
-        const findItem = ingredients.find((i: TIngredient) => i._id === id);
+        const findItem = ingredients?.find((i: TIngredient) => i._id === id);
         dispatch(getIngredientDetails(findItem));
     }, [dispatch, id, ingredients]);
 

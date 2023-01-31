@@ -1,7 +1,6 @@
 import {getCookie} from "../../utils/cookieFunc";
-import { request} from "./index";
-import { AppDispatch, AppThunk} from "../types/types";
-import { TIngredient} from "../types/types";
+import { request} from "./api";
+import { AppDispatch} from "../types/types";
 import { SEND_ORDER,
 SEND_ORDER_FAILED,
 SEND_ORDER_SUCCESS,
@@ -9,24 +8,6 @@ GET_ORDER_SUCCESS,
 GET_ORDER,
 GET_ORDER_FAILED,
 CLEAR_CONSTRUCTOR} from "./actionsTypes/orderTypes";
-
-
-interface ISendOrder {
-    readonly type: typeof SEND_ORDER
-}
-
-interface ISendOrderSuccess {
-    readonly type: typeof SEND_ORDER_SUCCESS
-}
-
-interface ISendOrderFailed {
-    readonly type: typeof SEND_ORDER_FAILED
-}
-
-interface IClearConstructor {
-    readonly type: typeof CLEAR_CONSTRUCTOR
-}
-
 
 
 export const setOrder = (ingredients: any) => {
@@ -62,18 +43,6 @@ export const setOrder = (ingredients: any) => {
             });
     };
 };
-
-interface IGetOrder {
-    readonly type: typeof GET_ORDER
-}
-
-interface IGetOrderSuccess {
-    readonly type: typeof GET_ORDER_SUCCESS
-}
-
-interface IGetOrderFailed {
-    readonly type: typeof GET_ORDER_FAILED
-}
 
 
 export const getOrders = () => {
@@ -135,11 +104,3 @@ export const getAuthOrders = () => {
     };
 }
 
-export type TOrderActions =
-    | ISendOrder
-    | ISendOrderSuccess
-    | ISendOrderFailed
-    | IClearConstructor
-    | IGetOrder
-    | IGetOrderSuccess
-    | IGetOrderFailed

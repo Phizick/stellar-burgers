@@ -3,8 +3,7 @@ import { ADD_CONSTRUCTOR_BUN,
 ADD_CONSTRUCTOR_INGREDIENT,
 SORTED_CONSTRUCTOR,
 DELETE_CONSTRUCTOR_INGREDIENT} from "./actionsTypes/constructorTypes";
-
-
+import {TIngredient} from "../types/types";
 
 export const addConstructorBun = (item: object) => {
     return {
@@ -13,7 +12,7 @@ export const addConstructorBun = (item: object) => {
     };
 };
 
-export const addConstructorIngredient = (item: any) => {
+export const addConstructorIngredient = (item: TIngredient) => {
     return {
         type: ADD_CONSTRUCTOR_INGREDIENT,
         data: item,
@@ -21,14 +20,14 @@ export const addConstructorIngredient = (item: any) => {
     };
 };
 
-export const setDefaultConstructor = (ingredients: any) => {
+export const setDefaultConstructor = (ingredients: TIngredient[]) => {
     return {
         type: SORTED_CONSTRUCTOR,
         data: ingredients,
     };
 };
 
-export const deleteConstructorElement = (id: any) => {
+export const deleteConstructorElement = (id: string | undefined) => {
     return {
         type: DELETE_CONSTRUCTOR_INGREDIENT,
         id: id,

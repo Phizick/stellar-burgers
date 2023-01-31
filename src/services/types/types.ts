@@ -1,11 +1,7 @@
 import {ReactNode} from "react";
 import { rootReducer } from "../reducers/rootReducer";
-import { store } from "../store";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { Action, ActionCreator } from "redux";
-
-
-import {TOrderActions} from "../actions/order";
+import {TOrderActions} from "../reducers/getOrderReducer";
 import {TWsActions} from "../actions/wsActions";
 import {TUserActions} from "../reducers/userReducer";
 import {TIngredientsActions} from "../reducers/getIngredientsReducer";
@@ -19,6 +15,7 @@ type TAppActions =
     | TIngredientsActions
     | TModalStateTypes
     | TConstructorActions
+
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TAppActions>
@@ -69,27 +66,12 @@ export type TOrder = {
     _id: string;
 }
 
-export type TOrdersData  = {
-    orders: {
-        ingredients: TIngredient[];
-        name: string;
-        number: number;
-        status: string;
-        owner: TUser;
-        price: number;
-        createdAt: string;
-        _id: string;
-    }
-    total: number;
-    totalToday: number;
-    length: number;
-}
-
-
 export type TUserResponse = {
     success: boolean;
     user: TUser;
     accessToken: string;
     refreshToken: string;
     message: string;
+    data: any;
+    orders: TOrder[]
 }

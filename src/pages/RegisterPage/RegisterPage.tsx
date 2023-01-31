@@ -1,22 +1,13 @@
 import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch} from "../../services/hooks/hooks";
-import { useHistory } from "react-router-dom";
 import { registerUser } from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
 import {FormEvent, FC} from "react";
-import {getCookie} from "../../utils/cookieFunc";
 
 export const RegisterPage: FC = () => {
     const dispatch = useDispatch();
-
-
-
-
-
     const {values, handleChange} = useForm({ email: '', name: '', password: ''});
-
-
 
         return (
             <Form

@@ -20,6 +20,7 @@ type TSortedItems = {
     data: TIngredient;
     id?: string | undefined;
 }
+
 const ConstructorSortedItem: FC<TSortedItems> = (props) => {
     const dispatch = useDispatch();
     const ref = useRef<HTMLDivElement>(null);

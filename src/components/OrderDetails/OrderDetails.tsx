@@ -5,14 +5,14 @@
  * разметку деталей заказа для отображения в модальном окне
  */
 
-import React from "react";
+import React, { FC } from "react";
 import doneIndicationImg from "../../images/done.png";
 import stylesOrderDetails from "../OrderDetails/OrderDetails.module.css";
 import {useSelector} from "../../services/hooks/hooks";
 import { InfinitySpin } from "react-loader-spinner";
 import { getOrderState} from "../../utils/constants";
 
-const OrderDetails = () => {
+const OrderDetails: FC = () => {
     const { order, isLoad } = useSelector(getOrderState);
 
     return (

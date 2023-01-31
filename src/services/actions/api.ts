@@ -1,6 +1,4 @@
-
-
-import { TUserResponse } from "../types/types";
+import {TUserResponse} from "../types/types";
 
 const baseUrl: string = "https://norma.nomoreparties.space/api/";
 
@@ -16,8 +14,8 @@ export const checkResponse = <T>(res: TResponse): Promise<T> => {
     return Promise.reject(`error ${res}`);
 }
 
-export function request(url: any, options?: any) {
-    return fetch(`${baseUrl}${url}`, options).then(checkResponse<any>);
+export function request(url: string, options?: {}) {
+    return fetch(`${baseUrl}${url}`, options).then(checkResponse<TUserResponse>);
 }
 
 

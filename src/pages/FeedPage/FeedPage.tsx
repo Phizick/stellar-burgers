@@ -1,11 +1,11 @@
 import stylesFeedPage from "./FeedPage.module.css";
 import { OrderStates } from "../../components/OrdersStates/OrdersStates";
 import { OrdersList } from "../../components/OrdersList/OrdersList";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import { useEffect, FC } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_STOP} from "../../services/actions/actionsTypes/wsActionsTypes";
 import {getWsData} from "../../utils/constants";
-import { FC } from 'react'
+
 
 
 export const FeedPage: FC = () => {

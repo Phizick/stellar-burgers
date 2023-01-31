@@ -1,13 +1,13 @@
 import {getUser, patchUser} from "../../services/actions/user";
 import stylesProfile from "../../pages/ProfilePage/ProfilePage.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useEffect} from "react";
+import React, {useEffect, FC} from "react";
 import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {useForm} from "../../services/hooks/useForm";
 import {ProfileNavigation} from "../ProfileNavigation/ProfileNavigation";
 import {getUserInfo} from "../../utils/constants";
 
-export const ProfileEditForm = () => {
+export const ProfileEditForm: FC = () => {
     const { name, login } = useSelector(getUserInfo);
     const user = useSelector(getUserInfo);
     const dispatch = useDispatch();
@@ -37,7 +37,7 @@ export const ProfileEditForm = () => {
                 <ul className={stylesProfile.inputList}>
                     <li className={`mt-6`}>
                         <Input
-                            value={values.name}
+                            value={values?.name}
                             onChange={handleChange}
                             type={"text"}
                             placeholder={"Имя"}
@@ -48,11 +48,12 @@ export const ProfileEditForm = () => {
                     </li>
                     <li className={`mt-6`}>
                         <Input
-                            value={values.email}
+                            value={values.email || ''}
                             onChange={handleChange}
                             placeholder={"Email"}
                             name={"email"}
                             icon={"EditIcon"}
+                            error={false}
                         />
                     </li>
                     <li className={`mt-6`}>

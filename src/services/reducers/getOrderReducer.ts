@@ -1,5 +1,6 @@
-import {SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS} from '../actions/actionsTypes/orderTypes'
+import {CLEAR_CONSTRUCTOR, SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS} from '../actions/actionsTypes/orderTypes'
 import { GET_ORDER, GET_ORDER_FAILED, GET_ORDER_SUCCESS} from '../actions/actionsTypes/orderTypes';
+import {TOrder} from "../types/types";
 
 const initialState = {
     price: 0,
@@ -10,15 +11,64 @@ const initialState = {
     order: {},
     orderList: [],
     isLoad: false,
-
 };
 
-export const getOrderData = (state = initialState, action: any) => {
+type TOrderType = {
+    price: number,
+    orderRequestProcessing: boolean,
+    orderRequestFailed: boolean,
+    orderRequestSuccess: boolean,
+    user: {},
+    order: {},
+    orderList: any,
+    isLoad: boolean,
+}
+
+interface ISendOrder {
+    readonly type: typeof SEND_ORDER
+}
+
+interface IClearConstructor {
+    readonly type: typeof CLEAR_CONSTRUCTOR
+}
+
+interface ISendOrderSuccess {
+    readonly type: typeof SEND_ORDER_SUCCESS
+    order: TOrder
+}
+
+interface ISendOrderFailed {
+    readonly type: typeof SEND_ORDER_FAILED
+}
+
+interface IGetOrder {
+    readonly type: typeof GET_ORDER
+}
+
+interface IGetOrderSuccess {
+    readonly type: typeof GET_ORDER_SUCCESS
+    orderList: TOrder[]
+}
+
+interface IGetOrderFailed {
+    readonly type: typeof GET_ORDER_FAILED
+}
+
+export type TOrderActions =
+    | ISendOrder
+    | ISendOrderSuccess
+    | ISendOrderFailed
+    | IGetOrder
+    | IGetOrderSuccess
+    | IGetOrderFailed
+    | IClearConstructor
+
+
+export const getOrderData = (state: TOrderType = initialState, action: TOrderActions): TOrderType => {
     switch (action.type) {
         case SEND_ORDER: {
             return {
                 ...state,
-                ...action.payload
             };
         }
         case SEND_ORDER_SUCCESS: {
@@ -42,12 +92,11 @@ export const getOrderData = (state = initialState, action: any) => {
     }
 };
 
-export const getOrderReducer = (state = initialState, action: any) => {
+export const getOrderReducer = (state: TOrderType = initialState, action: TOrderActions): TOrderType => {
     switch (action.type) {
         case GET_ORDER: {
             return {
                 ...state,
-                ...action.payload
             };
         }
         case GET_ORDER_SUCCESS: {

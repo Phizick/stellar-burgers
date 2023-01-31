@@ -15,7 +15,7 @@ type TWsInitialState = {
     error?: Event;
 }
 
-const initialState: TWsInitialState = {
+const initialState = {
     wsConnected: false,
     data: {
         orders: [],
@@ -24,7 +24,7 @@ const initialState: TWsInitialState = {
     }
 }
 
-export const wsReducer = (state = initialState, action: TWsActions): TWsInitialState => {
+export const wsReducer = (state: TWsInitialState = initialState, action: TWsActions): TWsInitialState => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS:
             return {

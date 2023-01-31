@@ -12,15 +12,23 @@ type TModalState = {
 
 interface IModalOpened {
     readonly type: typeof MODAL_OPENED
+    payload: {
+        modalType: string,
+        isOpened: boolean
+    }
 }
 
 interface IModalClosed {
     readonly type: typeof MODAL_CLOSED
+    payload: {
+        modalType: string,
+        isOpened: boolean
+    }
 }
 
 export type TModalStateTypes = IModalOpened | IModalClosed
 
-export const modalReducer = (state: TModalState = initialState, action: any): TModalState => {
+export const modalReducer = (state: TModalState = initialState, action: TModalStateTypes): TModalState => {
     switch (action.type) {
         case MODAL_OPENED: {
             return {

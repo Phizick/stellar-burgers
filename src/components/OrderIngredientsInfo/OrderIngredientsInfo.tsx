@@ -3,7 +3,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import {useSelector} from "../../services/hooks/hooks";
 import { useMemo, FC} from "react";
 import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredientsImage";
-
 import {getIngredients} from "../../utils/constants";
 import {TIngredient} from "../../services/types/types";
 

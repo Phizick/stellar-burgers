@@ -1,6 +1,6 @@
-import { request } from "./index";
+import { request } from "./api";
 import { getCookie, setCookie } from "../../utils/cookieFunc";
-import {AppDispatch, AppThunk, TUser} from "../types/types";
+import {AppDispatch} from "../types/types";
 import { LOGIN_USER,
 LOGIN_USER_FAILED,
 LOGIN_USER_SUCCESS,
@@ -27,8 +27,13 @@ UPDATE_USER_TOKEN_FAILED,
 UPDATE_USER_TOKEN_SUCCESS
 } from "./actionsTypes/userTypes";
 
+interface IUserValues {
+    name?: string;
+    email?: string;
+    password?: string
+}
 
-export const loginUser = (values: any, history: any) => {
+export const loginUser = (values: IUserValues, history: any) => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: LOGIN_USER,
@@ -68,15 +73,11 @@ export const loginUser = (values: any, history: any) => {
 };
 
 
-
-
-
-export const registerUser = (values: any) => {
+export const registerUser = (values: IUserValues) => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: REGISTER_USER,
         });
-        console.log(123)
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -111,8 +112,8 @@ export const registerUser = (values: any) => {
 
 
 
-const forgotPassword = (data: any) => {
-    return (dispatch: any) => {
+const forgotPassword = (data: IUserValues) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: FORGOT_PASSWORD,
         });
@@ -143,7 +144,7 @@ const forgotPassword = (data: any) => {
 
 
 export const resetPassword = (data: any) => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: RESET_PASSWORD,
         });

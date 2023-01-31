@@ -1,10 +1,10 @@
-import {request} from "./index";
+import {request} from "./api";
 
 import { GET_INGREDIENTS,
 GET_INGREDIENTS_SUCCESS,
 GET_INGREDIENTS_FAILED,
 CHOICE_INGREDIENT} from "./actionsTypes/ingredientsTypes";
-import { AppDispatch} from "../types/types";
+import {AppDispatch, TIngredient} from "../types/types";
 
 
 export const getIngredients = () => {
@@ -28,7 +28,7 @@ export const getIngredients = () => {
     };
 };
 
-export const getIngredientDetails = (ingredient: any) => {
+export const getIngredientDetails = (ingredient: TIngredient) => {
     return {
         type: CHOICE_INGREDIENT,
         data: ingredient,
