@@ -85,15 +85,21 @@ const BurgerIngredients: FC = () => {
         <section className={`${stylesBurgerIngredients.section} mt-10`} id={"section_ingredients"}>
             <h2 className={"text text_type_main-large p-4"}>Соберите бургер</h2>
             <div style={{ display: "flex" }} id={"tab_nav"}>
-                <Tab value="bun" active={current === "bun"} onClick={setCurrentTab} id={"bun"}>
+                <div  id={"bun"}>
+                <Tab value="bun" active={current === "bun"} onClick={setCurrentTab}>
                     Булки
                 </Tab>
-                <Tab value="sauce" active={current === "sauce"} onClick={setCurrentTab} id={"sauce"}>
+                </div>
+                <div  id={"sauce"}>
+                <Tab value="sauce" active={current === "sauce"} onClick={setCurrentTab}>
                     Соусы
                 </Tab>
-                <Tab value="ingredients" active={current === "ingredients"} onClick={setCurrentTab} id={"ingredients"}>
+                </div>
+                <div  id={"ingredients"}>
+                <Tab value="ingredients" active={current === "ingredients"} onClick={setCurrentTab}>
                     Начинки
                 </Tab>
+                </div>
             </div>
             <ul className={`${stylesBurgerIngredients.list} mt-10 pl-1 pr-2`} id={"ingredients_list"}>
                 <BurgerIngredientTypeGroup ref={bunsRef} listType={"bun"} title={"Булки"} activeModal={handleModal} id={"bun"} />

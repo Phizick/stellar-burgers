@@ -1,13 +1,14 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, RouteComponentProps } from "react-router-dom";
 import { getCookie } from "../../utils/cookieFunc";
 import {useLocation} from "react-router-dom";
-import {FC, ReactNode} from 'react'
+import {FC, HTMLProps, ReactNode} from 'react'
 
 interface IProtectedRoute {
     children: ReactNode;
     onlyForAuth: boolean;
     path: string;
     exact?: boolean;
+    rest?: HTMLProps<RouteComponentProps>
 }
 
 export const ProtectedRoute: FC<IProtectedRoute> = ({ onlyForAuth, children, ...rest }) => {
@@ -15,7 +16,7 @@ export const ProtectedRoute: FC<IProtectedRoute> = ({ onlyForAuth, children, ...
     const location = useLocation();
 
     if (!onlyForAuth && isAuthorized) {
-        const { from } = location.state || { from: { pathname: "/" } };
+        const { from }: any = location.state || { from: { pathname: "/" } };
         return (
             <Route {...rest}>
                 <Redirect to={from} />
