@@ -5,11 +5,18 @@ import { useHistory } from "react-router-dom";
 import { registerUser } from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
 import {FormEvent, FC} from "react";
+import {getCookie} from "../../utils/cookieFunc";
 
 export const RegisterPage: FC = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+
+
+
+
+
     const {values, handleChange} = useForm({ email: '', name: '', password: ''});
+
+
 
         return (
             <Form
@@ -20,7 +27,7 @@ export const RegisterPage: FC = () => {
                 ForwardLinkFirst={"/login"}
                 FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
-                    dispatch(registerUser(values, history));
+                    dispatch(registerUser(values));
                 }}
                 ForwardLinkSecond={""}
                 secondQuestion={""}

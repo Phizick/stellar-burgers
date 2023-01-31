@@ -21,7 +21,6 @@ import {
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER,
 } from '../actions/actionsTypes/userTypes';
-import {TUser} from "../types/types";
 
 type TUserInitialState = {
     user: {
@@ -37,7 +36,7 @@ type TUserInitialState = {
     authorizedUser?: string | boolean,
     validUser?: boolean,
     email?: string,
-    token?: string,
+    token: string,
 
 }
 
@@ -54,13 +53,12 @@ const initialState = {
     error: "",
     authorizedUser: false,
     validUser: false,
+    token: ''
 };
 
 
 interface ILoginUser {
     readonly type: typeof LOGIN_USER;
-    success: boolean,
-    pending: boolean,
     authorizedUser?: boolean,
 }
 
@@ -76,14 +74,11 @@ interface ILoginUserSuccess {
 
 interface ILoginUserFailed {
     readonly type: typeof LOGIN_USER_FAILED;
-    success: boolean,
     error?: string,
 }
 
 interface IRegisterUser {
     readonly type: typeof REGISTER_USER;
-    success: boolean,
-    pending?: boolean,
 }
 
 interface IRegisterUserSuccess {
@@ -138,7 +133,6 @@ interface IResetPasswordFailed {
 
 interface IGetUser {
     readonly type: typeof GET_USER
-    success: boolean,
 }
 
 interface IGetUserSuccess {

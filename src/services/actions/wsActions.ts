@@ -20,6 +20,7 @@ interface IWsConnectionClosed {
 interface IWsConnectionFailed {
     readonly type: typeof WS_CONNECTION_FAILED;
     payload?: Event;
+    error?: Event;
 }
 
 interface IWsConnectionSuccess {

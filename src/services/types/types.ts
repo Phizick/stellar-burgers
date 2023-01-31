@@ -7,12 +7,18 @@ import { Action, ActionCreator } from "redux";
 
 import {TOrderActions} from "../actions/order";
 import {TWsActions} from "../actions/wsActions";
-import {TUserActions} from "../actions/user";
+import {TUserActions} from "../reducers/userReducer";
+import {TIngredientsActions} from "../reducers/getIngredientsReducer";
+import {TModalStateTypes} from "../reducers/modalReducer";
+import {TConstructorActions} from "../reducers/burgerConstructorReducer";
 
 type TAppActions =
     | TWsActions
     | TOrderActions
     | TUserActions
+    | TIngredientsActions
+    | TModalStateTypes
+    | TConstructorActions
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TAppActions>

@@ -29,7 +29,7 @@ interface IClearConstructor {
 
 
 
-export const setOrder: AppThunk = (ingredients: any) => {
+export const setOrder = (ingredients: any) => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: SEND_ORDER,
@@ -76,7 +76,7 @@ interface IGetOrderFailed {
 }
 
 
-export const getOrders: AppThunk = () => {
+export const getOrders = () => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: GET_ORDER,
@@ -89,7 +89,7 @@ export const getOrders: AppThunk = () => {
             },
         };
         request(`orders/all`, requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (res.success) {
                     dispatch({
                         type: GET_ORDER_SUCCESS,
@@ -105,7 +105,7 @@ export const getOrders: AppThunk = () => {
             });
     };
 }
-export const getAuthOrders: AppThunk = () => {
+export const getAuthOrders = () => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: GET_ORDER,
@@ -118,7 +118,7 @@ export const getAuthOrders: AppThunk = () => {
             },
         };
         request(`orders/`, requestOptions)
-            .then((res: any) => {
+            .then((res) => {
                 if (res.success) {
                     dispatch({
                         type: GET_ORDER_SUCCESS,

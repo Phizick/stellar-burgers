@@ -71,11 +71,12 @@ export const loginUser = (values: any, history: any) => {
 
 
 
-export const registerUser: AppThunk = (values: any) => {
+export const registerUser = (values: any) => {
     return (dispatch: AppDispatch) => {
         dispatch({
             type: REGISTER_USER,
         });
+        console.log(123)
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -110,7 +111,7 @@ export const registerUser: AppThunk = (values: any) => {
 
 
 
-const forgotPassword: AppThunk = (data: any) => {
+const forgotPassword = (data: any) => {
     return (dispatch: any) => {
         dispatch({
             type: FORGOT_PASSWORD,
@@ -141,7 +142,7 @@ const forgotPassword: AppThunk = (data: any) => {
 
 
 
-export const resetPassword: AppThunk = (data: any) => {
+export const resetPassword = (data: any) => {
     return (dispatch: any) => {
         dispatch({
             type: RESET_PASSWORD,
@@ -172,8 +173,8 @@ export const resetPassword: AppThunk = (data: any) => {
 
 
 
-export const getUser: AppThunk = () => {
-    return (dispatch: any) => {
+export const getUser = () => {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: GET_USER,
         });
@@ -203,7 +204,7 @@ export const getUser: AppThunk = () => {
 
 
 
-export const patchUser: AppThunk = (values: any) => {
+export const patchUser = (values: any) => {
     return (dispatch: any) => {
         dispatch({
             type: PATCH_USER,
@@ -238,7 +239,7 @@ export const patchUser: AppThunk = (values: any) => {
 
 
 
-export const logoutUser: AppThunk = () => {
+export const logoutUser = () => {
     return (dispatch: any) => {
         dispatch({
             type: LOGOUT_USER,
@@ -272,7 +273,7 @@ export const logoutUser: AppThunk = () => {
     };
 };
 
-export const updateUserToken: AppThunk = () => {
+export const updateUserToken = () => {
     return (dispatch: any) => {
         dispatch({
             type: UPDATE_USER_TOKEN,

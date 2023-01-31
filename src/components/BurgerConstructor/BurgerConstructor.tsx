@@ -52,8 +52,6 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
         dispatch(setDefaultConstructor(sortedIngredients));
     }, [ingredients])
 
-    console.log(ingredients)
-
 
 
     return (

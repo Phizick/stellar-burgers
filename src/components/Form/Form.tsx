@@ -23,7 +23,7 @@ export const Form: FC<IForm> = (props) => {
             <h1 className={stylesForm.formTitle}>{props.formTitle}</h1>
             <ul className={stylesForm.formList}>{props.children}</ul>
             <div className={stylesForm.formBtn}>
-                <Button type="primary" size="medium" htmlType={'button'}>
+                <Button type="primary" size="medium" htmlType={'button'} onClick={props.FormSubmitFunc}>
                     {props.buttonText}
                 </Button>
             </div>

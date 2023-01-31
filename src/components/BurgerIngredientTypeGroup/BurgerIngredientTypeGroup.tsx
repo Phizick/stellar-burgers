@@ -33,7 +33,7 @@ const BurgerIngredientTypeGroup = forwardRef<TRef, TIngredientTypeGroup>((props,
         <section className={`${stylesBurgerIngredientTypeGroup.container} `} ref={ref} id={props.id}>
             <p className={`text text_type_main-medium m-2`}>{props.title}</p>
             <ul className={`${stylesBurgerIngredientTypeGroup.list} pl-4 pr-5`}>
-                {burgerIngredients.length > 0 &&
+                {burgerIngredients?.length > 0 &&
                     burgerIngredients
                         .filter((item: any) => {
                             return item.type === props.listType;

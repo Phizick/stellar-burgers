@@ -24,7 +24,7 @@ export const LoginPage: FC = () => {
                 secondQuestion={"Забыли пароль?"}
                 secondQuestionLinkText={"Восстановить пароль"}
                 ForwardLinkSecond={"/forgot-password"}
-                FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
+                FormSubmitFunc={(e: any) => {
                     e.preventDefault();
                     dispatch(loginUser(values, history));
                 }}

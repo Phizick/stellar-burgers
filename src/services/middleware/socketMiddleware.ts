@@ -2,7 +2,7 @@ import {getCookie} from "../../utils/cookieFunc";
 import { Middleware, MiddlewareAPI  } from "redux";
 import {AppDispatch, RootState} from "../types/types";
 import {TWsSocketActions} from "../actions/wsActions";
-import {TWsActions} from "../actions/wsActions";
+
 
 
 export const socketMiddleware = (wsActions: TWsSocketActions): Middleware => {
@@ -58,5 +58,5 @@ export const socketMiddleware = (wsActions: TWsSocketActions): Middleware => {
             }
             next(action);
         }
-    }) as Middleware
+    })
 }

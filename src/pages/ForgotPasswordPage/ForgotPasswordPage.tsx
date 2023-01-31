@@ -23,7 +23,7 @@ export const ForgotPasswordPage: FC = () => {
                 ForwardLinkFirst={"/reset-password"}
                 FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
-                    dispatch(forgotPassword(values.email, history));
+                    dispatch(forgotPassword(values.email));
                     history.push("/reset-password");
                 }}
                 ForwardLinkSecond={""}

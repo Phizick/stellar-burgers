@@ -8,17 +8,44 @@ import {TIngredient} from "../types/types";
 
 type TInitialState = {
     ingredients: TIngredient[];
-    bun: {};
+    bun: TIngredient | null;
     ingredientsAdded: string[];
 }
 
-const initialState: TInitialState = {
+const initialState = {
     ingredients: [],
-    bun: {},
+    bun: null,
     ingredientsAdded: []
 };
 
-export const burgerConstructorReducer = (state = initialState, action: any) => {
+interface IAddConstructorIngredient {
+    readonly type: typeof ADD_CONSTRUCTOR_INGREDIENT
+    data: TIngredient,
+    keyId: string,
+}
+
+interface IAddConstructorBun {
+    readonly type: typeof ADD_CONSTRUCTOR_BUN
+    data: object,
+}
+
+interface ISortedConstructor {
+    readonly type: typeof SORTED_CONSTRUCTOR
+    data: any
+}
+
+interface IDeleteConstructorIngredient {
+    readonly type: typeof DELETE_CONSTRUCTOR_INGREDIENT
+    id: string | undefined,
+}
+
+export type TConstructorActions =
+    | IAddConstructorIngredient
+    | IAddConstructorBun
+    | ISortedConstructor
+    | IDeleteConstructorIngredient
+
+export const burgerConstructorReducer = (state: TInitialState = initialState, action: any): TInitialState => {
     switch (action.type) {
         case ADD_CONSTRUCTOR_INGREDIENT:
             return {
