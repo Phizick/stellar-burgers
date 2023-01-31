@@ -81,7 +81,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
                                             .filter((item: any) => item.type !== "bun")
                                             .map((item: any, index: any) => {
                                                 return (
-                                                    <ConstructorSortedItem  key={item.keyId} moveIngredientCard={moveIngredientCard} index={index} data={item}/>
+                                                    <ConstructorSortedItem  key={item.keyId} moveIngredientCard={moveIngredientCard} index={index} data={item} id={item.id}/>
                                                 );
                                             }))
                                     :

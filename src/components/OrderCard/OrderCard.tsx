@@ -2,7 +2,7 @@ import stylesOrderCard from "./OrderCard.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {useAppSelector} from "../../services/hooks/hooks";
 import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredientsImage";
-import { useMemo, FC } from "react";
+import { useMemo, FC} from "react";
 import uuid from "react-uuid";
 import {getIngredients} from "../../services/selectors/ingredientsSelectors";
 import {TIngredient, TOrder} from "../../services/types/types";
@@ -20,15 +20,15 @@ export const OrderCard: FC<TOrderCard> = (props) => {
     const orderDay = createdAt.includes(`${currentDay}`);
 
     const orderIngredients = useMemo(() => {
-        return props.order?.ingredients.map((id: any) => {
-            return ingredients?.find((item: TIngredient | undefined) => {
-                return id === item?._id
+        return props.order?.ingredients.map((element: TIngredient) => {
+            return ingredients?.find((item: TIngredient) => {
+                return element.id === item?._id
             })
         })
     }, [props.order?.ingredients, ingredients]);
 
-    const orderTotalPrice = useMemo(() => {
-        return orderIngredients?.reduce((sum: number, item: TIngredient | undefined) => {
+    const orderTotalPrice = useMemo<number>(() => {
+        return orderIngredients?.reduce((sum, item: TIngredient | undefined) => {
             return (item?.type === "bun" ? sum + item.price * 2 : sum + (item ? item.price : 0))
         }, 0)
     }, [orderIngredients]);

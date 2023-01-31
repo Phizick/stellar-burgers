@@ -8,6 +8,7 @@ import {TIngredient} from "../../services/types/types";
 
 interface IOrderIngredientsInfo {
     data: TIngredient[];
+    key?: string;
 }
 export const OrderIngredientsInfo: FC<IOrderIngredientsInfo> = (props) => {
     const ingredients = useAppSelector(getIngredients);

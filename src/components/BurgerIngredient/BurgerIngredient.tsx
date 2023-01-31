@@ -13,7 +13,7 @@ import {getBunData, getBurgerIngredients} from "../../services/selectors/burgerI
 import { FC } from 'react'
 import {TIngredient} from "../../services/types/types";
 
-interface IBurgerIngredient {
+export interface IBurgerIngredient {
     data: TIngredient;
     activeModal: (data: TIngredient) => void;
 }

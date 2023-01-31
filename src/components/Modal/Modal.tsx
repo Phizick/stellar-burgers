@@ -54,7 +54,7 @@ const Modal: FC<TModal>  = (props) => {
 
 
     useEffect(() => {
-        const handleEscClose = (e: any) => {
+        const handleEscClose = (e: KeyboardEvent): void => {
             e.key === "Escape" && handleCloseModal();
         };
         if (isOpened) {

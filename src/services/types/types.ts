@@ -37,6 +37,7 @@ export type TIngredient = {
     type: "bun" | "main" | "sauce";
     __v: number;
     _id: string;
+    id: string;
     keyId?: string;
     count?: number;
 }
@@ -89,6 +90,7 @@ export type TOrder = {
     price: number;
     createdAt: string;
     _id: string;
+    id: string;
 }
 
 export type TUserResponse = {

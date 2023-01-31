@@ -16,15 +16,15 @@ type TDragItem = {
 type TSortedItems = {
     index: number;
     items?: TIngredient;
-    moveIngredientCard: any;
+    moveIngredientCard: (dragIndex: number, hoverIndex: number) => void;
     data: TIngredient;
-    id?: string | undefined;
+    id: string;
 }
 
 const ConstructorSortedItem: FC<TSortedItems> = (props) => {
     const dispatch = useAppDispatch();
     const ref = useRef<HTMLDivElement>(null);
-    const removeIngredient = (removedIngredient: string | undefined) => {
+    const removeIngredient = (removedIngredient: string) => {
         dispatch(deleteConstructorElement(removedIngredient));
     };
 

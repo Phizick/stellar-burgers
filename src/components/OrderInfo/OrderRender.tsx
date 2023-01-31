@@ -3,32 +3,35 @@ import stylesOrderInfo from "./OrderInfo.module.css";
 import { OrderIngredientsInfo } from "../OrderIngredientsInfo/OrderIngredientsInfo";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams } from "react-router-dom";
-import {TIngredient} from "../../services/types/types";
+import {TIngredient, TOrder} from "../../services/types/types";
 
 interface IOrderRender {
-    order: any;
-    ingredients?: TIngredient[] | null;
+    order: TOrder;
+    ingredients: TIngredient[];
 }
 
 export const OrderRender: FC<IOrderRender> = (props) => {
     const { id } = useParams<{ id: string }>();
 
     const selectedOrderData = useMemo(() => {
-        return props.order?.ingredients.map((id: string) => {
+        return props.order?.ingredients.map((id: any) => {
+            console.log(typeof id)
             return props.ingredients?.find((item) => {
                 return id === item._id
             })
         })
     }, [props.order?.ingredients, props.ingredients]);
 
-    const orderTotalPrice = useMemo(() => {
-        return selectedOrderData?.reduce((sum: number, item: TIngredient) => {
+    const orderTotalPrice = useMemo<number>(() => {
+        return selectedOrderData?.reduce((sum, item: TIngredient | undefined) => {
             if (item?.type === "bun") {
                 return (sum += item.price * 2);
             }
             return (sum += item ? item.price : 0);
         }, 0);
     }, [selectedOrderData]);
+
+    console.log(selectedOrderData)
 
     const currentDay = new Date().getDate();
     const { createdAt } = props.order;
@@ -47,7 +50,9 @@ export const OrderRender: FC<IOrderRender> = (props) => {
                     </div>
                     <p className={`text text_type_main-medium ${stylesOrderInfo.about}`}>Состав:</p>
                     <div className={stylesOrderInfo.ingredients}>
-                        <OrderIngredientsInfo data={selectedOrderData} key={id} />
+
+                            <OrderIngredientsInfo data={selectedOrderData} key={id}/>
+
                     </div>
                     <div className={stylesOrderInfo.footer}>
                         <p className={`text text_type_main-default text_color_inactive`}>

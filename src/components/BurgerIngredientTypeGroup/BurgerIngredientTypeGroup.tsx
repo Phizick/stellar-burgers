@@ -12,17 +12,15 @@ import {useAppSelector} from "../../services/hooks/hooks";
 import {Link, useLocation} from "react-router-dom";
 import {getIngredients} from "../../services/selectors/ingredientsSelectors";
 import {TIngredient} from "../../services/types/types";
-import {useSelector} from "react-redux";
 
 
 type TIngredientTypeGroup = {
     ingredients?: TIngredient[];
     type?: string;
-    props?: any;
     id: string;
     title: string;
     listType: string;
-    activeModal: any
+    activeModal: (data: TIngredient) => void;
 }
 
 const BurgerIngredientTypeGroup = forwardRef<HTMLElement, TIngredientTypeGroup>((props, ref) => {
