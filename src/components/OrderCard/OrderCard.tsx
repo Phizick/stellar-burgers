@@ -1,10 +1,10 @@
 import stylesOrderCard from "./OrderCard.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import {useAppSelector} from "../../services/hooks/hooks";
 import { OrderIngredientsImage } from "../OrderIngredientsImage/OrderIngredientsImage";
 import { useMemo, FC } from "react";
 import uuid from "react-uuid";
-import {getIngredients} from "../../utils/constants";
+import {getIngredients} from "../../services/selectors/ingredientsSelectors";
 import {TIngredient, TOrder} from "../../services/types/types";
 
 type TOrderCard = {
@@ -12,7 +12,7 @@ type TOrderCard = {
 }
 
 export const OrderCard: FC<TOrderCard> = (props) => {
-    const ingredients = useSelector(getIngredients)
+    const ingredients = useAppSelector(getIngredients)
     const { createdAt, number, name, status } = props.order;
     const orderMaxLength = props.order.ingredients.length;
     const ingredientsLength = orderMaxLength - 6;
@@ -28,7 +28,7 @@ export const OrderCard: FC<TOrderCard> = (props) => {
     }, [props.order?.ingredients, ingredients]);
 
     const orderTotalPrice = useMemo(() => {
-        return orderIngredients?.reduce((sum: number, item: TIngredient) => {
+        return orderIngredients?.reduce((sum: number, item: TIngredient | undefined) => {
             return (item?.type === "bun" ? sum + item.price * 2 : sum + (item ? item.price : 0))
         }, 0)
     }, [orderIngredients]);
@@ -47,7 +47,7 @@ export const OrderCard: FC<TOrderCard> = (props) => {
                 <ul className={stylesOrderCard.ingredientsList}>
                     {orderIngredients &&
                         orderMaxLength <= 5 &&
-                        orderIngredients.map((item: TIngredient) => {
+                        orderIngredients.map((item: TIngredient | undefined) => {
                             return (
                                 <li className={stylesOrderCard.listItem} key={uuid()}>
                                     {item && <OrderIngredientsImage item={item.image} alt={item.name} />}
@@ -56,7 +56,7 @@ export const OrderCard: FC<TOrderCard> = (props) => {
                         })}
                     {orderIngredients &&
                         orderMaxLength >= 6 &&
-                        orderIngredients.slice(0, 5).map((item: TIngredient) => {
+                        orderIngredients.slice(0, 5).map((item: TIngredient | undefined) => {
                             return (
                                 <li className={stylesOrderCard.listItem} key={uuid()}>
                                     {item && <OrderIngredientsImage item={item.image} alt={item.name} />}
@@ -65,7 +65,7 @@ export const OrderCard: FC<TOrderCard> = (props) => {
                         })}
                     {orderIngredients &&
                         orderMaxLength > 6 &&
-                        orderIngredients.slice(5, 6).map((item: TIngredient) => {
+                        orderIngredients.slice(5, 6).map((item: TIngredient | undefined) => {
                             return (
                                 <li className={stylesOrderCard.listItem} key={uuid()}>
                                     {item && (

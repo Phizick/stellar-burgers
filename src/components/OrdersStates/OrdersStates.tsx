@@ -1,6 +1,6 @@
 import stylesOrdersStates from "./OrdersStates.module.css";
-import {useSelector} from "../../services/hooks/hooks";
-import {getWsData} from "../../utils/constants";
+import {useAppSelector} from "../../services/hooks/hooks";
+import {getWsData} from "../../services/selectors/webSocketSelectors";
 import { FC } from 'react'
 import {TOrder} from "../../services/types/types";
 
@@ -9,7 +9,7 @@ interface IOrderStates {
 }
 
 export const OrderStates: FC<IOrderStates> = () => {
-    const { data } = useSelector(getWsData);
+    const { data } = useAppSelector(getWsData);
 
     const completedOrders = data.orders.filter((order: TOrder) => order.status === "done").filter((order: TOrder, index: number) => index <= 15);
     const upcomingOrders = data.orders.filter((order: TOrder) => order.status !== "done").filter((order: TOrder, index: number) => index <= 10);

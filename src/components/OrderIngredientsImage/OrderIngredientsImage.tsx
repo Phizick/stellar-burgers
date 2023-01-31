@@ -2,8 +2,8 @@ import stylesOrderIngredientsImage from "./OrderIngredientsImage.module.css";
 import  {  FC} from "react";
 
 type TOrderIngredientsImage = {
-    item: string;
-    alt: string;
+    item?: string;
+    alt?: string;
 }
 
 export const OrderIngredientsImage: FC<TOrderIngredientsImage> = (props) => {

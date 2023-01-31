@@ -2,18 +2,18 @@ import { ProfileNavigation } from "../../components/ProfileNavigation/ProfileNav
 import stylesProfileOrder from "./ProfileOrdersHistoryPage.module.css";
 import stylesProfileHistory from "./ProfileOrdersHistoryPage.module.css";
 import { Link } from "react-router-dom";
-import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 import React, {useEffect, FC} from "react";
 import { OrderCard } from "../../components/OrderCard/OrderCard";
 import {MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
 import {WS_CONNECTION_STOP, WS_CONNECTION_START} from "../../services/actions/actionsTypes/wsActionsTypes";
-import {getWsData} from "../../utils/constants";
+import {getWsData} from "../../services/selectors/webSocketSelectors";
 import {TOrder} from "../../services/types/types";
 
 export const ProfileOrdersHistoryPage: FC = () => {
 
-    const dispatch = useDispatch();
-    const { data } = useSelector(getWsData);
+    const dispatch = useAppDispatch();
+    const { data } = useAppSelector(getWsData);
 
     const handleModalOpen = () => {
         dispatch({

@@ -4,7 +4,7 @@ WS_CONNECTION_FAILED,
 WS_CONNECTION_CLOSED} from "../actions/actionsTypes/wsActionsTypes";
 import { TWsActions } from "../actions/wsActions";
 
-type TWsInitialState = {
+export type TWsInitialState = {
     wsConnected: boolean;
     data: {
         orders: [],
@@ -13,6 +13,10 @@ type TWsInitialState = {
         length?: number,
 } | any;
     error?: Event;
+}
+
+export type TWsSelector = {
+    wsOrders: TWsInitialState
 }
 
 const initialState = {

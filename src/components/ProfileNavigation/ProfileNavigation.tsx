@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import React, { FC } from "react";
 import stylesProfile from "./ProfileNavigation.module.css";
-import {useDispatch} from "../../services/hooks/hooks";
+import {useAppDispatch} from "../../services/hooks/hooks";
 import { logoutUser } from "../../services/actions/user";
 
 interface IProfileNavigation {
@@ -10,7 +10,7 @@ interface IProfileNavigation {
 }
 
 export const ProfileNavigation: FC<IProfileNavigation> = (props) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     return (
         <>

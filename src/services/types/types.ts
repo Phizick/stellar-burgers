@@ -1,13 +1,14 @@
 import {ReactNode} from "react";
 import { rootReducer } from "../reducers/rootReducer";
 import { ThunkDispatch } from "redux-thunk";
-import {TOrderActions} from "../reducers/getOrderReducer";
+import {TOrderActions, TOrderType} from "../reducers/getOrderReducer";
 import {TWsActions} from "../actions/wsActions";
-import {TUserActions} from "../reducers/userReducer";
-import {TIngredientsActions} from "../reducers/getIngredientsReducer";
-import {TModalStateTypes} from "../reducers/modalReducer";
-import {TConstructorActions} from "../reducers/burgerConstructorReducer";
-import {TIngredientCardActions} from "../reducers/getIngredientCardReducer";
+import {TUserActions, TUserInitialState} from "../reducers/userReducer";
+import {TIngredientsActions, TIngredientState} from "../reducers/getIngredientsReducer";
+import {TModalState, TModalStateTypes} from "../reducers/modalReducer";
+import {TConstructorActions, TConstructorInitialState} from "../reducers/burgerConstructorReducer";
+import {TIngredientCardActions, TSelectedIngredient} from "../reducers/getIngredientCardReducer";
+import {TWsInitialState} from "../reducers/wsReducers";
 
 type TAppActions =
     | TWsActions
@@ -40,9 +41,26 @@ export type TIngredient = {
     count?: number;
 }
 
+export type TStateSelectors = {
+    burgerIngredients: TConstructorInitialState;
+    ingredientDetail: TSelectedIngredient;
+    ingredients: TIngredientState;
+    modalState: TModalState;
+    order: TOrderType | ReactNode | any;
+    orderState: TOrderType;
+    user: TUserInitialState;
+    wsOrders: TWsInitialState;
+}
+
+
+
 export type TModal = {
     title: string;
     children: ReactNode;
+}
+
+export type TModalSelector = {
+    modalState: TModalState
 }
 
 export type TModalOverlay = {
@@ -54,6 +72,12 @@ export type TModalOverlay = {
 export type TUser = {
     email: string;
     name: string;
+}
+
+export type TUserSelector = {
+    user: {
+        user: TUser
+    }
 }
 
 export type TOrder = {

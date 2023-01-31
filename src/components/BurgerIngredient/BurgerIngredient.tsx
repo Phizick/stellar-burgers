@@ -8,8 +8,8 @@
 import stylesBurgerIngredient from "../BurgerIngredient/BurgerIngredient.module.css";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag} from "react-dnd";
-import {useSelector} from "../../services/hooks/hooks";
-import {getBunData, getBurgerIngredients} from "../../utils/constants";
+import {useAppSelector} from "../../services/hooks/hooks";
+import {getBunData, getBurgerIngredients} from "../../services/selectors/burgerIngredientsSelectors";
 import { FC } from 'react'
 import {TIngredient} from "../../services/types/types";
 
@@ -19,8 +19,8 @@ interface IBurgerIngredient {
 }
 
 const BurgerIngredient: FC<IBurgerIngredient> = (props) => {
-    const ingredients = useSelector(getBurgerIngredients);
-    const bun = useSelector(getBunData);
+    const ingredients = useAppSelector(getBurgerIngredients);
+    const bun = useAppSelector(getBunData);
     const setCounter = () => {
         if (props.data.type !== 'bun') {
             return ingredients.filter((item: TIngredient) => item._id === props.data._id).length

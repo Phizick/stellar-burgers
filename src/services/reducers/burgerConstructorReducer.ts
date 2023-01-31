@@ -6,11 +6,13 @@ DELETE_CONSTRUCTOR_INGREDIENT,
 import { CLEAR_CONSTRUCTOR} from "../actions/actionsTypes/orderTypes";
 import {TIngredient} from "../types/types";
 
-type TInitialState = {
+export type TConstructorInitialState = {
     ingredients: TIngredient[];
     bun: TIngredient | null;
     ingredientsAdded: string[];
 }
+
+
 
 const initialState = {
     ingredients: [],
@@ -53,7 +55,7 @@ export type TConstructorActions =
     | IDeleteConstructorIngredient
     | IClearConstructor
 
-export const burgerConstructorReducer = (state: TInitialState = initialState, action: TConstructorActions): TInitialState => {
+export const burgerConstructorReducer = (state: TConstructorInitialState = initialState, action: TConstructorActions): TConstructorInitialState => {
     switch (action.type) {
         case ADD_CONSTRUCTOR_INGREDIENT:
             return {

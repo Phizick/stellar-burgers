@@ -1,5 +1,5 @@
 import MainPageStyles from "./MainPage.module.css";
-import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
@@ -8,13 +8,13 @@ import {MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
 import { getCookie } from "../../utils/cookieFunc";
 import {useHistory} from "react-router-dom";
 import { setOrder} from "../../services/actions/order";
-import {getSelectedIngredient} from "../../utils/constants";
+import {getSelectedIngredient} from "../../services/selectors/burgerIngredientsSelectors";
 import { FC } from 'react'
 
 export const MainPage: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const history = useHistory();
-    const { ingredientsAdded } = useSelector(getSelectedIngredient);
+    const { ingredientsAdded } = useAppSelector(getSelectedIngredient);
 
     const openOrderModal = () => {
         const refreshToken = localStorage.getItem("refreshToken");

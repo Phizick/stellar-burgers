@@ -2,27 +2,27 @@ import {getUser, patchUser} from "../../services/actions/user";
 import stylesProfile from "../../pages/ProfilePage/ProfilePage.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {useEffect, FC} from "react";
-import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 import {useForm} from "../../services/hooks/useForm";
 import {ProfileNavigation} from "../ProfileNavigation/ProfileNavigation";
-import {getUserInfo} from "../../utils/constants";
+import {getUserInfo} from "../../services/selectors/userSelectors";
 
 export const ProfileEditForm: FC = () => {
-    const { name, login } = useSelector(getUserInfo);
-    const user = useSelector(getUserInfo);
-    const dispatch = useDispatch();
+    const { name, email } = useAppSelector(getUserInfo);
+    const user = useAppSelector(getUserInfo);
+    const dispatch = useAppDispatch();
 
     const {values, handleChange, setValues} = useForm({ email: '', name: '', password: ''});
 
     useEffect(() => {
         if (user) {
             dispatch(getUser());
-            setValues({name: name, email: login, password: ''});
+            setValues({name: name, email: email, password: ''});
         }
     }, []);
 
     const restoreChanges = () => {
-        setValues({email: login, name: name, password: ''});
+        setValues({email: email, name: name, password: ''});
     };
 
     return (

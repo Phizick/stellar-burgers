@@ -14,7 +14,7 @@ const initialState = {
     modalData: null
 };
 
-type TIngredientState = {
+export type TIngredientState = {
     data: TIngredient[] | null,
     ingredientsProcessing?: boolean,
     isLoad?: boolean,

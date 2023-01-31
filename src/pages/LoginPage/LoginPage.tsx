@@ -1,13 +1,13 @@
 import React, { FC} from "react";
 import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch} from "../../services/hooks/hooks";
+import {useAppDispatch} from "../../services/hooks/hooks";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../../services/actions/user";
 import {useForm} from "../../services/hooks/useForm";
 
 export const LoginPage: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const history = useHistory();
     const {values, handleChange} = useForm({ email: '', password: ''});
 

@@ -7,23 +7,24 @@
 
 import React, { useEffect, FC } from "react";
 import stylesIngredientDetails from "../IngredientDetails/IngredientDetails.module.css";
-import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 import {getIngredientDetails} from "../../services/actions/ingredients";
 import { useParams } from "react-router-dom";
 import { InfinitySpin } from "react-loader-spinner";
-import {getIngredient, getIngredients} from "../../utils/constants";
+import { getIngredients} from "../../services/selectors/ingredientsSelectors";
+import {getIngredient} from "../../services/selectors/ingredientDetailsSelectors";
 import {TIngredient} from "../../services/types/types";
 
 const IngredientDetails: FC = () => {
-    const ingredient = useSelector(getIngredient);
-    const ingredients = useSelector(getIngredients);
-    const { isLoad } = useSelector((state) => state.ingredients);
-    const dispatch = useDispatch();
+    const ingredient = useAppSelector(getIngredient);
+    const ingredients = useAppSelector(getIngredients);
+    const { isLoad } = useAppSelector((state) => state.ingredients);
+    const dispatch = useAppDispatch();
     const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
         const findItem = ingredients?.find((i: TIngredient) => i._id === id);
-        dispatch(getIngredientDetails(findItem));
+        findItem !== undefined && dispatch(getIngredientDetails(findItem));
     }, [dispatch, id, ingredients]);
 
     return (

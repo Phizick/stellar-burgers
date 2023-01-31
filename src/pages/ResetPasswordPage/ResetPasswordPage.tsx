@@ -4,14 +4,14 @@ import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword } from "../../services/actions/user";
 import { useHistory } from "react-router-dom";
-import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 import {useForm} from "../../services/hooks/useForm";
-import {getUserData} from "../../utils/constants";
+import {getUserData} from "../../services/selectors/userSelectors";
 
 export const ResetPasswordPage: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const history = useHistory();
-    const {validUser} = useSelector(getUserData);
+    const {validUser} = useAppSelector(getUserData);
     const {values, handleChange} = useForm({ password: '', token: ''});
 
     useEffect(() => {

@@ -2,5 +2,5 @@ import { TypedUseSelectorHook, useDispatch as dispatchHook, useSelector as selec
 
 import { AppDispatch, RootState} from "../types/types";
 
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
-export const useDispatch = () => dispatchHook<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
+export const useAppDispatch = () => dispatchHook<AppDispatch>();

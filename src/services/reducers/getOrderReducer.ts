@@ -13,7 +13,7 @@ const initialState = {
     isLoad: false,
 };
 
-type TOrderType = {
+export type TOrderType = {
     price: number,
     orderRequestProcessing: boolean,
     orderRequestFailed: boolean,
@@ -23,6 +23,7 @@ type TOrderType = {
     orderList: any,
     isLoad: boolean,
 }
+
 
 interface ISendOrder {
     readonly type: typeof SEND_ORDER

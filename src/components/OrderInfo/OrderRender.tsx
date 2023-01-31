@@ -7,7 +7,7 @@ import {TIngredient} from "../../services/types/types";
 
 interface IOrderRender {
     order: any;
-    ingredients: TIngredient[];
+    ingredients?: TIngredient[] | null;
 }
 
 export const OrderRender: FC<IOrderRender> = (props) => {

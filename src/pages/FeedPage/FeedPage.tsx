@@ -1,16 +1,16 @@
 import stylesFeedPage from "./FeedPage.module.css";
 import { OrderStates } from "../../components/OrdersStates/OrdersStates";
 import { OrdersList } from "../../components/OrdersList/OrdersList";
-import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../services/hooks/hooks";
 import { useEffect, FC } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_STOP} from "../../services/actions/actionsTypes/wsActionsTypes";
-import {getWsData} from "../../utils/constants";
+import {getWsData} from "../../services/selectors/webSocketSelectors";
 
 
 
 export const FeedPage: FC = () => {
-    const dispatch = useDispatch();
-    const { data } = useSelector(getWsData);
+    const dispatch = useAppDispatch();
+    const { data } = useAppSelector(getWsData);
 
     useEffect(() => {
         dispatch({

@@ -5,7 +5,7 @@ const initialState = {
     isOpened: false
 }
 
-type TModalState = {
+export type TModalState = {
     modalType: string,
     isOpened: boolean,
 }

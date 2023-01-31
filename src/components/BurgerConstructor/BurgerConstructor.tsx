@@ -8,23 +8,24 @@
 import React, {useCallback, useMemo, FC} from "react";
 import stylesBurgerConstructor from "../BurgerConstructor/BurgerConstructor.module.css";
 import { ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch} from '../../services/hooks/hooks'
+import { useAppSelector, useAppDispatch} from '../../services/hooks/hooks'
 import {useDrop} from "react-dnd";
 import {
     addConstructorBun, addConstructorIngredient, setDefaultConstructor
 } from "../../services/actions/ConstructorActions";
 import ConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem";
-import {getBunData, getBurgerIngredients} from "../../utils/constants";
+import {getBunData, getBurgerIngredients} from "../../services/selectors/burgerIngredientsSelectors";
 import { TIngredient } from "../../services/types/types";
+
 
 interface IBurgerConstructor {
     openModal: () => void
 }
 
 const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
-    const ingredients = useSelector(getBurgerIngredients);
-    const bunData = useSelector(getBunData);
-    const dispatch = useDispatch();
+    const ingredients = useAppSelector(getBurgerIngredients);
+    const bunData = useAppSelector(getBunData);
+    const dispatch = useAppDispatch();
 
     const price = useMemo(() => {
         return (ingredients.length > 0 && bunData) && bunData.price * 2 + ingredients.reduce((a: number, b: TIngredient) => a + b.price, 0);

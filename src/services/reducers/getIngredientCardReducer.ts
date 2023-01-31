@@ -5,7 +5,7 @@ const initialState = {
     selectedIngredient: {}
 };
 
-type TSelectedIngredient = {
+export type TSelectedIngredient = {
     selectedIngredient: any
 }
 

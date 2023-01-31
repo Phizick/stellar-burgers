@@ -10,7 +10,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import stylesBurgerIngredients from "../BurgerIngredients/BurgerIngredients.module.css";
 import BurgerIngredientTypeGroup from "../BurgerIngredientTypeGroup/BurgerIngredientTypeGroup";
 import {useHistory} from "react-router-dom";
-import {useDispatch} from "../../services/hooks/hooks";
+import {useAppDispatch} from "../../services/hooks/hooks";
 import {getIngredientDetails} from "../../services/actions/ingredients";
 import { MODAL_OPENED} from "../../services/actions/actionsTypes/modalTypes";
 import { DELETE_INGREDIENTS_MODAL} from "../../services/actions/actionsTypes/ingredientsTypes";
@@ -26,7 +26,7 @@ const BurgerIngredients: FC = () => {
     const saucesRef = useRef<HTMLElement | null>(null);
     const ingredientsRef = useRef<HTMLElement | null>(null);
     const history = useHistory();
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {

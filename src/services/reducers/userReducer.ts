@@ -25,7 +25,7 @@ import {
     UPDATE_USER_TOKEN
 } from '../actions/actionsTypes/userTypes';
 
-type TUserInitialState = {
+export type TUserInitialState = {
     user: {
         email: string;
         name: string;

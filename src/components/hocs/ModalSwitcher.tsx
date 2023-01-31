@@ -1,5 +1,5 @@
-import {useSelector} from "../hooks/hooks";
-import Modal from "../../components/Modal/Modal";
+import {useAppSelector} from "../../services/hooks/hooks";
+import Modal from "../Modal/Modal";
 import { ComponentType, FC } from "react";
 
 interface IModalSwitcher {
@@ -10,7 +10,7 @@ interface IModalSwitcher {
 }
 
 const ModalSwitcher: FC<IModalSwitcher> = ({ ModalComponent, PageComponent, modalTitle, nameOfModal }) => {
-    const { isOpened, modalType } = useSelector((state) => state.modalState);
+    const { isOpened, modalType } = useAppSelector((state) => state.modalState);
 
     return isOpened && modalType === nameOfModal
         ? ModalComponent && (

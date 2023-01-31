@@ -14,7 +14,7 @@ import { ForgotPasswordPage } from "../../pages/ForgotPasswordPage/ForgotPasswor
 import { ResetPasswordPage } from "../../pages/ResetPasswordPage/ResetPasswordPage";
 import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
-import {useDispatch} from "../../services/hooks/hooks";
+import {useAppDispatch} from "../../services/hooks/hooks";
 import { getIngredients } from "../../services/actions/ingredients";
 import { Switch, Route, BrowserRouter as Router  } from "react-router-dom";
 import { ErrorPage } from "../../pages/ErrorPage/ErrorPage";
@@ -23,13 +23,13 @@ import { getUser, updateUserToken } from "../../services/actions/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { FeedPage } from "../../pages/FeedPage/FeedPage";
 import { OrderInfo } from "../OrderInfo/OrderInfo";
-import ModalSwitcher from "../../services/hocs/ModalSwitcher";
+import ModalSwitcher from "../hocs/ModalSwitcher";
 import { IngredientPage } from "../../pages/IngredientPage/IngredientPage";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 const App: FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const cookie = getCookie("accessToken");
     const userToken = localStorage.getItem("refreshToken");
 

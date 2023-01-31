@@ -1,6 +1,6 @@
 import React, { useRef, FC } from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch} from "../../services/hooks/hooks";
+import {useAppDispatch} from "../../services/hooks/hooks";
 import {useDrop, useDrag, XYCoord} from "react-dnd";
 import { deleteConstructorElement } from "../../services/actions/ConstructorActions";
 import stylesConstructorSortedItem from "../ConstructorSortedItem/ConstructorSortedItem.module.css";
@@ -22,7 +22,7 @@ type TSortedItems = {
 }
 
 const ConstructorSortedItem: FC<TSortedItems> = (props) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const ref = useRef<HTMLDivElement>(null);
     const removeIngredient = (removedIngredient: string | undefined) => {
         dispatch(deleteConstructorElement(removedIngredient));
