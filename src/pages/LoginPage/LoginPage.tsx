@@ -1,4 +1,4 @@
-import React, { FC} from "react";
+import React, {FC, FormEvent} from "react";
 import { Form } from "../../components/Form/Form";
 import { Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import {useAppDispatch} from "../../services/hooks/hooks";
@@ -21,7 +21,7 @@ export const LoginPage: FC = () => {
                 secondQuestion={"Забыли пароль?"}
                 secondQuestionLinkText={"Восстановить пароль"}
                 ForwardLinkSecond={"/forgot-password"}
-                FormSubmitFunc={(e: any) => {
+                FormSubmitFunc={(e: FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     dispatch(loginUser(values, history));
                 }}

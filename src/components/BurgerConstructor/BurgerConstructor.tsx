@@ -51,7 +51,7 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
         sortedIngredients[dragIndex] = ingredients[hoverIndex];
         sortedIngredients[hoverIndex] = ingredients[dragIndex];
         dispatch(setDefaultConstructor(sortedIngredients));
-    }, [ingredients])
+    }, [ingredients, dispatch])
 
 
     return (

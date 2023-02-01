@@ -17,7 +17,7 @@ export const OrderPage: FC = () => {
 
     useEffect(() => {
         location.pathname.indexOf("/profile/orders") !== -1 ? dispatch(getAuthOrders()) : dispatch(getOrders());
-    }, [dispatch]);
+    }, [dispatch, location.pathname]);
 
     const orderList = useAppSelector((state) => state.orderState.orderList);
     const order = orderList?.find((order: TOrder) => order._id === id);

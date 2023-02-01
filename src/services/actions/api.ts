@@ -1,10 +1,6 @@
 
 const baseUrl: string = "https://norma.nomoreparties.space/api/";
 
-export type TResponse = {
-    ok: boolean,
-    json: any,
-}
 
 export const checkResponse = <T>(res: Response): Promise<T> => {
     if (res.ok) {

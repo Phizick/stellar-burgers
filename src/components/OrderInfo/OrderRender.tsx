@@ -12,7 +12,7 @@ interface IOrderRender {
 export const OrderRender: FC<IOrderRender> = (props) => {
 
     const selectedOrderData = useMemo(() => {
-        return props.order.ingredients.map((id: any) => {
+        return props.order.ingredients.map((id: TIngredient | string) => {
             return props.ingredients?.find((item) => {
                 return id === item._id
             })
