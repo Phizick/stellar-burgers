@@ -23,7 +23,7 @@ import { getUser, updateUserToken } from "../../services/actions/user";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { FeedPage } from "../../pages/FeedPage/FeedPage";
 import { OrderInfo } from "../OrderInfo/OrderInfo";
-import ModalSwitcher from "../hocs/ModalSwitcher";
+import ModalSwitcher from "../Hocs/ModalSwitcher";
 import { IngredientPage } from "../../pages/IngredientPage/IngredientPage";
 import { OrderPage } from "../../pages/OrderPage/OrderPage";
 import OrderDetails from "../OrderDetails/OrderDetails";

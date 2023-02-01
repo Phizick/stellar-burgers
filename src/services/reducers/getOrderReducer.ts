@@ -1,14 +1,14 @@
 import {CLEAR_CONSTRUCTOR, SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS} from '../actions/actionsTypes/orderTypes'
 import { GET_ORDER, GET_ORDER_FAILED, GET_ORDER_SUCCESS} from '../actions/actionsTypes/orderTypes';
-import {TOrder} from "../types/types";
+import {TOrder, TUser} from "../types/types";
 
 const initialState = {
     price: 0,
     orderRequestProcessing: false,
     orderRequestFailed: false,
     orderRequestSuccess: false,
-    user: {},
-    order: {},
+    user: null,
+    order: null,
     orderList: [],
     isLoad: false,
 };
@@ -18,9 +18,9 @@ export type TOrderType = {
     orderRequestProcessing: boolean,
     orderRequestFailed: boolean,
     orderRequestSuccess: boolean,
-    user: {},
-    order: {},
-    orderList: any,
+    user: TUser | null,
+    order: TOrder | null,
+    orderList: TOrder[],
     isLoad: boolean,
 }
 

@@ -54,7 +54,6 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
     }, [ingredients])
 
 
-
     return (
         <>
             <section className={`${stylesBurgerConstructor.section}  mt-25 pb-30`} ref={dropRef}>
@@ -78,8 +77,8 @@ const BurgerConstructor: FC<IBurgerConstructor> = (props) => {
                             <ul className={ingredients.length === 0 ? `${stylesBurgerConstructor.items} ${stylesBurgerConstructor.noneitems}` : `${stylesBurgerConstructor.items}`}>
                                 {ingredients.length >= 1 ?
                                     (ingredients
-                                            .filter((item: any) => item.type !== "bun")
-                                            .map((item: any, index: any) => {
+                                            .filter((item: TIngredient) => item.type !== "bun")
+                                            .map((item: TIngredient, index: number) => {
                                                 return (
                                                     <ConstructorSortedItem  key={item.keyId} moveIngredientCard={moveIngredientCard} index={index} data={item} id={item.id}/>
                                                 );

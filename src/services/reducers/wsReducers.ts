@@ -15,9 +15,7 @@ export type TWsInitialState = {
     error?: Event;
 }
 
-export type TWsSelector = {
-    wsOrders: TWsInitialState
-}
+
 
 const initialState = {
     wsConnected: false,

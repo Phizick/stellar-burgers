@@ -2,7 +2,6 @@ import { useMemo, FC } from "react";
 import stylesOrderInfo from "./OrderInfo.module.css";
 import { OrderIngredientsInfo } from "../OrderIngredientsInfo/OrderIngredientsInfo";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useParams } from "react-router-dom";
 import {TIngredient, TOrder} from "../../services/types/types";
 
 interface IOrderRender {
@@ -11,7 +10,6 @@ interface IOrderRender {
 }
 
 export const OrderRender: FC<IOrderRender> = (props) => {
-    const { id } = useParams<{ id: string }>();
 
     const selectedOrderData = useMemo(() => {
         return props.order.ingredients.map((id: any) => {
@@ -30,7 +28,6 @@ export const OrderRender: FC<IOrderRender> = (props) => {
         }, 0);
     }, [selectedOrderData]);
 
-    console.log(id)
 
     const currentDay = new Date().getDate();
     const { createdAt } = props.order;
@@ -49,9 +46,7 @@ export const OrderRender: FC<IOrderRender> = (props) => {
                     </div>
                     <p className={`text text_type_main-medium ${stylesOrderInfo.about}`}>Состав:</p>
                     <div className={stylesOrderInfo.ingredients}>
-
-                            <OrderIngredientsInfo data={selectedOrderData} key={id}/>
-
+                            <OrderIngredientsInfo data={selectedOrderData}/>
                     </div>
                     <div className={stylesOrderInfo.footer}>
                         <p className={`text text_type_main-default text_color_inactive`}>

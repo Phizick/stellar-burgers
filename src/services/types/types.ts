@@ -19,10 +19,8 @@ type TAppActions =
     | TConstructorActions
     | TIngredientCardActions
 
-
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;
-
 
 export type TIngredient = {
     calories: number;
@@ -53,16 +51,11 @@ export type TStateSelectors = {
     wsOrders: TWsInitialState;
 }
 
-
-
 export type TModal = {
     title: string;
     children: ReactNode;
 }
 
-export type TModalSelector = {
-    modalState: TModalState
-}
 
 export type TModalOverlay = {
     isActive: boolean;
@@ -75,12 +68,6 @@ export type TUser = {
     name: string;
 }
 
-export type TUserSelector = {
-    user: {
-        user: TUser
-    }
-}
-
 export type TOrder = {
     ingredients: TIngredient[];
     name: string;
@@ -91,14 +78,4 @@ export type TOrder = {
     createdAt: string;
     _id: string;
     id: string;
-}
-
-export type TUserResponse = {
-    success: boolean;
-    user: TUser;
-    accessToken: string;
-    refreshToken: string;
-    message: string;
-    data: any;
-    orders: TOrder[]
 }

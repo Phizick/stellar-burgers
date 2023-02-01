@@ -26,19 +26,18 @@ interface IAddConstructorIngredient {
 
 interface IAddConstructorBun {
     readonly type: typeof ADD_CONSTRUCTOR_BUN
-    data: any,
+    data: TIngredient,
 }
 
 interface ISortedConstructor {
     readonly type: typeof SORTED_CONSTRUCTOR
-    data: any
+    data: TIngredient[]
 }
 
 interface IDeleteConstructorIngredient {
     readonly type: typeof DELETE_CONSTRUCTOR_INGREDIENT
     id: string | undefined,
-    data?: any
-
+    data?: TIngredient
 }
 
 interface IClearConstructor {

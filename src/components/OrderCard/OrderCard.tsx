@@ -20,18 +20,22 @@ export const OrderCard: FC<TOrderCard> = (props) => {
     const orderDay = createdAt.includes(`${currentDay}`);
 
     const orderIngredients = useMemo(() => {
-        return props.order?.ingredients.map((item: TIngredient) => {
-            return ingredients?.find((element: TIngredient) => {
-                return element.id === item?._id
+        return props.order?.ingredients.map((id: TIngredient | string) => {
+            return ingredients?.find((item: TIngredient) => {
+                return id === item?._id
             })
         })
-    }, [props.order?.ingredients, ingredients]);
+    }, [props.order.ingredients, ingredients]);
+
+
 
     const orderTotalPrice = useMemo<number>(() => {
         return orderIngredients?.reduce((sum, item: TIngredient | undefined) => {
             return (item?.type === "bun" ? sum + item.price * 2 : sum + (item ? item.price : 0))
         }, 0)
     }, [orderIngredients]);
+
+
 
     return (
         <div className={stylesOrderCard.container}>

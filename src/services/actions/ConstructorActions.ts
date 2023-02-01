@@ -5,7 +5,7 @@ SORTED_CONSTRUCTOR,
 DELETE_CONSTRUCTOR_INGREDIENT} from "./actionsTypes/constructorTypes";
 import {TIngredient} from "../types/types";
 
-export const addConstructorBun = (item: object) => {
+export const addConstructorBun = (item: TIngredient) => {
     return {
         type: ADD_CONSTRUCTOR_BUN,
         data: item,

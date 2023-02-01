@@ -1,17 +1,18 @@
 import {CHOICE_INGREDIENT, DELETE_INGREDIENT} from "../actions/actionsTypes/ingredientsTypes";
+import {TIngredient} from "../types/types";
 
 
 const initialState = {
-    selectedIngredient: {}
+    selectedIngredient: null
 };
 
 export type TSelectedIngredient = {
-    selectedIngredient: any
+    selectedIngredient: TIngredient | null
 }
 
 interface IChoiceIngredient {
     readonly type: typeof CHOICE_INGREDIENT
-    data: any
+    data: TIngredient
 }
 
 interface IDeleteIngredient {
@@ -35,7 +36,7 @@ export const getIngredientCard = (state: TSelectedIngredient = initialState, act
         case DELETE_INGREDIENT: {
             return {
                 ...state,
-                selectedIngredient: {}
+                selectedIngredient: null
             };
         }
         default:
