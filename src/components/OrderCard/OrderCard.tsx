@@ -20,8 +20,8 @@ export const OrderCard: FC<TOrderCard> = (props) => {
     const orderDay = createdAt.includes(`${currentDay}`);
 
     const orderIngredients = useMemo(() => {
-        return props.order?.ingredients.map((element: TIngredient) => {
-            return ingredients?.find((item: TIngredient) => {
+        return props.order?.ingredients.map((item: TIngredient) => {
+            return ingredients?.find((element: TIngredient) => {
                 return element.id === item?._id
             })
         })

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 
 interface IForm {
-    FormSubmitFunc: () => void;
+    FormSubmitFunc: (e: any) => void;
     formTitle: string;
     children: ReactNode;
     buttonText: string;

@@ -14,8 +14,7 @@ export const OrderRender: FC<IOrderRender> = (props) => {
     const { id } = useParams<{ id: string }>();
 
     const selectedOrderData = useMemo(() => {
-        return props.order?.ingredients.map((id: any) => {
-            console.log(typeof id)
+        return props.order.ingredients.map((id: any) => {
             return props.ingredients?.find((item) => {
                 return id === item._id
             })
@@ -23,7 +22,7 @@ export const OrderRender: FC<IOrderRender> = (props) => {
     }, [props.order?.ingredients, props.ingredients]);
 
     const orderTotalPrice = useMemo<number>(() => {
-        return selectedOrderData?.reduce((sum, item: TIngredient | undefined) => {
+        return selectedOrderData.reduce((sum, item: TIngredient | undefined) => {
             if (item?.type === "bun") {
                 return (sum += item.price * 2);
             }
@@ -31,7 +30,7 @@ export const OrderRender: FC<IOrderRender> = (props) => {
         }, 0);
     }, [selectedOrderData]);
 
-    console.log(selectedOrderData)
+    console.log(id)
 
     const currentDay = new Date().getDate();
     const { createdAt } = props.order;

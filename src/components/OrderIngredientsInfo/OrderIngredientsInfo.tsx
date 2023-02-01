@@ -7,8 +7,8 @@ import {getIngredients} from "../../services/selectors/ingredientsSelectors";
 import {TIngredient} from "../../services/types/types";
 
 interface IOrderIngredientsInfo {
-    data: TIngredient[];
-    key?: string;
+    data: (TIngredient | undefined)[];
+    key: string;
 }
 export const OrderIngredientsInfo: FC<IOrderIngredientsInfo> = (props) => {
     const ingredients = useAppSelector(getIngredients);
@@ -21,9 +21,9 @@ export const OrderIngredientsInfo: FC<IOrderIngredientsInfo> = (props) => {
     };
 
     const orderIngredient = useMemo(() => {
-        return props.data?.map((elem) => {
+        return props.data.map((elem) => {
             return ingredients?.find((item: TIngredient) => {
-                return elem._id === item._id
+                return elem?._id === item._id
             })
         })
     }, [props.data, ingredients]);
@@ -31,11 +31,11 @@ export const OrderIngredientsInfo: FC<IOrderIngredientsInfo> = (props) => {
     return (
         <div className={stylesOrderIngredientsInfo.container}>
             {orderIngredient &&
-                orderIngredient.map((item) => {
+                orderIngredient?.map((item) => {
                     return (
                         <div key={item?._id} className={stylesOrderIngredientsInfo.info}>
                             <div className={stylesOrderIngredientsInfo.about}>
-                                <OrderIngredientsImage item={item?.image} alt={item?.name} />
+                                <OrderIngredientsImage item={item?.image} alt={item?.name} key={props.key}/>
                                 <p className={`text text_type_main-default`}>{item?.name}</p>
                             </div>
                             <div className={stylesOrderIngredientsInfo.price}>

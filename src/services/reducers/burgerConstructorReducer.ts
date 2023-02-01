@@ -12,8 +12,6 @@ export type TConstructorInitialState = {
     ingredientsAdded: string[];
 }
 
-
-
 const initialState = {
     ingredients: [],
     bun: null,

@@ -24,7 +24,7 @@ export const OrderPage: FC = () => {
 
     return (
         <>
-            {order !== undefined ? (
+            {order !== undefined && ingredients !== null ? (
                 <OrderRender order={order} ingredients={ingredients} />
             ) : (
                 <div className={stylesIngredientDetails.loader}>
